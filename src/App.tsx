@@ -14,7 +14,7 @@ import OurTeam from './pages/about/OurTeam';
 import Contact from './pages/about/Contact';
 import FeaturedCards from "./components/featured-card"
 import Stats from './components/Stats';
-
+import Conference from './pages/about/conferences';
 function App() {
   useEffect(() => {
     AOS.init({
@@ -47,6 +47,7 @@ function App() {
           <Route path="/vision-mission" element={<VisionMission />} />
           <Route path="/our-team" element={<OurTeam />} />
           <Route path="/contact" element={<Contact />} />
+          <Route path="/conferences" element={<Conference />} />
         </Routes>
   
       </div>

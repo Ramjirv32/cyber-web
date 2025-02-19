@@ -23,32 +23,65 @@ const menuItems = [
   {
     title: "AboutUs",
     icon: Shield,
-    items: ["Overview", "Mission", "Vision", "History"],
+    items: [
+      { name: "Overview", path: "/overview" },
+      { name: "Mission", path: "/vision-mission" },
+      { name: "Vision", path: "/vision-mission" },
+      { name: "History", path: "/history" }
+    ],
   },
   {
     title: "CyIntelligence",
     icon: Brain,
-    items: ["Research", "Innovation", "Technology", "Solutions"],
+    items: [
+      { name: "Research", path: "/research" },
+      { name: "Innovation", path: "/innovation" },
+      { name: "Technology", path: "/technology" },
+      { name: "Solutions", path: "/solutions" }
+    ],
   },
   {
     title: "Governance",
     icon: Building2,
-    items: ["Board", "Policies", "Reports", "MOU"],
+    items: [
+      { name: "Board", path: "/board" },
+      { name: "Policies", path: "/policies" },
+      { name: "Reports", path: "/reports" },
+      { name: "MOU", path: "/mou" }
+    ],
   },
-  
   {
     title: "Happenings",
     icon: Calendar,
-    items: ["Events", "FDP", "Webinars","Conferences"],
+    items: [
+      { name: "Events", path: "/events" },
+      { name: "FDP", path: "/fdp" },
+      { name: "Webinars", path: "/webinars" },
+      { name: "Conferences", path: "/conferences" }
+    ],
   },
   {
     title: "Membership",
     icon: Calendar,
-    items: ["Awards", "Benefits"],
-  }, {
+    items: [
+      { name: "Awards", path: "/awards" },
+      { name: "Benefits", path: "/benefits" }
+    ],
+  },
+  {
     title: "Journals",
     icon: Calendar,
-    items: ["Journal1", "Journal2"],
+    items: [
+      { name: "Journal1", path: "/journal1" },
+      { name: "Journal2", path: "/journal2" }
+    ],
+  },
+  {
+    title: "ReachUs",
+    icon: Calendar,
+    items: [
+      { name: "ContactUs", path: "/contact" }
+    ],
   },
 ]
 
@@ -99,7 +132,7 @@ export default function Navbar() {
           </div>
 
           {/* Desktop Menu */}
-          <div className="hidden md:flex items-center gap-6 ml-[100px]">
+          <div className="hidden md:flex items-center gap-6">
             {menuItems.map((item) => (
               <div
                 key={item.title}
@@ -125,13 +158,13 @@ export default function Navbar() {
                       className="absolute top-full left-0 w-48 bg-white shadow-lg rounded-md py-2 mt-2"
                     >
                       {item.items.map((subItem) => (
-                        <a
-                          key={subItem}
-                          href="#"
+                        <Link
+                          key={subItem.name}
+                          to={subItem.path}
                           className="flex items-center gap-2 px-4 py-2 text-sm text-gray-700 hover:bg-red-50 hover:text-red-500 font-medium"
                         >
-                          {subItem}
-                        </a>
+                          {subItem.name}
+                        </Link>
                       ))}
                     </motion.div>
                   )}
@@ -202,13 +235,13 @@ export default function Navbar() {
                         className="bg-gray-50 px-8 py-2"
                       >
                         {item.items.map((subItem) => (
-                          <a 
-                            key={subItem} 
-                            href="#" 
+                          <Link
+                            key={subItem.name}
+                            to={subItem.path}
                             className="block py-2 text-sm text-gray-600 hover:text-red-500 font-medium"
                           >
-                            {subItem}
-                          </a>
+                            {subItem.name}
+                          </Link>
                         ))}
                       </motion.div>
                     )}
