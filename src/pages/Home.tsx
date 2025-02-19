@@ -41,9 +41,9 @@ function Card({
       position: 'relative',
       width: '100%',
       maxWidth: '380px',
-      minHeight: '500px',
+      minHeight: '400px', // Reduced from 500px to 400px
       borderRadius: '16px',
-      padding: '2rem',
+      padding: '1.5rem', // Reduced padding from 2rem to 1.5rem
       background: `linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url(${bgImage})`,
       backgroundSize: 'cover',
       backgroundPosition: 'center',
@@ -64,24 +64,24 @@ function Card({
         height: '100%',
       }}>
         <div style={{
-          width: '80px',
-          height: '80px',
+          width: '60px', // Reduced from 80px
+          height: '60px', // Reduced from 80px
           borderRadius: '50%',
           backgroundColor: 'white',
           display: 'flex',
           alignItems: 'center',
           justifyContent: 'center',
-          marginBottom: '1.5rem',
+          marginBottom: '1rem', // Reduced from 1.5rem
         }}>
-          <Icon style={{ width: '40px', height: '40px', color: '#ff4757' }} />
+          <Icon style={{ width: '30px', height: '30px', color: '#ff4757' }} /> {/* Reduced icon size */}
         </div>
         
         <h2 style={{
-          fontSize: '1.75rem',
+          fontSize: '1.5rem', // Reduced from 1.75rem
           fontWeight: 'bold',
           color: 'white',
           textAlign: 'center',
-          marginBottom: '2rem',
+          marginBottom: '1.5rem', // Reduced from 2rem
         }}>
           {title}
         </h2>
@@ -90,14 +90,14 @@ function Card({
           listStyle: 'none',
           padding: 0,
           margin: 0,
-          marginBottom: '2rem',
+          marginBottom: '1.5rem', // Reduced from 2rem
           width: '100%',
         }}>
-          {items.map((item, index) => (
+          {items.slice(0, 4).map((item, index) => ( // Limited to 4 items
             <li key={index} style={{
               display: 'flex',
               alignItems: 'center',
-              marginBottom: '1rem',
+              marginBottom: '0.75rem', // Reduced from 1rem
               color: 'white',
             }}>
               <span style={{

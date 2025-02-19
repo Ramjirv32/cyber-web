@@ -37,7 +37,7 @@ const cards: Card[] = [
     title: "Science Book Prize",
     description: "A City on Mars wins the Royal Society Science Book Prize.",
     icon: BookOpen,
-    image: "https://images.unsplash.com/photo-1512820790803-83ca734da794?auto=format&fit=crop&w=800&q=80",
+    image: research, // Changed to local image
   },
   {
     title: "Research Initiatives",
@@ -49,13 +49,13 @@ const cards: Card[] = [
     title: "Innovation Hub",
     description: "Supporting breakthrough ideas and technological advancement.",
     icon: Lightbulb,
-    image: "https://images.unsplash.com/photo-1485827404703-89b55fcc595e?auto=format&fit=crop&w=800&q=80",
+    image: medal, // Changed to local image
   },
   {
     title: "Education Programs",
     description: "Fostering the next generation of scientific leaders.",
     icon: GraduationCap,
-    image: "https://images.unsplash.com/photo-1523240795612-9a054b0db644?auto=format&fit=crop&w=800&q=80",
+    image: ani, // Changed to local image
   },
 ]
 export default function FeaturedCards() {
@@ -107,7 +107,7 @@ function Card({ card, index }: CardProps) {
       whileHover={{ y: -5 }}
       className="bg-white rounded-xl shadow-lg overflow-hidden hover:shadow-xl transition-all duration-300"
     >
-      <div className="relative h-48 overflow-hidden">
+      <div className="relative h-48 overflow-hidden"> {/* Fixed height class */}
         <motion.img
           src={card.image}
           alt={card.title}

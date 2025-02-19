@@ -3,7 +3,7 @@
 import { useState } from "react"
 import { motion } from "framer-motion"
 import { Facebook, Twitter, Linkedin, Instagram, Youtube, ChevronRight } from "lucide-react"
-import logo from "./images/logo.jpeg"
+import logo from "./images/lo.png"
 const footerLinks = {
   "Useful links": ["Fellow login", "E-lect", "Careers", "Flexi grant"],
   Legal: ["Terms and conditions", "Privacy policy", "Manage cookies", "Cookies", "Modern Slavery Statement"],
@@ -24,7 +24,6 @@ export default function Footer() {
   return (
     <footer className="bg-white/5 border-t border-gray-100">
       <div className="container mx-auto px-4 py-16">
-        {/* Update font sizes */}
         <div className="grid grid-cols-1 md:grid-cols-4 gap-12">
           <motion.div
             className="col-span-1"
@@ -35,12 +34,8 @@ export default function Footer() {
             <img
               src={logo}
               alt="Logo"
-              className="h-16 w-auto mb-6 transform hover:scale-105 transition-transform duration-300"
+              className="h-200 w-48 object-contain mb-6 transform hover:scale-105 transition-transform duration-300"
             />
-            <p className="text-sm text-gray-600 leading-relaxed">
-              The Society is a Fellowship of many of the world's most eminent scientists and is the oldest scientific
-              academy in continuous existence.
-            </p>
           </motion.div>
 
           {Object.entries(footerLinks).map(([category, links], index) => (
