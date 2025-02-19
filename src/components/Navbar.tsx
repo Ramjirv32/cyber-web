@@ -73,7 +73,7 @@ export default function Navbar() {
             </a>
           </div>
           <div className="flex items-center gap-2 text-gray-600 font-medium">
-            <Mail className="h-4 w-4" />
+            <Mail className="h-4 w-4 text-red-500" />
             <span className="text-sm">contact@cyberintelligencesociety.org</span>
           </div>
         </div>
@@ -86,7 +86,7 @@ export default function Navbar() {
             {/* <Globe className="h-8 w-8 text-red-500 transform hover:rotate-180 transition-all duration-500" /> */}
             <div className="text-left" >
             <div className="text-sm text-gray-600 font-medium">Society for </div>
-              <div className=""  style={{
+              <div className="font-serif"  style={{
             fontSize: '1.5rem',
             fontWeight: 'bold',
            

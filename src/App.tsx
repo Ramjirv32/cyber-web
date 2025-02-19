@@ -37,6 +37,7 @@ function App() {
               <FeaturedCards />
               <EmailSubscribe />
               <Stats />
+              <Footer data-aos="fade-up" data-aos-delay="300"/>
             </>
           } />
           <Route path="/login" element={<Login />} />
@@ -47,7 +48,7 @@ function App() {
           <Route path="/our-team" element={<OurTeam />} />
           <Route path="/contact" element={<Contact />} />
         </Routes>
-        <Footer data-aos="fade-up" data-aos-delay="300"/>
+  
       </div>
     </Router>
   );
