@@ -4,7 +4,9 @@ import { useEffect, useState } from 'react';
 import { Mail, Phone, MapPin, Globe, Clock, Facebook, Twitter, LinkedinIcon as LinkedIn, Instagram } from 'lucide-react';
 import AOS from 'aos';
 import Testimonials from './testimonial';
-
+import img1 from "../../components/images/s1.avif";
+import img2 from "../../components/images/s2.avif";
+import img3 from "../../components/images/s3.avif";
 export default function Contact() {
   const [formData, setFormData] = useState({
     name: '',
@@ -202,15 +204,18 @@ export default function Contact() {
 
         <div className="mt-16" data-aos="fade-up">
           <h2 className="text-2xl font-bold text-gray-900 mb-8 text-center">Our Global Presence</h2>
-          <div className="relative h-96 rounded-lg overflow-hidden">
-            <img 
-              src="/placeholder.svg?height=384&width=1024" 
-              alt="World map showing Cyber Intelligence Community's global presence" 
-              className="object-cover w-full h-full"
-            />
-            <div className="absolute inset-0 bg-black bg-opacity-50 flex items-center justify-center">
-              <p className="text-white text-2xl font-bold">Serving clients in over 50 countries</p>
-            </div>
+          <div className="relative h-96 rounded-lg overflow-hidden shadow-lg">
+            <iframe
+              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d387193.30596576184!2d-74.25986548727506!3d40.69714941680757!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x89c24fa5d33f083b%3A0xc80b8f06e177fe62!2sNew%20York%2C%20NY%2C%20USA!5e0!3m2!1sen!2sin!4v1689825827046!5w!3h384"
+              width="100%"
+              height="100%"
+              style={{ border: 0 }}
+              allowFullScreen={true}
+              loading="lazy"
+              referrerPolicy="no-referrer-when-downgrade"
+              className="w-full h-full"
+              title="Cyber Intelligence Community Location"
+            ></iframe>
           </div>
         </div>
 
@@ -218,26 +223,88 @@ export default function Contact() {
 
         <div className="mt-16" data-aos="fade-up">
           <h2 className="text-2xl font-bold text-gray-900 mb-8 text-center">Frequently Asked Questions</h2>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-            <div className="bg-white rounded-lg shadow-md p-6">
-              <h3 className="text-lg font-semibold text-gray-900 mb-2">How can I become a member?</h3>
-              <p className="text-gray-600">To become a member, please fill out the contact form with the subject "Membership" or email us directly. We'll provide you with information about our membership options and application process.</p>
-            </div>
-            <div className="bg-white rounded-lg shadow-md p-6">
-              <h3 className="text-lg font-semibold text-gray-900 mb-2">Do you offer internship opportunities?</h3>
-              <p className="text-gray-600">Yes, we offer internship opportunities for students and recent graduates. Please contact us with your resume and area of interest, and we'll get back to you with available positions.</p>
-            </div>
-            <div className="bg-white rounded-lg shadow-md p-6">
-              <h3 className="text-lg font-semibold text-gray-900 mb-2">How can I collaborate on research projects?</h3>
-              <p className="text-gray-600">We welcome research collaborations. Please reach out to us with details about your research interests and proposed collaboration. Our team will review and get in touch with you to discuss potential opportunities.</p>
-            </div>
-            <div className="bg-white rounded-lg shadow-md p-6">
-              <h3 className="text-lg font-semibold text-gray-900 mb-2">Are there any upcoming events or conferences?</h3>
-              <p className="text-gray-600">We regularly host events and participate in conferences. Check our website or social media channels for the latest updates on upcoming events, or sign up for our newsletter to stay informed.</p>
-            </div>
-          </div>
+          <FAQSlider />
         </div>
       </div>
     </div>
   );
 }
+
+const FAQSlider = () => {
+  const [currentSlide, setCurrentSlide] = useState(0);
+  
+  const faqData = [
+    {
+      title: "How can I become a member?",
+      content: "To become a member, please fill out the contact form with the subject 'Membership' or email us directly. We'll provide you with information about our membership options and application process.",
+      image:img1, // You'll need to add these images
+    },
+    {
+      title: "Do you offer internship opportunities?",
+      content: "Yes, we offer internship opportunities for students and recent graduates. Please contact us with your resume and area of interest, and we'll get back to you with available positions.",
+      image: img2,
+    },
+    {
+      title: "How can I collaborate on research projects?",
+      content: "We welcome research collaborations. Please reach out to us with details about your research interests and proposed collaboration. Our team will review and get in touch with you to discuss potential opportunities.",
+      image: "/images/research.jpg",
+    },
+    {
+      title: "Are there any upcoming events or conferences?",
+      content: "We regularly host events and participate in conferences. Check our website or social media channels for the latest updates on upcoming events, or sign up for our newsletter to stay informed.",
+      image: img3,
+    },
+  ];
+
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setCurrentSlide((prev) => (prev + 1) % faqData.length);
+    }, 3000);
+
+    return () => clearInterval(timer);
+  }, []);
+
+  return (
+    <div className="relative overflow-hidden rounded-xl shadow-lg bg-white">
+      <div 
+        className="flex transition-transform duration-500 ease-in-out"
+        style={{ transform: `translateX(-${currentSlide * 100}%)` }}
+      >
+        {faqData.map((faq, index) => (
+          <div 
+            key={index}
+            className="w-full flex-shrink-0"
+            data-aos={index % 2 === 0 ? "fade-right" : "fade-left"}
+            data-aos-duration="1000"
+          >
+            <div className="grid md:grid-cols-2 gap-6 p-6">
+              <div className="h-64 overflow-hidden rounded-lg">
+                <img 
+                  src={faq.image} 
+                  alt={faq.title}
+                  className="w-full h-full object-cover transform hover:scale-110 transition-transform duration-500"
+                />
+              </div>
+              <div className="flex flex-col justify-center">
+                <h3 className="text-xl font-bold text-gray-900 mb-4">{faq.title}</h3>
+                <p className="text-gray-600">{faq.content}</p>
+              </div>
+            </div>
+          </div>
+        ))}
+      </div>
+
+      <div className="absolute bottom-4 left-1/2 transform -translate-x-1/2 flex space-x-2">
+        {faqData.map((_, index) => (
+          <button
+            key={index}
+            className={`w-2 h-2 rounded-full transition-colors duration-300 ${
+              currentSlide === index ? 'bg-red-500' : 'bg-gray-300'
+            }`}
+            onClick={() => setCurrentSlide(index)}
+          />
+        ))}
+      </div>
+    </div>
+  );
+};

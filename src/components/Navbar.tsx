@@ -16,7 +16,10 @@ import {
   LogIn,
   UserPlus,
 } from "lucide-react"
+
+
 import lo from "./images/lo.png"
+
 
 const menuItems = [
   {
@@ -24,8 +27,8 @@ const menuItems = [
     icon: Shield,
     items: [
       { name: "Overview", path: "/overview" },
-      { name: "Mission", path: "/vision-mission" },
-      { name: "Vision", path: "/vision-mission" },
+      { name: "Vision & Mission", path: "/vision-mission" },
+
       { name: "History", path: "/history" },
     ],
   },
@@ -34,11 +37,12 @@ const menuItems = [
     icon: Brain,
     items: [
       { name: "Research", path: "/research" },
-      { name: "Innovation", path: "/innovation" },
-      { name: "Technology", path: "/technology" },
+      { name: "Innovation & Technology", path: "/technology" },
+     
       { name: "Solutions", path: "/solutions" },
     ],
   },
+
   {
     title: "Governance",
     icon: Building2,
@@ -81,6 +85,7 @@ const menuItems = [
     items: [{ name: "ContactUs", path: "/contact" }],
   },
 ]
+
 
 export default function Navbar() {
   const [activeMenu, setActiveMenu] = useState<string | null>(null)

@@ -15,6 +15,13 @@ import Contact from './pages/about/Contact';
 import FeaturedCards from "./components/featured-card"
 import Stats from './components/Stats';
 import Conference from './pages/about/conferences';
+import ResearchPage from './pages/about/Research';
+import Overview from './pages/about/Overview';
+import Technology from "./pages/about/Technology"
+import Solutions from "./pages/about/Solutions"
+import Mou from "./pages/about/Mou"
+import Policies from "./pages/about/Policy"
+import Reports from "./pages/about/report"
 function App() {
   useEffect(() => {
     AOS.init({
@@ -43,11 +50,19 @@ function App() {
           <Route path="/login" element={<Login />} />
           <Route path="/signup" element={<SignUp />} />
           <Route path="/featured" element={<FeaturedCards />} />
+          <Route path="/research" element={<ResearchPage />} />
           <Route path="/subscribe" element={<EmailSubscribe />} />
           <Route path="/vision-mission" element={<VisionMission />} />
           <Route path="/our-team" element={<OurTeam />} />
           <Route path="/contact" element={<Contact />} />
+          <Route path="/overview" element={<Overview />} />
           <Route path="/conferences" element={<Conference />} />
+          <Route path="/technology" element={<Technology />} />
+          <Route path="/solutions" element={<Solutions />} />
+          <Route path="/mou" element={<Mou />} />
+          <Route path="/policies" element={<Policies />} />
+          <Route path="/reports" element={<Reports />} />
+
         </Routes>
   
       </div>

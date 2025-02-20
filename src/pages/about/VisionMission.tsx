@@ -1,170 +1,120 @@
-import { useEffect } from 'react';
-import AOS from 'aos';
+import { useState, useEffect } from 'react'
+import { Target, Brain, Users, BookOpen, Building, Globe, Shield, Share2, Video } from 'lucide-react'
+import AOS from 'aos'
+import 'aos/dist/aos.css'
 
-const Index = () => {
+export default function Objectives() {
   useEffect(() => {
     AOS.init({
       duration: 1000,
       once: true,
-      easing: 'ease-out',
-    });
-  }, []);
+      easing: 'ease-out'
+    })
+  }, [])
 
   return (
     <div className="min-h-screen bg-white">
-      <div className="relative overflow-hidden bg-gradient-to-b from-neutral-50/90 to-white py-24 sm:py-32">
-        <div 
-          className="absolute inset-0 z-0"
-          style={{
-            backgroundImage: `url('https://images.unsplash.com/photo-1501854140801-50d01698950b')`,
-            backgroundSize: 'cover',
-            backgroundPosition: 'center',
-            opacity: 0.2
-          }}
-        />
-        
-        <div 
-          className="absolute inset-0 z-1 bg-gradient-to-b from-white/80 to-white"
-          aria-hidden="true"
-        />
-
-        <div className="absolute inset-0 z-0 opacity-[0.15]">
-          <svg className="absolute left-full transform -translate-y-3/4 -translate-x-1/4 sm:-translate-x-1/2 lg:-translate-x-3/4" width="404" height="404" fill="none" viewBox="0 0 404 404" aria-hidden="true">
-            <defs>
-              <pattern id="85737c0e-0916-41d7-917f-596dc7edfa27" x="0" y="0" width="20" height="20" patternUnits="userSpaceOnUse">
-                <rect x="0" y="0" width="4" height="4" className="text-neutral-300" fill="currentColor" />
-              </pattern>
-            </defs>
-            <rect width="404" height="404" fill="url(#85737c0e-0916-41d7-917f-596dc7edfa27)" />
-          </svg>
-          <svg className="absolute right-full bottom-0 transform translate-x-1/4 translate-y-3/4 sm:translate-x-1/2 lg:translate-x-3/4" width="404" height="404" fill="none" viewBox="0 0 404 404" aria-hidden="true">
-            <defs>
-              <pattern id="85737c0e-0916-41d7-917f-596dc7edfa28" x="0" y="0" width="20" height="20" patternUnits="userSpaceOnUse">
-                <rect x="0" y="0" width="4" height="4" className="text-neutral-300" fill="currentColor" />
-              </pattern>
-            </defs>
-            <rect width="404" height="404" fill="url(#85737c0e-0916-41d7-917f-596dc7edfa28)" />
-          </svg>
-        </div>
-
-        <div className="relative z-10 mx-auto max-w-7xl px-6 lg:px-8">
-          <div className="text-center" data-aos="fade-up">
-            <span className="inline-block mb-4 px-4 py-1.5 bg-white/80 backdrop-blur-sm text-neutral-600 text-sm font-medium rounded-full">
-              Vision & Mission
-            </span>
-            <h1 className="mt-2 text-4xl font-semibold tracking-tight text-neutral-900 sm:text-5xl">
-              Shaping the Future of Innovation
-            </h1>
-            <div className="mx-auto mt-6 max-w-2xl text-lg leading-8 text-neutral-600">
-              Building tomorrow's technological landscape through research, collaboration, and excellence.
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <div className="mx-auto max-w-7xl px-6 py-16 lg:px-8">
-        <div className="grid gap-8 md:grid-cols-2">
-          <div 
-            className="group relative bg-white p-8 rounded-2xl hover-card"
-            data-aos="fade-right"
-          >
-            <div className="mb-6">
-              <span className="inline-block px-3 py-1 text-sm font-medium bg-neutral-100 text-neutral-600 rounded-full">
-                Vision
-              </span>
-            </div>
-            <h2 className="text-2xl font-semibold text-neutral-900 mb-4">
-              Global Leadership in Innovation
-            </h2>
-            <p className="text-neutral-600 leading-relaxed">
-              To be a globally recognized society fostering innovation and excellence in intelligent systems, 
-              driving technological advancement and societal progress through collaborative research and knowledge exchange.
+      <section className="relative bg-gradient-to-br from-gray-900 to-black text-white py-32">
+        <div className="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1550751827-4bd374c3f58b')] opacity-20 bg-cover bg-center" />
+        <div className="absolute inset-0 bg-gradient-to-b from-black/70 via-black/50 to-transparent" />
+        <div className="container mx-auto px-6 relative" data-aos="fade-up">
+          <h1 className="text-6xl font-serif mb-8 leading-tight text-red-500">Our Vision & Mission</h1>
+          <div className="bg-black/30 backdrop-blur-sm rounded-xl p-8 mb-12">
+            <h2 className="text-3xl font-serif mb-4">Vision</h2>
+            <p className="text-xl leading-relaxed mb-8">
+              To be a global leader in advancing cybersecurity and intelligent systems by fostering innovation, research, and collaboration, ensuring a secure and resilient digital future for all.
+            </p>
+            <h2 className="text-3xl font-serif mb-4">Mission</h2>
+            <p className="text-xl leading-relaxed">
+              To advance cybersecurity and intelligent systems through cutting-edge technologies, fostering research, and enhancing global threat detection and mitigation strategies while maintaining ethical practices and promoting knowledge sharing.
             </p>
           </div>
-
-          <div 
-            className="group relative bg-white p-8 rounded-2xl hover-card"
-            data-aos="fade-left"
-          >
-            <div className="mb-6">
-              <span className="inline-block px-3 py-1 text-sm font-medium bg-neutral-100 text-neutral-600 rounded-full">
-                Mission
-              </span>
-            </div>
-            <h2 className="text-2xl font-semibold text-neutral-900 mb-4">
-              Advancing Technology Together
-            </h2>
-            <ul className="space-y-4 text-neutral-600">
-              {[
-                'Promote research and development in intelligent systems',
-                'Foster collaboration between academia and industry',
-                'Facilitate knowledge exchange through conferences',
-                'Support emerging researchers and professionals'
-              ].map((item, index) => (
-                <li key={index} className="flex items-start space-x-3">
-                  <span className="inline-block w-1.5 h-1.5 mt-2 rounded-full bg-neutral-300" />
-                  <span>{item}</span>
-                </li>
-              ))}
-            </ul>
-          </div>
         </div>
+      </section>
 
-        <div className="mt-24" data-aos="fade-up">
-          <div className="text-center mb-16">
-            <span className="inline-block px-4 py-1.5 bg-neutral-100 text-neutral-600 text-sm font-medium rounded-full">
-              Our Values
-            </span>
-            <h2 className="mt-4 text-3xl font-semibold text-neutral-900">
-              Guiding Principles
-            </h2>
-          </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            {[
-              {
-                title: 'Excellence',
-                description: 'Pursuing the highest standards in research and innovation',
-                iconBg: 'bg-amber-50',
-                icon: '◆'
-              },
-              {
-                title: 'Collaboration',
-                description: 'Working together to achieve common goals and drive progress',
-                iconBg: 'bg-emerald-50',
-                icon: '◆'
-              },
-              {
-                title: 'Innovation',
-                description: 'Pushing boundaries and creating transformative solutions',
-                iconBg: 'bg-rose-50',
-                icon: '◆'
-              }
-            ].map((value, index) => (
+      <section className="py-24 bg-gradient-to-b from-gray-50 to-white">
+        <div className="container mx-auto px-6">
+          <h2 className="text-4xl font-serif text-center mb-16" data-aos="fade-up">Strategic Objectives</h2>
+          <div className="grid md:grid-cols-3 gap-8">
+            {objectives.map((objective, index) => (
               <div 
                 key={index}
-                className="group relative bg-white p-8 rounded-2xl hover-card text-center"
+                className="bg-white rounded-2xl p-8 shadow-xl hover:shadow-2xl transition-all transform hover:-translate-y-2"
                 data-aos="fade-up"
                 data-aos-delay={index * 100}
               >
-                <div className="inline-flex items-center justify-center mb-6">
-                  <div className={`w-12 h-12 ${value.iconBg} rounded-xl flex items-center justify-center`}>
-                    <span className="text-lg opacity-75">{value.icon}</span>
-                  </div>
+                <div className="bg-red-500 w-12 h-12 rounded-lg flex items-center justify-center mb-6">
+                  {objective.icon}
                 </div>
-                <h3 className="text-lg font-semibold text-neutral-900 mb-2">
-                  {value.title}
-                </h3>
-                <p className="text-neutral-600">
-                  {value.description}
-                </p>
+                <h3 className="text-xl font-bold mb-4">{objective.title}</h3>
+                <p className="text-gray-600 leading-relaxed">{objective.description}</p>
               </div>
             ))}
           </div>
         </div>
-      </div>
-    </div>
-  );
-};
+      </section>
 
-export default Index;
+      <section className="bg-white/5 text-black py-24">
+        <div className="container mx-auto px-6">
+          <div className="max-w-4xl mx-auto text-center" data-aos="fade-up">
+            <h2 className="text-4xl font-serif mb-8">Join Our Mission</h2>
+            <p className="text-xl mb-12 leading-relaxed">
+              Be part of a global initiative to shape the future of cybersecurity and intelligent systems. Together, we can build a more secure and resilient digital world.
+            </p>
+            <button className="bg-white text-gray-900 px-8 py-4 rounded-lg hover:bg-gray-100 transition-colors shadow-lg font-medium">
+              Become a Member
+            </button>
+          </div>
+        </div>
+      </section>
+    </div>
+  )
+}
+
+const objectives = [
+  {
+    icon: <Target className="w-6 h-6 text-white" />,
+    title: "Technology Advancement",
+    description: "Promote cutting-edge technologies like AI and machine learning to enhance digital security and intelligence capabilities."
+  },
+  {
+    icon: <Brain className="w-6 h-6 text-white" />,
+    title: "Research Excellence",
+    description: "Foster groundbreaking research in cyber intelligence, threat detection, and mitigation strategies."
+  },
+  {
+    icon: <Users className="w-6 h-6 text-white" />,
+    title: "Professional Development",
+    description: "Organize comprehensive training programs, workshops, and awareness campaigns on cybersecurity best practices."
+  },
+  {
+    icon: <BookOpen className="w-6 h-6 text-white" />,
+    title: "Knowledge Dissemination",
+    description: "Publish research journals and facilitate knowledge sharing in practical applications of cyber intelligence."
+  },
+  {
+    icon: <Building className="w-6 h-6 text-white" />,
+    title: "Strategic Partnerships",
+    description: "Establish strong collaborations with academic institutions, industries, and government agencies."
+  },
+  {
+    icon: <Globe className="w-6 h-6 text-white" />,
+    title: "Global Collaboration",
+    description: "Participate in international initiatives to strengthen global cybersecurity frameworks and intelligence sharing."
+  },
+  {
+    icon: <Shield className="w-6 h-6 text-white" />,
+    title: "Ethical AI Practice",
+    description: "Ensure the responsible and ethical use of AI in cybersecurity to protect privacy and maintain integrity."
+  },
+  {
+    icon: <Share2 className="w-6 h-6 text-white" />,
+    title: "Knowledge Exchange",
+    description: "Disseminate practical knowledge and insights in cyber intelligence applications."
+  },
+  {
+    icon: <Video className="w-6 h-6 text-white" />,
+    title: "Professional Events",
+    description: "Host national and international conferences, seminars, and symposiums for cybersecurity experts."
+  }
+]
