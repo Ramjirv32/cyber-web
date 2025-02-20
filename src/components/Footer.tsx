@@ -4,6 +4,7 @@ import { useState } from "react"
 import { motion } from "framer-motion"
 import { Facebook, Twitter, Linkedin, Instagram, Youtube, ChevronRight } from "lucide-react"
 import logo from "./images/lo.png"
+
 const footerLinks = {
   "Useful links": ["Fellow login", "E-lect", "Careers", "Flexi grant"],
   Legal: ["Terms and conditions", "Privacy policy", "Manage cookies", "Cookies", "Modern Slavery Statement"],
@@ -104,4 +105,3 @@ export default function Footer() {
     </footer>
   )
 }
-

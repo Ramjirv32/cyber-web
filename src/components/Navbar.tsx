@@ -1,23 +1,22 @@
+"use client"
+
 import { useState } from "react"
 import { motion, AnimatePresence } from "framer-motion"
 import { Link } from "react-router-dom"
-import { 
-  ChevronDown, 
-  Facebook, 
-  Twitter, 
-  Linkedin, 
-  Mail, 
-  Shield, 
-  Brain, 
-  Building2, 
-  Calendar, 
-  Users,
-  Globe,
+import {
+  ChevronDown,
+  Facebook,
+  Twitter,
+  Linkedin,
+  Mail,
+  Shield,
+  Brain,
+  Building2,
+  Calendar,
   LogIn,
-  UserPlus
+  UserPlus,
 } from "lucide-react"
 import lo from "./images/lo.png"
-
 
 const menuItems = [
   {
@@ -27,7 +26,7 @@ const menuItems = [
       { name: "Overview", path: "/overview" },
       { name: "Mission", path: "/vision-mission" },
       { name: "Vision", path: "/vision-mission" },
-      { name: "History", path: "/history" }
+      { name: "History", path: "/history" },
     ],
   },
   {
@@ -37,7 +36,7 @@ const menuItems = [
       { name: "Research", path: "/research" },
       { name: "Innovation", path: "/innovation" },
       { name: "Technology", path: "/technology" },
-      { name: "Solutions", path: "/solutions" }
+      { name: "Solutions", path: "/solutions" },
     ],
   },
   {
@@ -47,7 +46,7 @@ const menuItems = [
       { name: "Board", path: "/board" },
       { name: "Policies", path: "/policies" },
       { name: "Reports", path: "/reports" },
-      { name: "MOU", path: "/mou" }
+      { name: "MOU", path: "/mou" },
     ],
   },
   {
@@ -57,7 +56,7 @@ const menuItems = [
       { name: "Events", path: "/events" },
       { name: "FDP", path: "/fdp" },
       { name: "Webinars", path: "/webinars" },
-      { name: "Conferences", path: "/conferences" }
+      { name: "Conferences", path: "/conferences" },
     ],
   },
   {
@@ -65,7 +64,7 @@ const menuItems = [
     icon: Calendar,
     items: [
       { name: "Awards", path: "/awards" },
-      { name: "Benefits", path: "/benefits" }
+      { name: "Benefits", path: "/benefits" },
     ],
   },
   {
@@ -73,15 +72,13 @@ const menuItems = [
     icon: Calendar,
     items: [
       { name: "Journal1", path: "/journal1" },
-      { name: "Journal2", path: "/journal2" }
+      { name: "Journal2", path: "/journal2" },
     ],
   },
   {
     title: "ReachUs",
     icon: Calendar,
-    items: [
-      { name: "ContactUs", path: "/contact" }
-    ],
+    items: [{ name: "ContactUs", path: "/contact" }],
   },
 ]
 
@@ -92,16 +89,24 @@ export default function Navbar() {
   return (
     <nav className="bg-white shadow-md sticky top-0 z-50 font-sans">
       <div className="container mx-auto px-4">
-        {/* Top Bar */}
         <div className="border-b py-2 flex justify-between items-center">
           <div className="flex gap-4">
-            <a href="#" className="text-gray-600 hover:text-red-500 transition-all duration-300 transform hover:scale-110">
+            <a
+              href="#"
+              className="text-gray-600 hover:text-red-500 transition-all duration-300 transform hover:scale-110"
+            >
               <Facebook className="h-5 w-5" />
             </a>
-            <a href="#" className="text-gray-600 hover:text-red-500 transition-all duration-300 transform hover:scale-110">
+            <a
+              href="#"
+              className="text-gray-600 hover:text-red-500 transition-all duration-300 transform hover:scale-110"
+            >
               <Twitter className="h-5 w-5" />
             </a>
-            <a href="#" className="text-gray-600 hover:text-red-500 transition-all duration-300 transform hover:scale-110">
+            <a
+              href="#"
+              className="text-gray-600 hover:text-red-500 transition-all duration-300 transform hover:scale-110"
+            >
               <Linkedin className="h-5 w-5" />
             </a>
           </div>
@@ -111,27 +116,23 @@ export default function Navbar() {
           </div>
         </div>
 
-        {/* Main Navigation */}
         <div className="py-4 flex justify-between items-center">
           <div className="flex items-center gap-2">
-<img src={lo} alt="logo" className="h-200 w-68 object-contain  transform hover:scale-105 transition-transform duration-300 ml-[-200px]"/>
-<Link to="/">
-            {/* <Globe className="h-8 w-8 text-red-500 transform hover:rotate-180 transition-all duration-500" /> */}
-            <div className="text-left" >
-            <div className="text-sm text-gray-600 font-medium">Society for </div>
-              <div className="font-serif"  style={{
-            fontSize: '1.5rem',
-            fontWeight: 'bold',
-           
-
-            color: '#2d3436',
-          }}>Cyber Intelligence Systems</div>
-             
-            </div>
+            <img
+              src={lo || "/placeholder.svg"}
+              alt="logo"
+              className="h-12 sm:h-16 md:h-20 lg:h-[200px] object-contain transform hover:scale-105 transition-transform duration-300 md:ml-0 lg:ml-[-200px]"
+            />
+            <Link to="/">
+              <div className="text-left">
+                <div className="text-xs sm:text-sm text-gray-600 font-medium">Society for </div>
+                <div className="font-serif text-base sm:text-lg md:text-xl lg:text-2xl font-bold text-[#2d3436]">
+                  Cyber Intelligence Systems
+                </div>
+              </div>
             </Link>
           </div>
 
-          {/* Desktop Menu */}
           <div className="hidden md:flex items-center gap-6">
             {menuItems.map((item) => (
               <div
@@ -143,9 +144,11 @@ export default function Navbar() {
                 <button className="flex items-center gap-2 text-gray-700 hover:text-red-500 transition-all duration-300 font-medium">
                   <item.icon className="h-4 w-4" />
                   {item.title}
-                  <ChevronDown className={`h-4 w-4 transform transition-transform duration-300 ${
-                    activeMenu === item.title ? "rotate-180" : ""
-                  }`} />
+                  <ChevronDown
+                    className={`h-4 w-4 transform transition-transform duration-300 ${
+                      activeMenu === item.title ? "rotate-180" : ""
+                    }`}
+                  />
                 </button>
 
                 <AnimatePresence>
@@ -172,7 +175,6 @@ export default function Navbar() {
               </div>
             ))}
 
-            {/* Auth Buttons */}
             <div className="flex items-center gap-4 ml-6 border-l pl-6">
               <Link
                 to="/login"
@@ -191,19 +193,21 @@ export default function Navbar() {
             </div>
           </div>
 
-          {/* Mobile Menu Button */}
-          <button 
-            className="md:hidden p-2 transition-all duration-300 hover:opacity-70" 
+          <button
+            className="md:hidden p-2 transition-all duration-300 hover:opacity-70"
             onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
             aria-label="Toggle menu"
           >
-            <div className={`w-6 h-0.5 bg-gray-600 mb-1.5 transition-transform ${isMobileMenuOpen ? 'rotate-45 translate-y-2' : ''}`}></div>
-            <div className={`w-6 h-0.5 bg-gray-600 mb-1.5 ${isMobileMenuOpen ? 'opacity-0' : ''}`}></div>
-            <div className={`w-6 h-0.5 bg-gray-600 transition-transform ${isMobileMenuOpen ? '-rotate-45 -translate-y-2' : ''}`}></div>
+            <div
+              className={`w-6 h-0.5 bg-gray-600 mb-1.5 transition-transform ${isMobileMenuOpen ? "rotate-45 translate-y-2" : ""}`}
+            ></div>
+            <div className={`w-6 h-0.5 bg-gray-600 mb-1.5 ${isMobileMenuOpen ? "opacity-0" : ""}`}></div>
+            <div
+              className={`w-6 h-0.5 bg-gray-600 transition-transform ${isMobileMenuOpen ? "-rotate-45 -translate-y-2" : ""}`}
+            ></div>
           </button>
         </div>
 
-        {/* Mobile Menu */}
         <AnimatePresence>
           {isMobileMenuOpen && (
             <motion.div
@@ -249,19 +253,12 @@ export default function Navbar() {
                 </div>
               ))}
 
-              {/* Mobile Auth Buttons */}
               <div className="py-4 border-t border-gray-100 mt-2">
-                <Link
-                  to="/login"
-                  className="flex items-center gap-2 px-4 py-2 text-gray-700 hover:text-red-500"
-                >
+                <Link to="/login" className="flex items-center gap-2 px-4 py-2 text-gray-700 hover:text-red-500">
                   <LogIn className="h-4 w-4" />
                   Sign In
                 </Link>
-                <Link
-                  to="/signup"
-                  className="flex items-center gap-2 px-4 py-2 text-gray-700 hover:text-red-500"
-                >
+                <Link to="/signup" className="flex items-center gap-2 px-4 py-2 text-gray-700 hover:text-red-500">
                   <UserPlus className="h-4 w-4" />
                   Create Account
                 </Link>
@@ -273,3 +270,4 @@ export default function Navbar() {
     </nav>
   )
 }
+
