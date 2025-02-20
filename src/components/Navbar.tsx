@@ -111,23 +111,19 @@ export default function Navbar() {
           </div>
         </div>
 
-        {/* Main Navigation */}
-        <div className="py-4 flex justify-between items-center">
+        {/* Main Navigation - Updated for better responsive design */}
+        <div className="py-2 md:py-4 flex justify-between items-center">
           <div className="flex items-center gap-2">
-<img src={lo} alt="logo" className="h-200 w-68 object-contain  transform hover:scale-105 transition-transform duration-300 ml-[-200px]"/>
-<Link to="/">
-            {/* <Globe className="h-8 w-8 text-red-500 transform hover:rotate-180 transition-all duration-500" /> */}
-            <div className="text-left" >
-            <div className="text-sm text-gray-600 font-medium">Society for </div>
-              <div className="font-serif"  style={{
-            fontSize: '1.5rem',
-            fontWeight: 'bold',
-           
-
-            color: '#2d3436',
-          }}>Cyber Intelligence Systems</div>
-             
-            </div>
+            <img 
+              src={lo} 
+              alt="logo" 
+              className="h-12 w-12 md:h-16 md:w-16 object-contain transform hover:scale-105 transition-transform duration-300 ml-0 md:ml-[-50px]" 
+            />
+            <Link to="/" className="text-left">
+              <div className="text-xs md:text-sm text-gray-600 font-medium">Society for</div>
+              <div className="text-sm md:text-xl font-bold text-gray-900">
+                Cyber Intelligence Systems
+              </div>
             </Link>
           </div>
 
@@ -203,14 +199,14 @@ export default function Navbar() {
           </button>
         </div>
 
-        {/* Mobile Menu */}
+        {/* Updated Mobile Menu */}
         <AnimatePresence>
           {isMobileMenuOpen && (
             <motion.div
               initial={{ opacity: 0, height: 0 }}
               animate={{ opacity: 1, height: "auto" }}
               exit={{ opacity: 0, height: 0 }}
-              className="md:hidden"
+              className="md:hidden overflow-y-auto max-h-[80vh] bg-white"
             >
               {menuItems.map((item) => (
                 <div key={item.title} className="py-2">
