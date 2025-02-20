@@ -24,10 +24,11 @@ export default function Footer() {
 
   return (
     <footer className="bg-white/5 border-t border-gray-100">
-      <div className="container mx-auto px-4 py-16">
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-12">
+      <div className="container mx-auto px-4 py-8 md:py-16">
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-8 md:gap-12">
+          {/* Logo Section - Updated for mobile */}
           <motion.div
-            className="col-span-1"
+            className="col-span-2 md:col-span-1 flex flex-col items-center md:items-start"
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5 }}
@@ -35,18 +36,20 @@ export default function Footer() {
             <img
               src={logo}
               alt="Logo"
-              className="h-200 w-48 object-contain mb-6 transform hover:scale-105 transition-transform duration-300"
+              className="h-16 md:h-20 w-auto mb-4 transform hover:scale-105 transition-transform duration-300"
             />
           </motion.div>
 
+          {/* Footer Links - Updated grid for mobile */}
           {Object.entries(footerLinks).map(([category, links], index) => (
             <motion.div
               key={category}
+              className="col-span-1"
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5, delay: index * 0.1 }}
             >
-              <h3 className="text-base md:text-lg font-bold mb-6 text-gray-800">{category}</h3>
+              <h3 className="text-sm md:text-lg font-bold mb-4 md:mb-6 text-gray-800">{category}</h3>
               <ul className="space-y-3">
                 {links.map((link) => (
                   <li key={link}>
@@ -70,13 +73,14 @@ export default function Footer() {
           ))}
         </div>
 
+        {/* Bottom Section - Updated for mobile */}
         <motion.div
-          className="mt-16 pt-8 border-t border-gray-200"
+          className="mt-8 md:mt-16 pt-4 md:pt-8 border-t border-gray-200"
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5, delay: 0.5 }}
         >
-          <div className="flex flex-col md:flex-row justify-between items-center gap-6">
+          <div className="flex flex-col md:flex-row justify-between items-center gap-4 md:gap-6">
             <div className="flex items-center gap-6">
               <span className="text-sm font-bold text-gray-700">Follow us</span>
               <div className="flex gap-4">
