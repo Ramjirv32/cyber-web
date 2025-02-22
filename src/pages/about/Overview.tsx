@@ -32,7 +32,7 @@ export default function CyberResearch() {
 
       <section className="py-24 container mx-auto px-6">
         <div className="grid md:grid-cols-2 gap-16 items-center">
-          <div className="bg-gradient-to-br from-red-500 to-red-900 rounded-2xl p-8 shadow-2xl" data-aos="fade-right">
+          <div className="bg-transparent rounded-2xl p-8 shadow-2xl" data-aos="fade-right">
             <img 
               src="https://images.unsplash.com/photo-1551808525-51a94da548ce"
               alt="Cyber Intelligence Dashboard"

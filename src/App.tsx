@@ -22,7 +22,12 @@ import Solutions from "./pages/about/Solutions"
 import Mou from "./pages/about/Mou"
 import Policies from "./pages/about/Policy"
 import Reports from "./pages/about/report"
+import Help from "./pages/about/Help" ;
+import Fdp from "./pages/about/fdp"
+import Event from "./pages/about/event"
+import Award from "./pages/about/Awards"
 function App() {
+
   useEffect(() => {
     AOS.init({
       duration: 800,
@@ -53,7 +58,9 @@ function App() {
           <Route path="/research" element={<ResearchPage />} />
           <Route path="/subscribe" element={<EmailSubscribe />} />
           <Route path="/vision-mission" element={<VisionMission />} />
+          <Route path="/fdp" element={<Fdp />} />
           <Route path="/our-team" element={<OurTeam />} />
+          <Route path="/help" element={<Help />} />
           <Route path="/contact" element={<Contact />} />
           <Route path="/overview" element={<Overview />} />
           <Route path="/conferences" element={<Conference />} />
@@ -62,6 +69,8 @@ function App() {
           <Route path="/mou" element={<Mou />} />
           <Route path="/policies" element={<Policies />} />
           <Route path="/reports" element={<Reports />} />
+          <Route path="/awards" element={<Award />} />
+          <Route path="/events" element={<Event />} />
 
         </Routes>
   

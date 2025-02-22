@@ -117,3 +117,11 @@ const Technology: React.FC = () => {
 };
 
 export default Technology;
+
+
+
+
+
+
+
+

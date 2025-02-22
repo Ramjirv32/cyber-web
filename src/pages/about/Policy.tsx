@@ -1,129 +1,138 @@
-import { Shield, Lock, UserCheck, FileCheck } from 'lucide-react';
+import React from 'react';
+import { Shield, AlertTriangle, Users, FileText, Settings, ChevronRight, Download, ExternalLink, Globe, Lock, Mail, Smartphone, BookOpen, Bell, Search, Menu } from 'lucide-react';
+import img from "../../components/images/ani.avif";
 
-export default function PolicyBoard() {
+const Policy = () => {
   return (
-    <div className="min-h-screen bg-gray-50 py-16 px-4 sm:px-6 lg:px-8">
-      <div className="max-w-7xl mx-auto">
-        <div className="text-center mb-16" data-aos="fade-up">
-          <h1 className="text-4xl font-bold text-gray-900 mb-4">Policy Board</h1>
-          <div className="w-24 h-1 bg-red-500 mx-auto"></div>
-          <p className="mt-6 text-lg text-gray-600 max-w-2xl mx-auto">
-            Guiding principles and governance framework for cybersecurity initiatives
-          </p>
-        </div>
+    <div className="min-h-screen bg-white">
+<div className="relative w-full">
+  {/* Full-Screen Background Image */}
+  <div 
+    className="absolute inset-0 w-full h-full bg-cover bg-center bg-no-repeat" 
+    style={{ backgroundImage: `url(${img})` }}
+  ></div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-16">
-          <div className="bg-white rounded-xl shadow-lg p-8" data-aos="fade-right">
-            <h2 className="text-2xl font-bold mb-6">Board Members</h2>
-            <div className="space-y-6">
-              <div className="flex items-center space-x-4">
-                <img src="https://source.unsplash.com/100x100/?portrait" alt="Board Member 1" className="w-16 h-16 rounded-full" />
-                <div>
-                  <h3 className="font-bold">Dr. Emily Thompson</h3>
-                  <p className="text-gray-600">Chairperson</p>
-                </div>
-              </div>
-              <div className="flex items-center space-x-4">
-                <img src="https://source.unsplash.com/101x101/?portrait" alt="Board Member 2" className="w-16 h-16 rounded-full" />
-                <div>
-                  <h3 className="font-bold">Michael Chang</h3>
-                  <p className="text-gray-600">Vice Chair</p>
-                </div>
-              </div>
-              <div className="flex items-center space-x-4">
-                <img src="https://source.unsplash.com/102x102/?portrait" alt="Board Member 3" className="w-16 h-16 rounded-full" />
-                <div>
-                  <h3 className="font-bold">Dr. Sarah Martinez</h3>
-                  <p className="text-gray-600">Secretary</p>
-                </div>
-              </div>
-            </div>
-          </div>
+  {/* Content with Transparent Background */}
+  <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
+    <div className="max-w-4xl bg-white bg-opacity-80 backdrop-blur-lg p-8 rounded-lg shadow-lg">
+      <h1 className="text-4xl font-bold text-gray-900 mb-6">
+        Cyber Security Policy - Types of Cybersecurity Policies
+      </h1>
 
-          <div className="bg-white rounded-xl shadow-lg p-8" data-aos="fade-left">
-            <h2 className="text-2xl font-bold mb-6">Core Responsibilities</h2>
-            <div className="space-y-4">
-              <div className="flex items-start space-x-4">
-                <Shield className="h-6 w-6 text-red-500 mt-1" />
-                <div>
-                  <h3 className="font-bold">Policy Development</h3>
-                  <p className="text-gray-600">Creating and maintaining cybersecurity policies and standards</p>
-                </div>
-              </div>
-              <div className="flex items-start space-x-4">
-                <Lock className="h-6 w-6 text-red-500 mt-1" />
-                <div>
-                  <h3 className="font-bold">Risk Management</h3>
-                  <p className="text-gray-600">Assessing and mitigating security risks</p>
-                </div>
-              </div>
-              <div className="flex items-start space-x-4">
-                <UserCheck className="h-6 w-6 text-red-500 mt-1" />
-                <div>
-                  <h3 className="font-bold">Compliance Oversight</h3>
-                  <p className="text-gray-600">Ensuring adherence to security standards and regulations</p>
-                </div>
-              </div>
-              <div className="flex items-start space-x-4">
-                <FileCheck className="h-6 w-6 text-red-500 mt-1" />
-                <div>
-                  <h3 className="font-bold">Strategic Planning</h3>
-                  <p className="text-gray-600">Developing long-term security strategies</p>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
+      <p className="text-lg text-gray-600 mb-8">
+        A cyber security policy provides guidance to an organization's employees on how to act to protect the company's sensitive information. Companies commonly have several security policies that cover various topics.
+      </p>
 
-        <div className="bg-white rounded-xl shadow-lg p-8 mb-16" data-aos="fade-up">
-          <h2 className="text-2xl font-bold mb-6">Current Initiatives</h2>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            <div className="p-6 bg-gray-50 rounded-lg">
-              <h3 className="text-xl font-bold mb-3">Zero Trust Architecture</h3>
-              <p className="text-gray-600">Implementing comprehensive zero trust security framework</p>
-              <div className="mt-4 h-2 bg-gray-200 rounded">
-                <div className="h-2 bg-red-500 rounded" style={{width: '75%'}}></div>
-              </div>
-              <p className="mt-2 text-sm text-gray-500">75% Complete</p>
-            </div>
-            <div className="p-6 bg-gray-50 rounded-lg">
-              <h3 className="text-xl font-bold mb-3">AI Security Guidelines</h3>
-              <p className="text-gray-600">Developing standards for AI-powered security systems</p>
-              <div className="mt-4 h-2 bg-gray-200 rounded">
-                <div className="h-2 bg-red-500 rounded" style={{width: '60%'}}></div>
-              </div>
-              <p className="mt-2 text-sm text-gray-500">60% Complete</p>
-            </div>
-          </div>
-        </div>
-
-        <div className="text-center" data-aos="fade-up">
-          <h2 className="text-2xl font-bold mb-6">Meeting Schedule</h2>
-          <div className="inline-block min-w-full overflow-hidden rounded-lg shadow">
-            <table className="min-w-full">
-              <thead className="bg-gray-100">
-                <tr>
-                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Date</th>
-                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Topic</th>
-                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Status</th>
-                </tr>
-              </thead>
-              <tbody className="bg-white divide-y divide-gray-200">
-                <tr>
-                  <td className="px-6 py-4 whitespace-nowrap">March 15, 2024</td>
-                  <td className="px-6 py-4">Q1 Policy Review</td>
-                  <td className="px-6 py-4"><span className="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800">Scheduled</span></td>
-                </tr>
-                <tr>
-                  <td className="px-6 py-4 whitespace-nowrap">April 1, 2024</td>
-                  <td className="px-6 py-4">Security Framework Update</td>
-                  <td className="px-6 py-4"><span className="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-yellow-100 text-yellow-800">Pending</span></td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
-        </div>
+      <div className="flex space-x-4 mb-12">
+        <button className="bg-pink-600 text-white px-6 py-3 rounded-md hover:bg-pink-700 flex items-center">
+          <Download className="mr-2 h-5 w-5" />
+          Download the White paper
+        </button>
+        <button className="border-2 border-pink-600 text-pink-600 px-6 py-3 rounded-md hover:bg-pink-50 flex items-center">
+          <ExternalLink className="mr-2 h-5 w-5" />
+          Request a Demo
+        </button>
       </div>
     </div>
+  </div>
+</div>
+      <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+        <div className="grid md:grid-cols-[1fr_300px] gap-8">
+          <div className="space-y-12">
+            {/* Importance Section */}
+            <section id="importance">
+              <h1 className="text-4xl font-bold text-gray-900 mb-6">
+                Why Cyber Security Policies Are Important
+              </h1>
+              <p className="text-lg text-gray-600 mb-8">
+                Companies face a range of potential threats to their systems and data. Many cyberattacks take advantage of an organization's employees through phishing or social engineering attacks. The rise of remote work has introduced new threats due to BYOD policies.
+              </p>
+            </section>
+
+            {/* Types Section */}
+            <section id="types" className="bg-gray-50 p-8 rounded-xl">
+              <h2 className="text-3xl font-bold text-gray-900 mb-6">Types of Security Policies</h2>
+              <div className="grid gap-6">
+                <div className="bg-white p-6 rounded-lg shadow-sm">
+                  <div className="flex items-start">
+                    <Lock className="h-6 w-6 text-pink-600 mt-1" />
+                    <div className="ml-4">
+                      <h3 className="text-xl font-semibold">IT Security Policy</h3>
+                      <p className="text-gray-600 mt-2">
+                        Defines rules and procedures for protecting the organization against cyber threats, including acceptable use of corporate assets and incident response plans.
+                      </p>
+                    </div>
+                  </div>
+                </div>
+
+                <div className="bg-white p-6 rounded-lg shadow-sm">
+                  <div className="flex items-start">
+                    <Mail className="h-6 w-6 text-pink-600 mt-1" />
+                    <div className="ml-4">
+                      <h3 className="text-xl font-semibold">Email Security Policy</h3>
+                      <p className="text-gray-600 mt-2">
+                        Defines acceptable use of corporate email systems to protect against spam, phishing, and malware while preventing misuse of corporate email.
+                      </p>
+                    </div>
+                  </div>
+                </div>
+
+                <div className="bg-white p-6 rounded-lg shadow-sm">
+                  <div className="flex items-start">
+                    <Smartphone className="h-6 w-6 text-pink-600 mt-1" />
+                    <div className="ml-4">
+                      <h3 className="text-xl font-semibold">BYOD Policy</h3>
+                      <p className="text-gray-600 mt-2">
+                        Defines security requirements for personal devices used for work, including endpoint security and VPN requirements.
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </section>
+
+            {/* Steps Section */}
+            <section id="create">
+              <h2 className="text-3xl font-bold text-gray-900 mb-6">How to Create a Cyber Security Policy</h2>
+              <div className="grid gap-4">
+                {[
+                  "Determine the Threat Surface",
+                  "Identify Applicable Requirements",
+                  "Draft the Policy",
+                  "Solicit Feedback",
+                  "Train Employees",
+                  "Regularly Update the Policy"
+                ].map((step, index) => (
+                  <div key={index} className="flex items-center p-4 bg-gray-50 rounded-lg">
+                    <div className="flex-shrink-0 w-8 h-8 flex items-center justify-center bg-pink-600 text-white rounded-full mr-4">
+                      {index + 1}
+                    </div>
+                    <span className="text-gray-700 font-medium">{step}</span>
+                  </div>
+                ))}
+              </div>
+            </section>
+          </div>
+
+          {/* Sidebar */}
+          <aside className="space-y-6">
+            <div className="bg-red-50 p-4 rounded-lg border border-red-200">
+              <div className="flex items-center text-red-700 mb-2">
+                <AlertTriangle className="h-5 w-5 mr-2" />
+                <h3 className="font-semibold">Under Attack?</h3>
+              </div>
+              <p className="text-sm text-red-600 mb-3">
+                Contact our emergency response team immediately.
+              </p>
+              <button className="w-full bg-red-600 text-white px-4 py-2 rounded-md hover:bg-red-700">
+                Contact Support
+              </button>
+            </div>
+          </aside>
+        </div>
+      </main>
+    </div>
   );
-}
+};
+
+export default Policy;

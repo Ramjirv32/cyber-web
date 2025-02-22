@@ -143,6 +143,9 @@ function Card({
     </div>
   );
 }
+// function o(){
+//   window.location.href = "http://localhost";
+// }
 
 function Home() {
   const [currentSlideIndex, setCurrentSlideIndex] = useState(0);
@@ -280,6 +283,7 @@ function Home() {
               Get Started
               <ArrowRight className="h-5 w-5" />
             </button>
+            {/* <button onClick={o()}>Go to OJS</button> */}
           </div>
         </div>
       </section>
