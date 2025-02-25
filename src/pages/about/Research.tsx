@@ -47,8 +47,8 @@ const ResearchPage: React.FC = () => {
   const papers: ResearchPaper[] = [
     {
       id: 1,
-      category: 'Cloud Security',
-      title: 'The Flavor of Clouds: Are Some Cloud Platforms More Attractive to Attackers?',
+      category: 'Artificial Intelligence',
+      title: 'Intelligent System Approaches to Next-Generation Cybersecurity',
       description: 'Significant financial loss and sensitive data exposure continue to be a significant risk for entities that host systems in the cloud. Identifying if attackers prefer attacking systems hosted in one cloud provider over another could assist architects and engineers in selecting a provider.',
       author: 'James Smith',
       date: 'February 17, 2025',
@@ -164,11 +164,9 @@ const ResearchPage: React.FC = () => {
       >
         <div className="absolute inset-0 flex items-center">
           <div className="max-w-7xl mx-auto px-4" data-aos="fade-up">
-            <h1 className="text-4xl font-bold mb-6">Cyber Security Research Papers</h1>
+            <h1 className="text-4xl font-bold mb-6">Society for Cyber Intelligent Research Papers</h1>
             <p className="text-lg max-w-3xl" data-aos="fade-up" data-aos-delay="200">
-              Master's degree candidates conduct research that is relevant, has real world impact, and often
-              provides cutting-edge advancements to the field of cybersecurity, all under the guidance and review of our
-              world-class instructors.
+              Advancing the field of intelligent cybersecurity through groundbreaking research in AI, machine learning, and adaptive security systems.
             </p>
             <button 
               className="mt-6 border border-white px-6 py-2 hover:bg-white hover:text-gray-900 transition-colors"

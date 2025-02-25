@@ -116,17 +116,17 @@ export default function EventsPage() {
 
   return (
     <div className="min-h-screen bg-gradient-to-b from-gray-50 to-white">
-      {/* Hero Section */}
-      <div className="bg-blue-900 text-white py-12">
+      {/* Hero Section - Changed from blue to red */}
+      <div className="bg-gradient-to-r from-red-500 to-black text-white py-12">
         <div className="max-w-7xl mx-auto px-4">
           <h1 className="text-4xl font-bold mb-4">Upcoming Events</h1>
-          <p className="text-blue-100 max-w-2xl">
+          <p className="text-gray-100 max-w-2xl">
             Discover upcoming seminars, workshops, and activities across all departments
           </p>
         </div>
       </div>
 
-      {/* Search Bar */}
+      {/* Search Bar - Updated focus ring color */}
       <div className="max-w-7xl mx-auto px-4 -mt-6 mb-8">
         <div className="bg-white rounded-lg shadow-lg p-4">
           <div className="relative">
@@ -134,7 +134,7 @@ export default function EventsPage() {
             <input
               type="text"
               placeholder="Search events..."
-              className="w-full pl-10 pr-4 py-3 rounded-lg border focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+              className="w-full pl-10 pr-4 py-3 rounded-lg border focus:ring-2 focus:ring-red-500 focus:border-transparent"
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
             />
@@ -142,9 +142,8 @@ export default function EventsPage() {
         </div>
       </div>
 
-      {/* Main Content */}
       <main className="max-w-7xl mx-auto px-4 py-6">
-        {/* Tabs */}
+        {/* Tabs - Updated active state colors */}
         <div className="flex space-x-4 mb-8">
           <TabButton
             active={activeTab === 'all'}
@@ -182,13 +181,13 @@ export default function EventsPage() {
   );
 }
 
-// Component for Tab Buttons
+// Updated TabButton component
 const TabButton = ({ active, onClick, label }: { active: boolean; onClick: () => void; label: string }) => (
   <button
     onClick={onClick}
     className={`px-6 py-3 rounded-lg font-medium transition-all ${
       active 
-        ? 'bg-blue-900 text-white shadow-lg transform scale-105' 
+        ? 'bg-red-500 text-white shadow-lg transform scale-105' 
         : 'bg-white text-gray-700 hover:bg-gray-50'
     }`}
   >
@@ -196,12 +195,12 @@ const TabButton = ({ active, onClick, label }: { active: boolean; onClick: () =>
   </button>
 );
 
-// Component for Event Cards
+// Updated EventCard component
 const EventCard = ({ event }: { event: Event }) => (
   <div className="bg-white rounded-xl shadow-md overflow-hidden hover:shadow-xl transition-shadow duration-300">
     <div className="relative">
       <img src={event.image || "/placeholder.svg"} alt={event.title} className="w-full h-48 object-cover" />
-      <div className="absolute top-4 right-4 bg-blue-900 text-white px-3 py-1 rounded-full text-sm">
+      <div className="absolute top-4 right-4 bg-red-500 text-white px-3 py-1 rounded-full text-sm">
         {event.category}
       </div>
     </div>
@@ -216,7 +215,7 @@ const EventCard = ({ event }: { event: Event }) => (
       {event.registrationLink && (
         <a
           href={event.registrationLink}
-          className="inline-flex items-center text-blue-600 hover:text-blue-800"
+          className="inline-flex items-center text-red-500 hover:text-red-700"
         >
           Register Now <ExternalLink className="h-4 w-4 ml-1" />
         </a>

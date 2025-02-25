@@ -3,7 +3,7 @@ import { Shield, Database, Cloud, Lock, CheckCircle, Edit3, ArrowRight } from 'l
 import AOS from 'aos';
 import 'aos/dist/aos.css';
 
-export default function Technology() {
+export default function Solutions() {
   useEffect(() => {
     AOS.init({
       duration: 1000,
@@ -14,24 +14,23 @@ export default function Technology() {
 
   return (
     <div className="min-h-screen bg-white">
-      {/* Changed h-screen to h-[70vh] for a shorter height */}
       <section className="relative h-[60vh] flex items-center">
         <div className="absolute inset-0 bg-gradient-to-br from-black/80 via-black/50 to-transparent z-10" />
         <img 
           src="https://images.unsplash.com/photo-1550751827-4bd374c3f58b"
-          alt="Cybersecurity Technology"
+          alt="Cyber Intelligent Solutions"
           className="absolute inset-0 w-full h-full object-cover"
         />
         <div className="container mx-auto px-6 relative z-20" data-aos="fade-up">
           <div className="max-w-4xl">
             <h1 className="text-6xl md:text-7xl font-serif text-white mb-8 leading-tight">
-              Advanced Cyber Security Solutions
+              Intelligent Cyber Solutions
             </h1>
             <p className="text-xl text-gray-200 mb-12 max-w-2xl leading-relaxed">
-              Protecting your digital assets with cutting-edge technology and comprehensive security solutions.
+              Leveraging artificial intelligence and machine learning to provide next-generation cybersecurity solutions.
             </p>
-            <button className="bg-red-600 text-white px-8 py-4 rounded-lg hover:bg-red-700 transition-all transform hover:translate-x-2 flex items-center gap-3 text-lg font-medium">
-              Discover Our Solutions
+            <button className="bg-red-500 text-white px-8 py-4 rounded-lg hover:bg-black transition-all transform hover:translate-x-2 flex items-center gap-3 text-lg font-medium">
+              Explore Solutions
               <ArrowRight className="w-5 h-5" />
             </button>
           </div>
@@ -42,19 +41,19 @@ export default function Technology() {
         <div className="container mx-auto px-6">
           <div className="grid lg:grid-cols-2 gap-16 items-center">
             <div data-aos="fade-right">
-              <h2 className="text-4xl font-serif mb-8 text-gray-900">Enterprise-Grade Security Infrastructure</h2>
+              <h2 className="text-4xl font-serif mb-8 text-gray-900">AI-Powered Security Framework</h2>
               <p className="text-gray-600 text-lg mb-8 leading-relaxed">
-                Our comprehensive security solutions combine advanced threat detection, real-time monitoring, and rapid response capabilities to protect your organization from evolving cyber threats.
+                Our intelligent security solutions combine advanced AI algorithms with expert systems to provide predictive threat detection and automated response capabilities.
               </p>
               <div className="space-y-4">
                 {[
-                  "24/7 Security Operations Center",
-                  "Advanced Threat Detection & Response",
-                  "Zero Trust Architecture Implementation",
-                  "Cloud Security Solutions"
+                  "AI-Driven Threat Detection",
+                  "Machine Learning Analytics",
+                  "Intelligent Response Systems",
+                  "Automated Security Operations"
                 ].map((item, index) => (
                   <div key={index} className="flex items-center gap-3">
-                    <CheckCircle className="w-6 h-6 text-red-600" />
+                    <CheckCircle className="w-6 h-6 text-red-500" />
                     <span className="text-gray-700">{item}</span>
                   </div>
                 ))}
@@ -124,32 +123,32 @@ export default function Technology() {
 const solutions = [
   {
     icon: <Shield className="w-7 h-7 text-white" />,
-    title: "Threat Detection & Response",
-    description: "Advanced monitoring and rapid response capabilities to identify and neutralize security threats in real-time."
+    title: "AI Threat Detection",
+    description: "Intelligent systems that learn and adapt to new threats in real-time using advanced machine learning algorithms."
   },
   {
     icon: <Cloud className="w-7 h-7 text-white" />,
-    title: "Cloud Security",
-    description: "Comprehensive protection for cloud infrastructure, ensuring data security across all cloud platforms."
+    title: "Smart Cloud Security",
+    description: "AI-powered cloud security solutions that automatically detect and respond to threats across cloud environments."
   },
   {
     icon: <Lock className="w-7 h-7 text-white" />,
-    title: "Zero Trust Security",
-    description: "Implement robust zero trust architecture to ensure secure access control and data protection."
+    title: "Intelligent Access Control",
+    description: "Advanced behavioral analytics and machine learning for smart access management and threat prevention."
   },
   {
     icon: <Database className="w-7 h-7 text-white" />,
-    title: "Data Protection",
-    description: "Advanced encryption and security measures to protect sensitive data and ensure compliance."
+    title: "Predictive Analytics",
+    description: "Using AI to predict and prevent potential security breaches before they occur."
   },
   {
     icon: <Edit3 className="w-7 h-7 text-white" />,
-    title: "Security Assessment",
-    description: "Comprehensive evaluation of your security infrastructure to identify and address vulnerabilities."
+    title: "Automated Assessment",
+    description: "AI-driven security assessments that continuously evaluate and improve your security posture."
   },
   {
     icon: <CheckCircle className="w-7 h-7 text-white" />,
-    title: "Compliance Management",
-    description: "Ensure adherence to industry regulations and security standards with our compliance solutions."
+    title: "Smart Compliance",
+    description: "Intelligent compliance monitoring and automated reporting using advanced AI systems."
   }
 ];

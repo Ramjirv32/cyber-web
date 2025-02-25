@@ -31,7 +31,7 @@ interface Seminar {
 const FacultyDevelopmentPrograms: React.FC = () => {
   useEffect(() => {
     AOS.init({
-      duration: 1000,
+      duration: 100,
       once: true,
     });
   }, []);
