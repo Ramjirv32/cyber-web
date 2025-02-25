@@ -12,7 +12,7 @@ import EmailSubscribe from "./components/email-from"
 import VisionMission from './pages/about/VisionMission';
 import OurTeam from './pages/about/OurTeam';
 import Contact from './pages/about/Contact';
-import FeaturedCards from "./components/featured-card"
+import FeaturedCards from "./components/featured-card";
 import Stats from './components/Stats';
 import Conference from './pages/about/conferences';
 import ResearchPage from './pages/about/Research';
@@ -26,6 +26,9 @@ import Help from "./pages/about/Help" ;
 import Fdp from "./pages/about/fdp"
 import Event from "./pages/about/event"
 import Award from "./pages/about/Awards"
+import Board from "./pages/about/Board"
+import ScrollProgress from './components/ScrollProgress';
+
 function App() {
 
   useEffect(() => {
@@ -41,6 +44,7 @@ function App() {
   return (
     <Router>
       <div className="flex flex-col min-h-screen font-sans">
+        <ScrollProgress />
         <Navbar />
         <Routes>
           <Route path="/" element={
@@ -56,6 +60,7 @@ function App() {
           <Route path="/signup" element={<SignUp />} />
           <Route path="/featured" element={<FeaturedCards />} />
           <Route path="/research" element={<ResearchPage />} />
+          <Route path="/board" element={<Board />} />
           <Route path="/subscribe" element={<EmailSubscribe />} />
           <Route path="/vision-mission" element={<VisionMission />} />
           <Route path="/fdp" element={<Fdp />} />

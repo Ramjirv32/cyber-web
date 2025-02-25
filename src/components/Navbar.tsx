@@ -101,7 +101,7 @@ export default function Navbar() {
             <div className="flex items-center gap-4">
               <div className="flex items-center gap-2 text-gray-600 font-medium">
                 <Mail className="h-4 w-4 text-red-500" />
-                <span className="text-sm">contact@cyberintelligencesociety.org</span>
+                <span className="text-sm">info@societycis.org</span>
               </div>
               <div className="flex gap-4 border-l pl-4">
                 <a
@@ -142,13 +142,13 @@ export default function Navbar() {
                   <div className="text-left">
                     <div className="text-sm lg:text-base text-gray-600 font-medium">Society for</div>
                     <div className="font-serif text-xl lg:text-2xl font-bold text-[#2d3436]">
-                      Cyber Intelligent Systems
+                      Cyber Intelligent System
                     </div>
                   </div>
                 </Link>
               </div>
 
-              {/* Desktop/Tablet Navigation - Now with flex-grow and justify-end */}
+    
               <div className="hidden lg:flex items-center justify-end flex-grow ml-[150px]">
                 {menuItems.map((item) => (
                   <div
@@ -179,7 +179,7 @@ export default function Navbar() {
                             <Link
                               key={subItem.name}
                               to={subItem.path}
-                              className="flex items-center gap-2 px-4 py-2 text-sm text-gray-700 hover:bg-red-50 hover:text-red-500 font-medium"
+                              className="flex items-center px-4 py-2 text-sm text-gray-700 hover:bg-red-50 hover:text-red-500 font-medium"
                             >
                               {subItem.name}
                             </Link>
@@ -190,7 +190,7 @@ export default function Navbar() {
                   </div>
                 ))}
 
-                {/* Auth buttons moved inside navigation container */}
+            
                 <div className="hidden sm:flex items-center gap-2 ml-4">
                   <Link
                     to="/login"

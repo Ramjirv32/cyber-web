@@ -103,7 +103,7 @@ export default function Solutions() {
           <div className="max-w-4xl mx-auto text-center" data-aos="fade-up">
             <h2 className="text-4xl font-serif mb-8">Ready to Secure Your Infrastructure?</h2>
             <p className="text-gray-600 text-lg mb-12 leading-relaxed">
-              Join leading organizations that trust our security solutions to protect their critical assets and data.
+              Join leading organizations that trust Society for Cyber Intelligent System to protect their critical assets and data.
             </p>
             <div className="flex gap-6 justify-center">
               <button className="bg-red-600 text-white px-8 py-4 rounded-lg hover:bg-red-700 transition-colors">

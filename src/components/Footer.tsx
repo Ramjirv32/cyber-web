@@ -101,7 +101,7 @@ export default function Footer() {
               </div>
             </div>
             <p className="text-xs md:text-sm text-gray-600">
-              © {new Date().getFullYear()} The Society. All rights reserved.
+              © {new Date().getFullYear()} Society for Cyber Intelligent System. All rights reserved.
             </p>
           </div>
         </motion.div>

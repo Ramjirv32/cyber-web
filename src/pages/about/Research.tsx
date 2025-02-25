@@ -152,9 +152,7 @@ const ResearchPage: React.FC = () => {
 
   return (
     <div className="min-h-screen bg-white">
-      {/* Header with dynamic background */}
-      <div 
-        className="relative h-[400px] text-white"
+      <div className="relative h-[400px] text-white"
         style={{
           background: `linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), ${backgroundImages[currentBgIndex]}`,
           backgroundSize: 'cover',
@@ -164,7 +162,7 @@ const ResearchPage: React.FC = () => {
       >
         <div className="absolute inset-0 flex items-center">
           <div className="max-w-7xl mx-auto px-4" data-aos="fade-up">
-            <h1 className="text-4xl font-bold mb-6">Society for Cyber Intelligent Research Papers</h1>
+            <h1 className="text-4xl font-bold mb-6">Society for Cyber Intelligent System Research Papers</h1>
             <p className="text-lg max-w-3xl" data-aos="fade-up" data-aos-delay="200">
               Advancing the field of intelligent cybersecurity through groundbreaking research in AI, machine learning, and adaptive security systems.
             </p>

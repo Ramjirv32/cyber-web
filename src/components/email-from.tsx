@@ -173,7 +173,7 @@ export default function EmailSubscribe() {
           {/* Right Form Column */}
           <div className="w-full lg:w-1/2 sticky top-8" data-aos="fade-left">
             <div className="bg-white rounded-lg shadow-xl p-8 md:p-12 transform hover:shadow-2xl transition-all duration-300">
-              <h2 className="text-3xl font-bold mb-2">Join Our Newsletter</h2>
+              <h2 className="text-3xl font-bold mb-2">Society for Cyber Intelligent System Newsletter</h2>
               <p className="text-gray-600 mb-8 font-medium">
                 Subscribe to receive updates on innovation, events, articles, and industry insights. Customize your experience below.
               </p>
@@ -267,7 +267,7 @@ export default function EmailSubscribe() {
                 </button>
 
                 <p className="text-xs text-gray-500 text-center mt-4">
-                  By subscribing, you agree to our Privacy Policy and Terms of Service.
+                  By subscribing, you agree to Society for Cyber Intelligent System's Privacy Policy and Terms of Service.
                   You can unsubscribe at any time.
                 </p>
               </form>

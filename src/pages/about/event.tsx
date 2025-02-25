@@ -116,7 +116,7 @@ export default function EventsPage() {
 
   return (
     <div className="min-h-screen bg-gradient-to-b from-gray-50 to-white">
-      {/* Hero Section - Changed from blue to red */}
+    
       <div className="bg-gradient-to-r from-red-500 to-black text-white py-12">
         <div className="max-w-7xl mx-auto px-4">
           <h1 className="text-4xl font-bold mb-4">Upcoming Events</h1>
@@ -126,7 +126,7 @@ export default function EventsPage() {
         </div>
       </div>
 
-      {/* Search Bar - Updated focus ring color */}
+    
       <div className="max-w-7xl mx-auto px-4 -mt-6 mb-8">
         <div className="bg-white rounded-lg shadow-lg p-4">
           <div className="relative">

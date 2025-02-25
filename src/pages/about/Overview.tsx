@@ -23,7 +23,7 @@ export default function CyberResearch() {
         <div className="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1550751827-4bd374c3f58b')] bg-cover bg-center opacity-30" />
         <div className="absolute inset-0 bg-gradient-to-b from-black/70 via-red-500/50 to-transparent" />
         <div className="container mx-auto px-6 relative" data-aos="fade-up">
-          <h1 className="text-6xl font-serif mb-8 leading-tight">Society for Cyber Intelligent</h1>
+          <h1 className="text-6xl font-serif mb-8 leading-tight">Society for Cyber Intelligent System</h1>
           <p className="text-xl max-w-3xl mb-6 leading-relaxed">
             Leading the evolution of cybersecurity through artificial intelligence and intelligent systems, creating the next generation of adaptive security solutions.
           </p>
@@ -159,7 +159,7 @@ export default function CyberResearch() {
               <h2 className="text-4xl font-serif mb-8">Join Our Network</h2>
               <p className="text-gray-600 mb-4 text-lg">Ready to enhance your cyber intelligence capabilities?</p>
               <p className="text-gray-600 mb-10 text-lg">
-                Contact us at intelligence@cybernetwork.com or call +1 (888) 555-0123
+                Contact us at info@societycis.org or call +1 (888) 555-0123
               </p>
               <div className="flex gap-6">
                 <button className="bg-red-500 text-white px-8 py-4 rounded-lg hover:bg-red-600 transition-colors shadow-lg">
@@ -178,7 +178,7 @@ export default function CyberResearch() {
       <footer className="bg-gradient-to-br from-red-500 to-black text-white py-8">
         <div className="container mx-auto px-6">
           <div className="flex flex-col md:flex-row justify-between items-center gap-6">
-            <div className="text-sm">© 2025 Society for Cyber Intelligent Systems</div>
+            <div className="text-sm">© 2025 Society for Cyber Intelligent System</div>
             <div className="flex gap-8">
               <a href="#" className="hover:text-red-300 transition-colors transform hover:scale-110">
                 <Twitter className="w-6 h-6" />

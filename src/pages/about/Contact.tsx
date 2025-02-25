@@ -54,7 +54,7 @@ export default function Contact() {
     <div className="min-h-screen bg-gray-50 py-16 px-4 sm:px-6 lg:px-8">
       <div className="max-w-7xl mx-auto">
         <div className="text-center mb-16" data-aos="fade-up">
-          <h1 className="text-4xl font-bold text-gray-900 mb-4">Contact Cyber Intelligence Community</h1>
+          <h1 className="text-4xl font-bold text-gray-900 mb-4">Contact Society for Cyber Intelligent System</h1>
           <div className="w-24 h-1 bg-red-500 mx-auto"></div>
           <p className="mt-6 text-lg text-gray-600 max-w-2xl mx-auto">
             Connect with us for inquiries about cyber intelligence research, membership, and collaboration opportunities.
@@ -168,7 +168,7 @@ export default function Contact() {
                   <Mail className="h-6 w-6 text-red-500 flex-shrink-0" />
                   <div>
                     <h3 className="font-medium text-gray-900">Email</h3>
-                    <p className="text-gray-600">support@cyberintelcommunity.org</p>
+                    <p className="text-gray-600">info@societycis.org</p>
                   </div>
                 </div>
                 <div className="flex items-start gap-4">
