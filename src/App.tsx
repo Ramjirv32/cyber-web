@@ -28,6 +28,7 @@ import Event from "./pages/about/event"
 import Award from "./pages/about/Awards"
 import Board from "./pages/about/Board"
 import ScrollProgress from './components/ScrollProgress';
+import Forgotpass from "./pages/auth/ForgotPassword";
 
 function App() {
 
@@ -67,6 +68,7 @@ function App() {
           <Route path="/vision-mission" element={<VisionMission />} />
           <Route path="/fdp" element={<Fdp />} />
           <Route path="/our-team" element={<OurTeam />} />
+          <Route path="/forgot-password" element={<Forgotpass />} />
           <Route path="/help" element={<Help />} />
           <Route path="/contact" element={<Contact />} />
           <Route path="/overview" element={<Overview />} />
