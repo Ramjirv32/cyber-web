@@ -154,7 +154,12 @@ export default function Contact() {
                   <MapPin className="h-6 w-6 text-red-500 flex-shrink-0" />
                   <div>
                     <h3 className="font-medium text-gray-900">Address</h3>
-                    <p className="text-gray-600">456 Cyber Security Blvd, Tech Valley, CV 56789</p>
+                    <p className="text-gray-600">
+                      No: 47, First Floor, Kodisamy Nagar,<br />
+                      100 Feet Road, Mudaliarpet,<br />
+                      Puducherry - 605004<br />
+                      India
+                    </p>
                   </div>
                 </div>
                 <div className="flex items-start gap-4">

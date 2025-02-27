@@ -7,7 +7,7 @@ import Navbar from './components/Navbar';
 import Footer from './components/Footer';
 import Home from './pages/Home';
 import Login from './pages/auth/Login';
-import SignUp from './pages/auth/SignIn';
+import SignUp from './pages/auth/SignUp';
 import EmailSubscribe from "./components/email-from"
 import VisionMission from './pages/about/VisionMission';
 import OurTeam from './pages/about/OurTeam';
@@ -28,6 +28,7 @@ import Event from "./pages/about/event"
 import Award from "./pages/about/Awards"
 import Board from "./pages/about/Board"
 import ScrollProgress from './components/ScrollProgress';
+import ScrollToTop from './components/ScrollToTop';
 
 function App() {
 
@@ -43,6 +44,7 @@ function App() {
 
   return (
     <Router>
+      <ScrollToTop />
       <div className="flex flex-col min-h-screen font-sans">
         <ScrollProgress />
         <Navbar />
@@ -57,9 +59,7 @@ function App() {
             </>
           } />
           <Route path="/login" element={<Login />} />
-          <Route path="/login/:token" element={<Login />} />
-
-          <Route path="/signIn" element={<SignUp />} />
+          <Route path="/signup" element={<SignUp />} />
           <Route path="/featured" element={<FeaturedCards />} />
           <Route path="/research" element={<ResearchPage />} />
           <Route path="/board" element={<Board />} />

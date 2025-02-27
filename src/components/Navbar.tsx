@@ -200,7 +200,7 @@ export default function Navbar() {
                     SignIn
                   </Link>
                   <Link
-                    to="/signup"
+                    to="/signIn"
                     className="flex items-center gap-2 px-4 py-2 bg-red-500 text-white rounded-full hover:bg-red-600 transition-colors text-sm"
                   >
                     <UserPlus className="h-4 w-4" />
@@ -209,7 +209,7 @@ export default function Navbar() {
                 </div>
               </div>
 
-              {/* Mobile menu button */}
+
               <button
                 className="lg:hidden p-2 transition-all duration-300 hover:opacity-70"
                 onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}

@@ -7,7 +7,7 @@ export default function Membership() {
     <div className="min-h-[400px] ">
       <div className="container mx-auto px-4 py-8">
         <div className="relative z-10 flex flex-col md:flex-row items-center justify-between gap-8 bg-gradient-to-r from-white/90 to-black/90 rounded-xl p-6 backdrop-blur-sm">
-          {/* Left Section with Email */}
+
           <div className="flex items-center gap-4 text-black md:text-black">
             <motion.div
               initial={{ scale: 0.9, opacity: 0 }}
@@ -22,11 +22,11 @@ export default function Membership() {
               animate={{ x: 0, opacity: 1 }}
               transition={{ duration: 0.5, delay: 0.2 }}
             >
-              <p className="text-base md:text-lg font-medium">cyberintelligencesystem@gmail.com</p>
+              <p className="text-base md:text-lg font-medium">info@societycis.org</p>
             </motion.div>
           </div>
 
-          {/* Middle Section with User Icon */}
+     
           <div className="flex items-center">
             <motion.div
               initial={{ scale: 0.9, opacity: 0 }}
