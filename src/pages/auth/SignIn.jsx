@@ -6,7 +6,7 @@ import Swal from 'sweetalert2';
 import { auth } from '../../config/firebase';
 import { signInWithPopup, GoogleAuthProvider } from 'firebase/auth';
 import axios from 'axios';
-import { Mail, Lock } from 'react-feather'; // Add this import
+import { Mail, Lock } from 'react-feather'; 
 
 export default function Signup() {
   const navigate = useNavigate();
