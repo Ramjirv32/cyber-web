@@ -10,6 +10,7 @@ import { auth } from '../../config/firebase';
 import { signInWithPopup, GoogleAuthProvider, GithubAuthProvider, signInWithEmailAndPassword } from 'firebase/auth';
 import axios from 'axios';
 import { Mail, Lock } from 'react-feather';
+import { API_URL } from '../../config/api';
 
 export default function Login() {
   const navigate = useNavigate();
@@ -35,7 +36,7 @@ export default function Login() {
       }
 
      
-      const response = await axios.post(`http://localhost:5000/login`, {
+      const response = await axios.post(`${API_URL}/login`, {
         email: email,
         password: password
       }, {
@@ -79,7 +80,7 @@ export default function Login() {
       
       const result = await signInWithPopup(auth, provider);
    
-      const response = await axios.post(`http://localhost:5000/login`, {
+      const response = await axios.post(`${API_URL}/login`, {
        email: result.user.email,
        password: result.user.uid
       }, {
@@ -121,7 +122,7 @@ export default function Login() {
       const provider = new GithubAuthProvider();
       const result = await signInWithPopup(auth, provider);
 
-      const response = await axios.post(`http://localhost:5000/login`, {
+      const response = await axios.post(`${API_URL}/login`, {
         email: result.user.email,
         password: result.user.uid
       }, {

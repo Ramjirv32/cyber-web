@@ -26,7 +26,7 @@ export default function ResetPassword() {
     const token = new URLSearchParams(location.search).get('token');
 
     try {
-      const response = await axios.post('http://localhost:5000/reset-password', {
+      const response = await axios.post(`${API_URL}/reset-password`, {
         token,
         newPassword: password,
       });
