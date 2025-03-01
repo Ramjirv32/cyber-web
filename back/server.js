@@ -16,12 +16,19 @@ const secret = process.env.JWT_SECRET;
 app.use(express.json());
 app.use(cors());
 
-mongoose.connect(process.env.MONGODB_URI, {
-    useNewUrlParser: true,
-    useUnifiedTopology: true,
-})
-.then(() => console.log("MongoDB Connected"))
-.catch(err => console.error("MongoDB Connection Error:", err));
+mongoose.connect(process.env.MONGODB_URI)
+    .then(() => {
+        console.log("MongoDB Atlas Connected Successfully to database 'cyber'");
+    })
+    .catch(err => {
+        console.error("MongoDB Connection Error Details:", {
+            message: err.message,
+            code: err.code,
+            name: err.name,
+            stack: err.stack
+        });
+        process.exit(1);
+    });
 
 const userSchema = new mongoose.Schema({
     username: String,
@@ -94,52 +101,61 @@ const verifyJWT = (req, res, next) => {
 app.post("/login", async (req, res) => {
     const { email, password } = req.body;
     try {
-        const user = await mongoose.connection.db.collection("users").findOne({ email });
-        if (user) {
-            const isMatch = await bcrypt.compare(password, user.password);
-            if (isMatch) {
-                const token = jwt.sign({ email }, secret, { expiresIn: '1h' });
-                return res.status(200).json({ success: true, token });
-            } else {
-                return res.status(400).json({ success: false, message: "Incorrect password" });
-            }
-        } else {
+        const user = await User.findOne({ email });
+        if (!user) {
             return res.status(400).json({ success: false, message: "User does not exist" });
         }
+        
+        const isMatch = await bcrypt.compare(password, user.password);
+        if (isMatch) {
+            const token = jwt.sign({ email }, secret, { expiresIn: '1h' });
+            return res.status(200).json({ success: true, token });
+        }
+        return res.status(400).json({ success: false, message: "Incorrect password" });
     } catch (error) {
-        return res.status(500).json({ success: false, message: "An error occurred" });
+        console.error("Login error:", error);
+        return res.status(500).json({ 
+            success: false, 
+            message: "An error occurred during login",
+            error: error.message 
+        });
     }
 });
 
 app.post('/signin', async (req, res) => {
     const { email, password } = req.body;
     try {
-        const user = await mongoose.connection.db.collection("users").findOne({ email });
-        if (user) {
+        const existingUser = await User.findOne({ email });
+        if (existingUser) {
             return res.status(400).json({ success: false, message: "User already exists" });
-        } else {
-            const hash = await bcrypt.hash(password, 10);
-            // Generate a verification token
-            const verificationToken = crypto.randomBytes(20).toString('hex');
-            // Save new user with verificationToken and isVerified false
-            await mongoose.connection.db.collection("users").insertOne({
-                email,
-                password: hash,
-                isVerified: false,
-                verificationToken
-            });
-            // Send verification email
-            await sendVerificationEmail(email, verificationToken);
-            
-            const token = jwt.sign({ email }, secret, { expiresIn: '1h' });
-            return res.status(201).json({
-                success: true,
-                token,
-                message: "Account created. Please check your email to verify your account."
-            });
         }
+
+        const hash = await bcrypt.hash(password, 10);
+        const verificationToken = crypto.randomBytes(20).toString('hex');
+        
+        const newUser = new User({
+            email,
+            password: hash,
+            isVerified: false,
+            verificationToken
+        });
+        
+        await newUser.save();
+        await sendVerificationEmail(email, verificationToken);
+        
+        const token = jwt.sign({ email }, secret, { expiresIn: '1h' });
+        return res.status(201).json({
+            success: true,
+            token,
+            message: "Account created. Please check your email to verify your account."
+        });
     } catch (error) {
-        return res.status(500).json({ success: false, message: "An error occurred" });
+        console.error("Signin error:", error);
+        return res.status(500).json({ 
+            success: false, 
+            message: "An error occurred during registration",
+            error: error.message 
+        });
     }
 });
 
