@@ -14,7 +14,10 @@ const PORT = process.env.PORT || 5000;
 const secret = process.env.JWT_SECRET;
 
 app.use(express.json());
-app.use(cors());
+app.use(cors({
+    origin: process.env.FRONTEND_URL,
+    credentials: true
+}));
 
 mongoose.connect(process.env.MONGODB_URI)
     .then(() => {

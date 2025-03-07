@@ -18,7 +18,7 @@ export default function ForgotPassword() {
     setIsSubmitting(true);
 
     try {
-      const response = await axios.post('http://localhost:5000/forgot-password', { email });
+      const response = await axios.post(`${API_URL}/forgot-password`, { email });
       
       if (response.data.success) {
         Swal.fire({
@@ -45,7 +45,7 @@ export default function ForgotPassword() {
     setIsSubmitting(true);
 
     try {
-      const response = await axios.post('http://localhost:5000/verify-otp', { email, otp });
+      const response = await axios.post(`${API_URL}/verify-otp`, { email, otp });
       
       if (response.data.success) {
         setStep(3);
@@ -82,7 +82,7 @@ export default function ForgotPassword() {
       };
       console.log('Sending reset password request with:', payload);
 
-      const response = await axios.post('http://localhost:5000/reset-password', payload);
+      const response = await axios.post(`${API_URL}/reset-password`, payload);
 
       console.log('Server response:', response.data); // Debug log
 

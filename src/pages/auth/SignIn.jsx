@@ -6,7 +6,7 @@ import Swal from 'sweetalert2';
 import { auth } from '../../config/firebase';
 import { signInWithPopup, GoogleAuthProvider } from 'firebase/auth';
 import axios from 'axios';
-import { Mail, Lock } from 'react-feather'; // Add this import
+import { Mail, Lock } from 'react-feather'; 
 
 export default function Signup() {
   const navigate = useNavigate();
@@ -31,7 +31,7 @@ export default function Signup() {
         return;
       }
 
-      const response = await fetch('http://localhost:5000/signin', {
+      const response = await fetch('/signin', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'
@@ -80,7 +80,7 @@ export default function Signup() {
       
       const result = await signInWithPopup(auth, provider);
       
-      const response = await axios.post(`http://localhost:5000/signin`, {
+      const response = await axios.post(`/signin`, {
         email: result.user.email,
         password: result.user.uid
       });
