@@ -29,6 +29,10 @@ import Award from "./pages/about/Awards"
 import Board from "./pages/about/Board"
 import ScrollProgress from './components/ScrollProgress';
 import Forgotpass from "./pages/auth/ForgotPassword";
+import PrivacyPolicy from './pages/about/PrivacyPolicy';
+import TermsConditions from './pages/about/TermsConditions';
+import Carrier from "./link/Carrier"
+import Service from "./link/Service"
 
 function App() {
 
@@ -54,7 +58,7 @@ function App() {
               <FeaturedCards />
               <EmailSubscribe />
               <Stats />
-              <Footer data-aos="fade-up" data-aos-delay="300"/>
+{/*               <Footer /> */}
             </>
           } />
           <Route path="/login" element={<Login />} />
@@ -80,8 +84,13 @@ function App() {
           <Route path="/reports" element={<Reports />} />
           <Route path="/awards" element={<Award />} />
           <Route path="/events" element={<Event />} />
+          <Route path="/privacy-policy" element={<PrivacyPolicy />} /> 
+          <Route path="/terms-conditions" element={<TermsConditions />} />
+          <Route path="/carrier" element={<Carrier />} />
+          <Route path="/service" element={<Service />} />
 
         </Routes>
+        <Footer data-aos="fade-up" data-aos-delay="300" />
   
       </div>
     </Router>
