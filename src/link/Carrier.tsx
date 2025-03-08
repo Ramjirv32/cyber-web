@@ -209,7 +209,6 @@ const CyberIntelligencePage: React.FC = () => {
           </div>
         </div>
       </div>
-      <Footer/>
     </div>
   );
 };
