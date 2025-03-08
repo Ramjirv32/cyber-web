@@ -58,7 +58,7 @@ function App() {
               <FeaturedCards />
               <EmailSubscribe />
               <Stats />
-              <Footer />
+              {/* <Footer /> */}
             </>
           } />
           <Route path="/login" element={<Login />} />
@@ -90,7 +90,7 @@ function App() {
           <Route path="/service" element={<Service />} />
 
         </Routes>
-        {/* <Footer data-aos="fade-up" data-aos-delay="300" /> */}
+        <Footer data-aos="fade-up" data-aos-delay="300" />
   
       </div>
     </Router>
