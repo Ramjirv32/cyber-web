@@ -9,81 +9,81 @@ interface Award {
 
 const Awards: React.FC = () => {
   const awards: Record<string, Award[]> = {
-    "Excellence in Cybersecurity": [
+    "Technical Excellence": [
       {
-        title: "Cyber Defender of the Year",
-        description: "Recognizing outstanding achievements in protecting critical infrastructure and implementing innovative security solutions.",
+        title: "Intelligent Systems Innovation Award",
+        description: "Recognizing breakthrough innovations in AI-driven cybersecurity systems and intelligent threat detection.",
         category: "excellence"
       },
       {
-        title: "Security Research Impact Award",
-        description: "For groundbreaking research contributions that advance the field of cybersecurity and digital defense.",
+        title: "Automated Defense Systems Award",
+        description: "For exceptional achievements in developing autonomous cyber defense systems and intelligent response mechanisms.",
         category: "excellence"
       },
       {
-        title: "Incident Response Excellence",
-        description: "Celebrating teams and individuals who demonstrated exceptional handling of critical security incidents.",
+        title: "Smart Security Architecture Award",
+        description: "Celebrating innovative architectural designs in intelligent cybersecurity systems.",
         category: "excellence"
       },
       {
-        title: "Lifetime Achievement in Cybersecurity",
-        description: "Honoring distinguished careers dedicated to advancing cybersecurity practices and education.",
+        title: "Pioneer in Cyber Intelligence",
+        description: "Honoring transformative contributions to the field of cyber intelligent systems.",
         category: "excellence"
       }
     ],
-    "Innovation Awards": [
+    "Research & Development": [
       {
-        title: "AI Security Innovation",
-        description: "For innovative applications of artificial intelligence in cybersecurity threat detection and response.",
+        title: "AI Security Research Excellence",
+        description: "For groundbreaking research in artificial intelligence applications for cybersecurity.",
         category: "innovation"
       },
       {
-        title: "Zero Trust Architecture Implementation",
-        description: "Recognizing excellence in implementing and advancing zero trust security frameworks.",
+        title: "Intelligent Threat Detection",
+        description: "Recognizing excellence in developing intelligent systems for cyber threat detection and analysis.",
         category: "innovation"
       },
       {
-        title: "Cloud Security Pioneer",
-        description: "For outstanding contributions to cloud security architecture and best practices.",
+        title: "Machine Learning Security Innovation",
+        description: "For outstanding applications of machine learning in cybersecurity systems.",
         category: "innovation"
       },
       {
-        title: "Emerging Technology Security",
-        description: "Recognizing innovative approaches to securing emerging technologies and platforms.",
+        title: "Next-Gen Security Systems",
+        description: "Recognizing innovative approaches to future-ready intelligent security systems.",
         category: "innovation"
       }
     ],
-    "Leadership & Education": [
+    "Academic & Research Excellence": [
       {
-        title: "Security Education Excellence",
-        description: "For outstanding contributions to cybersecurity education and awareness programs.",
+        title: "Cyber Intelligence Education",
+        description: "For outstanding contributions to education in cyber intelligent systems.",
         category: "education"
       },
       {
-        title: "CISO of the Year",
-        description: "Recognizing exceptional leadership in enterprise security strategy and implementation.",
+        title: "Research Leadership Award",
+        description: "Recognizing exceptional leadership in cyber intelligence research and development.",
         category: "education"
       },
       {
-        title: "Security Mentor Award",
-        description: "Celebrating individuals who excel at mentoring the next generation of security professionals.",
+        title: "Academic Achievement Award",
+        description: "Celebrating academic excellence in cyber intelligent systems research.",
         category: "education"
       }
     ],
-    "Community Impact": [
+    "Industry Impact": [
       {
-        title: "Threat Intelligence Sharing",
-        description: "For significant contributions to the security community through threat intelligence sharing.",
+        title: "Industry Implementation Excellence",
+        description: "For successful implementation of intelligent cybersecurity solutions in industry.",
         category: "community"
       },
       {
-        title: "Open Source Security",
-        description: "Recognizing valuable contributions to open source security tools and frameworks.",
+        title: "Open Innovation Award",
+        description: "Recognizing valuable open-source contributions to cyber intelligent systems.",
         category: "community"
       },
       {
-        title: "Security Advocacy",
-        description: "For outstanding efforts in promoting cybersecurity awareness and best practices.",
+        title: "Cyber Intelligence Advocacy",
+        description: "For promoting awareness and adoption of intelligent cybersecurity systems.",
         category: "community"
       }
     ]
@@ -92,14 +92,14 @@ const Awards: React.FC = () => {
   const relatedContent = [
     {
       image: "https://images.unsplash.com/photo-1550751827-4bd374c3f58b",
-      title: "Award Nomination Guidelines",
-      description: "Information about nominating individuals or teams for cybersecurity awards.",
+      title: "CIS Society Award Nominations",
+      description: "Guidelines for nominating outstanding contributors in cyber intelligent systems.",
       link: "#"
     },
     {
       image: "https://images.unsplash.com/photo-1558494949-ef010cbdcc31",
-      title: "Past Award Winners",
-      description: "Explore the achievements of previous cybersecurity award recipients.",
+      title: "Award Winners Archive",
+      description: "Discover the achievements of past CIS Society award recipients.",
       link: "#"
     }
   ];
@@ -110,7 +110,7 @@ const Awards: React.FC = () => {
         {/* Notice Banner */}
         <div className="bg-gray-50 rounded-lg p-6 mb-12">
           <p className="text-gray-700">
-            The Royal Society awards that are open for nominations from 29 November 2024 to 21 February 2025 are:
+            The Cyber Intelligent System Society awards are open for nominations from 29 November 2024 to 21 February 2025.
           </p>
         </div>
 

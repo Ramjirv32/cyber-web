@@ -59,6 +59,32 @@ const newsletterSchema = new mongoose.Schema({
 
 const Newsletter = mongoose.model("Newsletter", newsletterSchema);
 
+const membershipSchema = new mongoose.Schema({
+  title: String,
+  firstName: { type: String, required: true },
+  lastName: { type: String, required: true },
+  email: { type: String, required: true },
+  mobile: String,
+  currentPosition: String,
+  institute: String,
+  department: String,
+  organisation: { type: String, required: true },
+  address: String,
+  town: { type: String, required: true },
+  postcode: String,
+  state: String,
+  country: { type: String, required: true },
+  status: { type: String, required: true },
+  linkedin: String,
+  orcid: String,
+  researchGate: String,
+  paymentStatus: { type: String, default: 'pending' },
+  membershipFee: String,
+  createdAt: { type: Date, default: Date.now }
+});
+
+const Membership = mongoose.model("Membership", membershipSchema);
+
 const transporter = nodemailer.createTransport({
     service: "gmail",
     auth: {
@@ -96,6 +122,43 @@ const sendOTPEmail = async (email, otp) => {
         `
     };
     return transporter.sendMail(mailOptions);
+};
+
+const sendMembershipConfirmationEmail = async (email, firstName, lastName) => {
+  const mailOptions = {
+    from: process.env.EMAIL_USER,
+    to: email,
+    subject: "Membership Confirmation - Cyber Intelligent System",
+    html: `
+      <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;">
+        <h2 style="color: #ff4757;">Welcome to Cyber Intelligent System!</h2>
+        <p>Dear ${firstName} ${lastName},</p>
+        
+        <p>Thank you for becoming a member of Cyber Intelligent System. Your membership has been confirmed!</p>
+        
+        <div style="background-color: #f8f9fa; padding: 15px; border-radius: 5px; margin: 20px 0;">
+          <h3 style="color: #2d3436;">Member Benefits:</h3>
+          <ul>
+            <li>Access to exclusive resources</li>
+            <li>Network with industry professionals</li>
+            <li>Participate in special events</li>
+            <li>Regular updates on latest developments</li>
+          </ul>
+        </div>
+        
+        <p>Your membership is now active. You can access your member benefits by logging into our portal.</p>
+        
+        <div style="margin-top: 30px; padding-top: 20px; border-top: 1px solid #dfe6e9;">
+          <p style="font-size: 0.8em; color: #636e72;">
+            Cyber Intelligent System<br>
+            Advancing the future of cybersecurity
+          </p>
+        </div>
+      </div>
+    `
+  };
+
+  return transporter.sendMail(mailOptions);
 };
 
 const verifyJWT = (req, res, next) => {
@@ -407,6 +470,56 @@ app.post('/api/unsubscribe', async (req, res) => {
             error: error.message
         });
     }
+});
+
+app.post('/api/membership', async (req, res) => {
+  try {
+    const membership = new Membership(req.body);
+    membership.paymentStatus = 'completed'; // Set as completed for now
+    await membership.save();
+
+    // Send confirmation email
+    await sendMembershipConfirmationEmail(
+      membership.email,
+      membership.firstName,
+      membership.lastName
+    );
+
+    res.status(201).json({ 
+      success: true, 
+      message: "Membership confirmed! Please check your email for confirmation.",
+      membershipId: membership._id 
+    });
+  } catch (error) {
+    res.status(500).json({ 
+      success: false, 
+      message: "Error processing membership",
+      error: error.message 
+    });
+  }
+});
+
+// Add endpoint to update payment status
+app.post('/api/membership/payment', async (req, res) => {
+  const { membershipId, paymentStatus } = req.body;
+  try {
+    const membership = await Membership.findByIdAndUpdate(
+      membershipId,
+      { paymentStatus },
+      { new: true }
+    );
+    res.json({ 
+      success: true, 
+      message: "Payment status updated",
+      membership 
+    });
+  } catch (error) {
+    res.status(500).json({ 
+      success: false, 
+      message: "Error updating payment status",
+      error: error.message 
+    });
+  }
 });
 
 app.listen(PORT, () => {
