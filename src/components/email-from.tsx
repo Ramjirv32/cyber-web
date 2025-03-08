@@ -1,9 +1,11 @@
 "use client"
 
+import { useState, useEffect } from "react"
 import type React from "react"
-import { useState } from "react"
 
 export default function EmailSubscribe() {
+  const [currentTime, setCurrentTime] = useState<string>('')
+  const [location, setLocation] = useState<string>('Loading location...')
   const [formData, setFormData] = useState({
     firstName: "",
     lastName: "",
@@ -12,11 +14,90 @@ export default function EmailSubscribe() {
     frequency: "weekly"
   })
 
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault()
-    // Handle form submission
-    console.log(formData)
-  }
+  const [submitStatus, setSubmitStatus] = useState<{
+    loading: boolean;
+    message: string;
+    error: boolean;
+  }>({
+    loading: false,
+    message: "",
+    error: false
+  });
+
+  useEffect(() => {
+    // Update time every second
+    const timer = setInterval(() => {
+      const now = new Date()
+      setCurrentTime(now.toISOString().replace('T', ' ').slice(0, 19))
+    }, 1000)
+
+    // Get user's location
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition(
+        async (position) => {
+          try {
+            const response = await fetch(
+              `https://api.bigdatacloud.net/data/reverse-geocode-client?latitude=${position.coords.latitude}&longitude=${position.coords.longitude}`
+            )
+            const data = await response.json()
+            setLocation(`${data.city}, ${data.countryName}`)
+          } catch (error) {
+            setLocation('Location unavailable')
+          }
+        },
+        () => {
+          setLocation('Location access denied')
+        }
+      )
+    } else {
+      setLocation('Geolocation not supported')
+    }
+
+    return () => clearInterval(timer)
+  }, [])
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setSubmitStatus({ loading: true, message: "", error: false });
+
+    try {
+      const response = await fetch('http://localhost:5000/api/subscribe', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(formData)
+      });
+
+      const data = await response.json();
+
+      if (response.ok) {
+        setSubmitStatus({
+          loading: false,
+          message: "🎉 Successfully subscribed! Please check your email for confirmation.",
+          error: false
+        });
+        // Reset form
+        setFormData({
+          firstName: "",
+          lastName: "",
+          email: "",
+          interests: [],
+          frequency: "weekly"
+        });
+      } else {
+        // Handle specific error cases
+        const errorMessage = data.message || 'Subscription failed';
+        throw new Error(errorMessage);
+      }
+    } catch (error: any) {
+      setSubmitStatus({
+        loading: false,
+        message: error.message || "Failed to subscribe. Please try again.",
+        error: true
+      });
+    }
+  };
 
   const handleInterestChange = (interest: string) => {
     setFormData(prev => ({
@@ -29,13 +110,11 @@ export default function EmailSubscribe() {
 
   return (
     <div className="min-h-screen bg-gradient-to-b from-gray-50 to-white">
-      {/* Header Banner */}
       <div className="bg-red-500/90 backdrop-blur-sm text-white px-4 py-2 text-xs md:text-sm text-center" data-aos="fade-down">
-        <p>Current UTC Time: 2025-02-15 03:20:40 | Welcome back, Ramjirv32!</p>
+        <p>Current UTC Time: {currentTime} | Location: {location}</p>
       </div>
 
       <section className="container mx-auto px-4 py-16">
-        {/* Main Header Section */}
         <div className="text-center mb-16" data-aos="fade-up">
           <h1 className="text-2xl md:text-3xl lg:text-5xl font-bold text-gray-900 mb-4">
             Stay Ahead of the Curve
@@ -46,9 +125,7 @@ export default function EmailSubscribe() {
         </div>
 
         <div className="flex flex-col lg:flex-row gap-12 items-start">
-          {/* Left Content Column */}
           <div className="w-full lg:w-1/2 space-y-12">
-            {/* Benefits Section */}
             <div className="space-y-8" data-aos="fade-right">
               <h2 className="text-3xl font-bold text-gray-900">Why Subscribe?</h2>
 
@@ -91,7 +168,6 @@ export default function EmailSubscribe() {
               </div>
             </div>
 
-            {/* Featured Content Preview */}
             <div className="bg-white rounded-xl p-8 shadow-sm border border-gray-100 transform hover:shadow-lg transition-all duration-300" data-aos="fade-up">
               <h2 className="text-2xl font-bold text-gray-900 mb-6">Latest Featured Content</h2>
               <div className="space-y-6">
@@ -116,7 +192,6 @@ export default function EmailSubscribe() {
               </div>
             </div>
 
-            {/* Upcoming Events Section */}
             <div className="bg-gray-50 rounded-xl p-8">
               <h2 className="text-2xl font-bold text-gray-900 mb-6">Upcoming Virtual Events</h2>
               <div className="space-y-6">
@@ -154,7 +229,6 @@ export default function EmailSubscribe() {
               </div>
             </div>
 
-            {/* Testimonials Section */}
             <div className="bg-white rounded-xl p-8 shadow-sm border border-gray-100">
               <h2 className="text-2xl font-bold text-gray-900 mb-6">What Our Subscribers Say</h2>
               <div className="space-y-6">
@@ -170,7 +244,6 @@ export default function EmailSubscribe() {
             </div>
           </div>
 
-          {/* Right Form Column */}
           <div className="w-full lg:w-1/2 sticky top-8" data-aos="fade-left">
             <div className="bg-white rounded-lg shadow-xl p-8 md:p-12 transform hover:shadow-2xl transition-all duration-300">
               <h2 className="text-3xl font-bold mb-2">Society for Cyber Intelligent System Newsletter</h2>
@@ -222,7 +295,6 @@ export default function EmailSubscribe() {
                   />
                 </div>
 
-                {/* Interests Section */}
                 <div>
                   <label className="block text-sm font-medium text-gray-700 mb-2">
                     Topics of Interest
@@ -242,7 +314,6 @@ export default function EmailSubscribe() {
                   </div>
                 </div>
 
-                {/* Email Frequency */}
                 <div>
                   <label className="block text-sm font-medium text-gray-700 mb-2">
                     Email Frequency
@@ -260,11 +331,25 @@ export default function EmailSubscribe() {
 
                 <button
                   type="submit"
-                  className="w-full px-8 py-3 bg-red-500 text-white rounded-md hover:bg-red-600 
-                    transition-all duration-300 transform hover:scale-105 hover:shadow-lg font-bold"
+                  disabled={submitStatus.loading}
+                  className={`w-full px-8 py-3 bg-red-500 text-white rounded-md hover:bg-red-600 
+                    transition-all duration-300 transform hover:scale-105 hover:shadow-lg font-bold
+                    ${submitStatus.loading ? 'opacity-50 cursor-not-allowed' : ''}`}
                 >
-                  Subscribe Now
+                  {submitStatus.loading ? 'Subscribing...' : 'Subscribe Now'}
                 </button>
+
+                {submitStatus.message && (
+                  <div 
+                    className={`p-4 rounded-md ${
+                      submitStatus.error 
+                        ? 'bg-red-50 text-red-500 border border-red-200' 
+                        : 'bg-green-50 text-green-500 border border-green-200'
+                    }`}
+                  >
+                    {submitStatus.message}
+                  </div>
+                )}
 
                 <p className="text-xs text-gray-500 text-center mt-4">
                   By subscribing, you agree to Society for Cyber Intelligent System's Privacy Policy and Terms of Service.

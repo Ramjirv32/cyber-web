@@ -35,6 +35,12 @@ import Carrier from "./link/Carrier"
 import Service from "./link/Service"
 import ScrollToTop from './components/ScrollToTop';
 import LoadingWrapper from './components/LoadingWrapper';
+import MedalsAwards from './pages/MedalsAwards';
+import AnniversaryDay from './pages/AnniversaryDay';
+import ScienceBookPrize from './pages/ScienceBookPrize';
+import ResearchInitiatives from './pages/ResearchInitiatives';
+import InnovationHub from './pages/InnovationHub';
+import EducationPrograms from './pages/EducationPrograms';
 import MembershipForm from './link/MembershipForm';
 
 function App() {
@@ -115,6 +121,12 @@ function App() {
           <Route path="/terms-conditions" element={<TermsConditions />} />
           <Route path="/carrier" element={<Carrier />} />
           <Route path="/service" element={<Service />} />
+          <Route path="/medals-and-awards" element={<MedalsAwards />} />
+          <Route path="/anniversary-day" element={<AnniversaryDay />} />
+          <Route path="/science-book-prize" element={<ScienceBookPrize />} />
+          <Route path="/research-initiatives" element={<ResearchInitiatives />} />
+          <Route path="/innovation-hub" element={<InnovationHub />} />
+          <Route path="/education-programs" element={<EducationPrograms />} />
           <Route path="/membership-form" element={<MembershipForm />} />
 
         </Routes>
