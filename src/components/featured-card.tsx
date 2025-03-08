@@ -2,6 +2,7 @@
 
 import { useEffect } from "react"
 import { motion } from "framer-motion" 
+import { useNavigate } from 'react-router-dom' // Replace useRouter with useNavigate
 import AOS from "aos"
 import "aos/dist/aos.css"
 import { Award, BookOpen, Users, Microscope, Lightbulb, GraduationCap, LucideIcon } from "lucide-react"
@@ -14,6 +15,7 @@ interface Card {
   description: string
   icon: LucideIcon
   image: string
+  route: string
 }
 
 interface CardProps {
@@ -24,38 +26,46 @@ interface CardProps {
 
 const cards: Card[] = [
   {
-    title: "Medals and awards",
-    description: "Nominations are now open for the Royal Society's medals and awards 2025.",
+    title: "Cybersecurity Awards",
+    description: "Recognizing excellence in cyber intelligence and security innovations for 2025.",
     icon: Award,
-    image: medal,},
-  {
-    title: "Anniversary Day",
-    description: "The President delivers the 2024 Anniversary Day Address.",
-    icon: Users,
-    image: ani,},
-  {
-    title: "Science Book Prize",
-    description: "A City on Mars wins the Royal Society Science Book Prize.",
-    icon: BookOpen,
-    image: research, // Changed to local image
+    image: medal,
+    route: "/awards"
   },
   {
-    title: "Research Initiatives",
-    description: "Exploring new frontiers in scientific research and innovation.",
+    title: "AI Summit Day",
+    description: "Annual gathering showcasing breakthroughs in artificial intelligence and cyber systems.",
+    icon: Users,
+    image: ani,
+    route: "/anniversary-day"
+  },
+  {
+    title: "Tech Innovation Prize",
+    description: "Celebrating groundbreaking achievements in cyber-physical systems.",
+    icon: BookOpen,
+    image: research,
+    route: "/science-book-prize"
+  },
+  {
+    title: "Research & Development",
+    description: "Advancing the frontiers of intelligent systems and cybersecurity.",
     icon: Microscope,
     image: research,
+    route: "/research-initiatives"
   },
   {
-    title: "Innovation Hub",
-    description: "Supporting breakthrough ideas and technological advancement.",
+    title: "Innovation Lab",
+    description: "Creating next-generation cyber intelligence solutions.",
     icon: Lightbulb,
-    image: medal, // Changed to local image
+    image: medal,
+    route: "/innovation-hub"
   },
   {
-    title: "Education Programs",
-    description: "Fostering the next generation of scientific leaders.",
+    title: "Training Programs",
+    description: "Developing future leaders in cyber intelligence and AI systems.",
     icon: GraduationCap,
-    image: ani, // Changed to local image
+    image: ani,
+    route: "/education-programs"
   },
 ]
 export default function FeaturedCards() {
@@ -90,6 +100,8 @@ export default function FeaturedCards() {
 }
 
 function Card({ card, index }: CardProps) {
+  const navigate = useNavigate() // Replace useRouter with useNavigate
+  
   const handleImageError = (e: React.SyntheticEvent<HTMLImageElement, Event>) => {
     const target = e.target as HTMLImageElement
     target.src = "/fallback-image.jpg"
@@ -139,6 +151,7 @@ function Card({ card, index }: CardProps) {
           className="mt-4 text-red-500 font-bold group flex items-center"
           whileHover={{ x: 5 }}
           transition={{ duration: 0.2 }}
+          onClick={() => navigate(card.route)} // Replace router.push with navigate
         >
           Learn more
           <motion.span
@@ -187,6 +200,11 @@ const styles = `
         0.05em 0 0 rgba(0,255,0,0.75),
         0 -0.05em 0 rgba(0,0,255,0.75);
     }
+    100% {
+      text-shadow: 
+        -0.025em 0 0 rgba(255,0,0,0.75),
+        -0.025em -0.025em 0 rgba(0,255,0,0.75),
+        -0.025em -0.05em 0 rgba(0,0,255,0.75);
+    }
   }
 `
-

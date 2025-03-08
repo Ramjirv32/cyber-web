@@ -47,6 +47,18 @@ const userSchema = new mongoose.Schema({
 
 const User = mongoose.model("User", userSchema);
 
+const newsletterSchema = new mongoose.Schema({
+    firstName: { type: String, required: true },
+    lastName: { type: String, required: true },
+    email: { type: String, required: true, unique: true },
+    interests: [String],
+    frequency: { type: String, enum: ['daily', 'weekly', 'monthly'], default: 'weekly' },
+    subscriptionDate: { type: Date, default: Date.now },
+    isActive: { type: Boolean, default: true }
+});
+
+const Newsletter = mongoose.model("Newsletter", newsletterSchema);
+
 const transporter = nodemailer.createTransport({
     service: "gmail",
     auth: {
@@ -281,6 +293,118 @@ app.post('/reset-password', async (req, res) => {
             success: false, 
             message: "Error resetting password",
             error: error.message 
+        });
+    }
+});
+
+// Modify the subscription endpoint
+app.post('/api/subscribe', async (req, res) => {
+    const { firstName, lastName, email, interests, frequency } = req.body;
+
+    try {
+        // Check if email already exists
+        const existingSubscription = await Newsletter.findOne({ email });
+        if (existingSubscription) {
+            return res.status(400).json({
+                success: false,
+                message: "This email is already subscribed to our newsletter"
+            });
+        }
+
+        // Create new subscription
+        const newSubscription = new Newsletter({
+            firstName,
+            lastName,
+            email,
+            interests,
+            frequency
+        });
+
+        await newSubscription.save();
+
+        // Send confirmation email
+        const mailOptions = {
+            from: process.env.EMAIL_USER,
+            to: email,
+            subject: "Welcome to Cyber Intelligent System Newsletter",
+            html: `
+                <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;">
+                    <h2 style="color: #ff4757;">Welcome to Cyber Intelligent System!</h2>
+                    <p>Dear ${firstName} ${lastName},</p>
+                    
+                    <p>Thank you for subscribing to our newsletter. Your subscription has been confirmed!</p>
+                    
+                    <div style="background-color: #f8f9fa; padding: 15px; border-radius: 5px; margin: 20px 0;">
+                        <h3 style="color: #2d3436;">Your Subscription Details:</h3>
+                        <ul style="list-style: none; padding-left: 0;">
+                            <li>Frequency: ${frequency}</li>
+                            <li>Topics of Interest: ${interests.join(', ')}</li>
+                        </ul>
+                    </div>
+                    
+                    <p>You'll receive our ${frequency} newsletter with the latest updates on:</p>
+                    <ul>
+                        <li>Cutting-edge cyber intelligence developments</li>
+                        <li>Industry insights and trends</li>
+                        <li>Exclusive event invitations</li>
+                        <li>Professional development opportunities</li>
+                    </ul>
+                    
+                    <p style="color: #636e72; font-size: 0.9em;">
+                        If you didn't subscribe to our newsletter, please ignore this email.
+                    </p>
+                    
+                    <div style="margin-top: 30px; padding-top: 20px; border-top: 1px solid #dfe6e9;">
+                        <p style="font-size: 0.8em; color: #636e72;">
+                            Society for Cyber Intelligent System<br>
+                            Stay connected with the future of technology
+                        </p>
+                    </div>
+                </div>
+            `
+        };
+
+        await transporter.sendMail(mailOptions);
+
+        res.status(200).json({ 
+            success: true, 
+            message: "Subscription successful",
+            subscription: newSubscription
+        });
+    } catch (error) {
+        console.error('Newsletter subscription error:', error);
+        res.status(500).json({ 
+            success: false, 
+            message: error.code === 11000 ? "Email already subscribed" : "Failed to process subscription",
+            error: error.message 
+        });
+    }
+});
+
+// Add endpoint to manage subscription (optional)
+app.post('/api/unsubscribe', async (req, res) => {
+    const { email } = req.body;
+    try {
+        const subscription = await Newsletter.findOne({ email });
+        if (!subscription) {
+            return res.status(404).json({
+                success: false,
+                message: "Subscription not found"
+            });
+        }
+
+        subscription.isActive = false;
+        await subscription.save();
+
+        res.status(200).json({
+            success: true,
+            message: "Successfully unsubscribed"
+        });
+    } catch (error) {
+        res.status(500).json({
+            success: false,
+            message: "Failed to unsubscribe",
+            error: error.message
         });
     }
 });
