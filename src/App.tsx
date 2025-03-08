@@ -35,6 +35,7 @@ import Carrier from "./link/Carrier"
 import Service from "./link/Service"
 import ScrollToTop from './components/ScrollToTop';
 import LoadingWrapper from './components/LoadingWrapper';
+import MembershipForm from './link/MembershipForm';
 
 function App() {
 
@@ -114,6 +115,7 @@ function App() {
           <Route path="/terms-conditions" element={<TermsConditions />} />
           <Route path="/carrier" element={<Carrier />} />
           <Route path="/service" element={<Service />} />
+          <Route path="/membership-form" element={<MembershipForm />} />
 
         </Routes>
         <Footer data-aos="fade-up" data-aos-delay="300" />

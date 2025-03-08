@@ -1,5 +1,6 @@
 import React from 'react';
 import { Mail, ArrowRight, User } from 'lucide-react';
+import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
 
 export default function Membership() {
@@ -53,7 +54,7 @@ export default function Membership() {
                 Will be updated with more information. Stay tuned with the website.
               </p>
             </motion.div>
-            
+            <Link to="/membership-form" >
             <motion.button
               initial={{ y: 20, opacity: 0 }}
               animate={{ y: 0, opacity: 1 }}
@@ -65,6 +66,7 @@ export default function Membership() {
               Apply Now
               <ArrowRight className="w-4 h-4" />
             </motion.button>
+            </Link>
           </div>
         </div>
       </div>

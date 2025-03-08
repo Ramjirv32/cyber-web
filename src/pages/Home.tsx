@@ -5,6 +5,7 @@ import { ChevronLeft, ChevronRight, Mail, Share2, Facebook, Twitter, Linkedin, B
 import ai from "../components/images/s1.avif";
 import ai2 from "../components/images/s2.avif";
 import ai3 from "../components/images/s3.avif";
+import { Link } from 'react-router-dom';
 const slides = [
   {
     image: ai, // Digital technology visualization
@@ -279,10 +280,10 @@ function Home() {
             </h1>
             <p className="text-xl mb-4 opacity-90">{slides[currentSlideIndex].subtitle}</p>
             <p className="text-lg mb-8 opacity-90">{slides[currentSlideIndex].description}</p>
-            <button className="bg-red-600 hover:bg-red-700 text-white px-8 py-3 rounded-full inline-flex items-center gap-2 transition-colors text-lg font-medium">
+            <Link to={"/signin"} className="bg-red-600 hover:bg-red-700 text-white px-8 py-3 rounded-full inline-flex items-center gap-2 transition-colors text-lg font-medium">
               Get Started
               <ArrowRight className="h-5 w-5" />
-            </button>
+            </Link>
             {/* <button onClick={o()}>Go to OJS</button> */}
           </div>
         </div>
