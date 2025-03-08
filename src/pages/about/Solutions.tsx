@@ -1,17 +1,7 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { Shield, Database, Cloud, Lock, CheckCircle, Edit3, ArrowRight } from 'lucide-react';
-import AOS from 'aos';
-import 'aos/dist/aos.css';
 
 export default function Solutions() {
-  useEffect(() => {
-    AOS.init({
-      duration: 1000,
-      once: true,
-      easing: 'ease-out'
-    });
-  }, []);
-
   return (
     <div className="min-h-screen bg-white">
       <section className="relative h-[60vh] flex items-center">
@@ -21,7 +11,7 @@ export default function Solutions() {
           alt="Cyber Intelligent Solutions"
           className="absolute inset-0 w-full h-full object-cover"
         />
-        <div className="container mx-auto px-6 relative z-20" data-aos="fade-up">
+        <div className="container mx-auto px-6 relative z-20">
           <div className="max-w-4xl">
             <h1 className="text-6xl md:text-7xl font-serif text-white mb-8 leading-tight">
               Intelligent Cyber Solutions
@@ -40,7 +30,7 @@ export default function Solutions() {
       <section className="py-24 bg-gradient-to-b from-gray-100 to-white">
         <div className="container mx-auto px-6">
           <div className="grid lg:grid-cols-2 gap-16 items-center">
-            <div data-aos="fade-right">
+            <div>
               <h2 className="text-4xl font-serif mb-8 text-gray-900">AI-Powered Security Framework</h2>
               <p className="text-gray-600 text-lg mb-8 leading-relaxed">
                 Our intelligent security solutions combine advanced AI algorithms with expert systems to provide predictive threat detection and automated response capabilities.
@@ -59,7 +49,7 @@ export default function Solutions() {
                 ))}
               </div>
             </div>
-            <div className="relative" data-aos="fade-left">
+            <div className="relative">
               <div className="absolute inset-0 bg-gradient-to-r from-red-600 to-red-800 rounded-2xl transform rotate-3"></div>
               <img
                 src="https://images.unsplash.com/photo-1563986768494-4dee2763ff3f"
@@ -73,7 +63,7 @@ export default function Solutions() {
 
       <section className="py-24 bg-gray-900 text-white">
         <div className="container mx-auto px-6">
-          <h2 className="text-4xl font-serif text-center mb-16" data-aos="fade-up">
+          <h2 className="text-4xl font-serif text-center mb-16">
             Comprehensive Security Solutions
           </h2>
           <div className="grid md:grid-cols-3 gap-8">
@@ -81,8 +71,6 @@ export default function Solutions() {
               <div
                 key={index}
                 className="bg-gray-800 rounded-xl p-8 hover:bg-gray-700 transition-all transform hover:-translate-y-2"
-                data-aos="fade-up"
-                data-aos-delay={index * 100}
               >
                 <div className="bg-red-600 w-14 h-14 rounded-lg flex items-center justify-center mb-6">
                   {solution.icon}
@@ -100,7 +88,7 @@ export default function Solutions() {
 
       <section className="py-24">
         <div className="container mx-auto px-6">
-          <div className="max-w-4xl mx-auto text-center" data-aos="fade-up">
+          <div className="max-w-4xl mx-auto text-center">
             <h2 className="text-4xl font-serif mb-8">Ready to Secure Your Infrastructure?</h2>
             <p className="text-gray-600 text-lg mb-12 leading-relaxed">
               Join leading organizations that trust Society for Cyber Intelligent System to protect their critical assets and data.

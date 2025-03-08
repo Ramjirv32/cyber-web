@@ -1,17 +1,15 @@
 import React, { useState, useEffect } from 'react';
 import { ChevronDown, ChevronRight, ArrowRight } from 'lucide-react';
-import AOS from 'aos';
-import 'aos/dist/aos.css';
 import s1 from "../../components/images/s1.avif";
-import s2 from "../../components/images/s2.avif"
+import s2 from "../../components/images/s2.avif";
 import s3 from "../../components/images/s3.avif";
 
-// Import your background images
+// Remove AOS imports
+
 const backgroundImages = [
   `url(${s1})`,
   `url(${s2})`,
   `url(${s3})`,
-
 ];
 
 interface ResearchPaper {
@@ -30,13 +28,7 @@ const ResearchPage: React.FC = () => {
   const [sortBy, setSortBy] = useState('Latest');
 
   useEffect(() => {
-    // Initialize AOS
-    AOS.init({
-      duration: 1000,
-      once: true,
-    });
-
-    // Background image slider
+    // Only keep background image slider functionality
     const timer = setInterval(() => {
       setCurrentBgIndex((prev) => (prev + 1) % backgroundImages.length);
     }, 2000);
@@ -161,15 +153,13 @@ const ResearchPage: React.FC = () => {
         }}
       >
         <div className="absolute inset-0 flex items-center">
-          <div className="max-w-7xl mx-auto px-4" data-aos="fade-up">
+          <div className="max-w-7xl mx-auto px-4">
             <h1 className="text-4xl font-bold mb-6">Society for Cyber Intelligent System Research Papers</h1>
-            <p className="text-lg max-w-3xl" data-aos="fade-up" data-aos-delay="200">
+            <p className="text-lg max-w-3xl">
               Advancing the field of intelligent cybersecurity through groundbreaking research in AI, machine learning, and adaptive security systems.
             </p>
             <button 
               className="mt-6 border border-white px-6 py-2 hover:bg-white hover:text-gray-900 transition-colors"
-              data-aos="fade-up"
-              data-aos-delay="400"
             >
               Learn about the Master's Degree Program
             </button>
@@ -180,7 +170,7 @@ const ResearchPage: React.FC = () => {
       <div className="max-w-7xl mx-auto px-4 py-8">
         <div className="flex flex-col md:flex-row gap-8">
           {/* Filters Sidebar */}
-          <div className="w-full md:w-64 shrink-0" data-aos="fade-right">
+          <div className="w-full md:w-64 shrink-0">
             <h2 className="text-xl font-semibold mb-4">Filters:</h2>
             <div className="space-y-4">
               <div>
@@ -202,7 +192,6 @@ const ResearchPage: React.FC = () => {
             {/* Controls */}
             <div 
               className="flex justify-end gap-4 mb-6"
-              data-aos="fade-left"
             >
               <select
                 value={perPage}
@@ -230,8 +219,6 @@ const ResearchPage: React.FC = () => {
                 <div 
                   key={paper.id} 
                   className="border-b pb-8 hover:shadow-lg hover:border-red-500 transition-all duration-300 p-4 rounded-lg"
-                  data-aos="fade-up"
-                  data-aos-delay={index * 100}
                 >
                   <div className="flex items-center gap-2 mb-2">
                     {paper.isNew && (
@@ -255,7 +242,6 @@ const ResearchPage: React.FC = () => {
             {/* Pagination */}
             <div 
               className="flex items-center justify-center gap-2 mt-8"
-              data-aos="fade-up"
             >
               <button className="px-3 py-1 border rounded hover:bg-gray-50">First</button>
               <button className="px-3 py-1 border rounded bg-red-800 text-white">1</button>

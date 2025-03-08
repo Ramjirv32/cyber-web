@@ -33,6 +33,8 @@ import PrivacyPolicy from './pages/about/PrivacyPolicy';
 import TermsConditions from './pages/about/TermsConditions';
 import Carrier from "./link/Carrier"
 import Service from "./link/Service"
+import ScrollToTop from './components/ScrollToTop';
+import LoadingWrapper from './components/LoadingWrapper';
 
 function App() {
 
@@ -48,17 +50,45 @@ function App() {
 
   return (
     <Router>
+      <ScrollToTop />
       <div className="flex flex-col min-h-screen font-sans">
         <ScrollProgress />
         <Navbar />
         <Routes>
+          {/* Routes with loading */}
+          <Route path="/research" element={
+            <LoadingWrapper>
+              <ResearchPage />
+            </LoadingWrapper>
+          } />
+          <Route path="/solutions" element={
+            <LoadingWrapper>
+              <Solutions />
+            </LoadingWrapper>
+          } />
+          <Route path="/board" element={
+            <LoadingWrapper>
+              <Board />
+            </LoadingWrapper>
+          } />
+          <Route path="/technology" element={
+            <LoadingWrapper>
+              <Technology />
+            </LoadingWrapper>
+          } />
+          <Route path="/contact" element={
+            <LoadingWrapper>
+              <Contact />
+            </LoadingWrapper>
+          } />
+
+          {/* Routes without loading */}
           <Route path="/" element={
             <>
               <Home />
               <FeaturedCards />
               <EmailSubscribe />
               <Stats />
-              {/* <Footer /> */}
             </>
           } />
           <Route path="/login" element={<Login />} />
@@ -66,7 +96,6 @@ function App() {
 
           <Route path="/signIn" element={<SignUp />} />
           <Route path="/featured" element={<FeaturedCards />} />
-          <Route path="/research" element={<ResearchPage />} />
           <Route path="/board" element={<Board />} />
           <Route path="/subscribe" element={<EmailSubscribe />} />
           <Route path="/vision-mission" element={<VisionMission />} />
@@ -74,11 +103,8 @@ function App() {
           <Route path="/our-team" element={<OurTeam />} />
           <Route path="/forgot-password" element={<Forgotpass />} />
           <Route path="/help" element={<Help />} />
-          <Route path="/contact" element={<Contact />} />
           <Route path="/overview" element={<Overview />} />
           <Route path="/conferences" element={<Conference />} />
-          <Route path="/technology" element={<Technology />} />
-          <Route path="/solutions" element={<Solutions />} />
           <Route path="/mou" element={<Mou />} />
           <Route path="/policies" element={<Policies />} />
           <Route path="/reports" element={<Reports />} />
