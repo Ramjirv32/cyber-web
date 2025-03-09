@@ -40,8 +40,8 @@ const cards: Card[] = [
     route: "/anniversary-day"
   },
   {
-    title: "Tech Innovation Prize",
-    description: "Celebrating groundbreaking achievements in cyber-physical systems.",
+    title: "Tech Innovation Series",
+    description: "Explore cutting-edge knowledge in cyber-physical systems and security architecture.",
     icon: BookOpen,
     image: research,
     route: "/science-book-prize"

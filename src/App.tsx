@@ -1,5 +1,5 @@
-import { useEffect } from 'react';
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { useEffect, useState } from 'react';
+import { BrowserRouter as Router, Routes, Route, useLocation } from 'react-router-dom';
 import AOS from 'aos';
 import 'aos/dist/aos.css';
 
@@ -42,6 +42,29 @@ import ResearchInitiatives from './pages/ResearchInitiatives';
 import InnovationHub from './pages/InnovationHub';
 import EducationPrograms from './pages/EducationPrograms';
 import MembershipForm from './link/MembershipForm';
+import RouteTransitionLoader from './components/RouteTransitionLoader';
+
+// Create a wrapper component with configurable loading time
+const RouteChangeHandler = ({ children, loadingTime = 200 }: { children: React.ReactNode, loadingTime?: number }) => {
+  const [isLoading, setIsLoading] = useState(false);
+  const location = useLocation();
+
+  useEffect(() => {
+    setIsLoading(true);
+    const timer = setTimeout(() => {
+      setIsLoading(false);
+    }, loadingTime);
+
+    return () => clearTimeout(timer);
+  }, [location, loadingTime]);
+
+  return (
+    <>
+      {isLoading && <RouteTransitionLoader />}
+      {children}
+    </>
+  );
+};
 
 function App() {
 
@@ -55,84 +78,115 @@ function App() {
     });
   }, []);
 
+  // Define routes that need longer loading time
+  const longLoadingRoutes = [
+    '/science-book-prize',
+    '/research-initiatives',
+    '/innovation-hub',
+    '/education-programs',
+    '/membership-form'
+  ];
+
   return (
     <Router>
-      <ScrollToTop />
-      <div className="flex flex-col min-h-screen font-sans">
-        <ScrollProgress />
-        <Navbar />
-        <Routes>
-          {/* Routes with loading */}
-          <Route path="/research" element={
-            <LoadingWrapper>
-              <ResearchPage />
-            </LoadingWrapper>
-          } />
-          <Route path="/solutions" element={
-            <LoadingWrapper>
-              <Solutions />
-            </LoadingWrapper>
-          } />
-          <Route path="/board" element={
-            <LoadingWrapper>
-              <Board />
-            </LoadingWrapper>
-          } />
-          <Route path="/technology" element={
-            <LoadingWrapper>
-              <Technology />
-            </LoadingWrapper>
-          } />
-          <Route path="/contact" element={
-            <LoadingWrapper>
-              <Contact />
-            </LoadingWrapper>
-          } />
+      <RouteChangeHandler loadingTime={
+        longLoadingRoutes.includes(window.location.pathname) ? 500 : 200
+      }>
+        <ScrollToTop />
+        <div className="flex flex-col min-h-screen font-sans">
+          <ScrollProgress />
+          <Navbar />
+          <Routes>
+            <Route path="/research" element={
+              <LoadingWrapper>
+                <ResearchPage />
+              </LoadingWrapper>
+            } />
+            <Route path="/solutions" element={
+              <LoadingWrapper>
+                <Solutions />
+              </LoadingWrapper>
+            } />
+            <Route path="/board" element={
+              <LoadingWrapper>
+                <Board />
+              </LoadingWrapper>
+            } />
+            <Route path="/technology" element={
+              <LoadingWrapper>
+                <Technology />
+              </LoadingWrapper>
+            } />
+            <Route path="/contact" element={
+              <LoadingWrapper>
+                <Contact />
+              </LoadingWrapper>
+            } />
 
-          {/* Routes without loading */}
-          <Route path="/" element={
-            <>
-              <Home />
-              <FeaturedCards />
-              <EmailSubscribe />
-              <Stats />
-            </>
-          } />
-          <Route path="/login" element={<Login />} />
-          <Route path="/login/:token" element={<Login />} />
+            {/* Routes without loading */}
+            <Route path="/" element={
+              <>
+                <Home />
+                <FeaturedCards />
+                <EmailSubscribe />
+                <Stats />
+              </>
+            } />
+            <Route path="/login" element={<Login />} />
+            <Route path="/login/:token" element={<Login />} />
 
-          <Route path="/signIn" element={<SignUp />} />
-          <Route path="/featured" element={<FeaturedCards />} />
-          <Route path="/board" element={<Board />} />
-          <Route path="/subscribe" element={<EmailSubscribe />} />
-          <Route path="/vision-mission" element={<VisionMission />} />
-          <Route path="/fdp" element={<Fdp />} />
-          <Route path="/our-team" element={<OurTeam />} />
-          <Route path="/forgot-password" element={<Forgotpass />} />
-          <Route path="/help" element={<Help />} />
-          <Route path="/overview" element={<Overview />} />
-          <Route path="/conferences" element={<Conference />} />
-          <Route path="/mou" element={<Mou />} />
-          <Route path="/policies" element={<Policies />} />
-          <Route path="/reports" element={<Reports />} />
-          <Route path="/awards" element={<Award />} />
-          <Route path="/events" element={<Event />} />
-          <Route path="/privacy-policy" element={<PrivacyPolicy />} /> 
-          <Route path="/terms-conditions" element={<TermsConditions />} />
-          <Route path="/carrier" element={<Carrier />} />
-          <Route path="/service" element={<Service />} />
-          <Route path="/medals-and-awards" element={<MedalsAwards />} />
-          <Route path="/anniversary-day" element={<AnniversaryDay />} />
-          <Route path="/science-book-prize" element={<ScienceBookPrize />} />
-          <Route path="/research-initiatives" element={<ResearchInitiatives />} />
-          <Route path="/innovation-hub" element={<InnovationHub />} />
-          <Route path="/education-programs" element={<EducationPrograms />} />
-          <Route path="/membership-form" element={<MembershipForm />} />
+            <Route path="/signIn" element={<SignUp />} />
+            <Route path="/featured" element={<FeaturedCards />} />
+            <Route path="/board" element={<Board />} />
+            <Route path="/subscribe" element={<EmailSubscribe />} />
+            <Route path="/vision-mission" element={<VisionMission />} />
+            <Route path="/fdp" element={<Fdp />} />
+            <Route path="/our-team" element={<OurTeam />} />
+            <Route path="/forgot-password" element={<Forgotpass />} />
+            <Route path="/help" element={<Help />} />
+            <Route path="/overview" element={<Overview />} />
+            <Route path="/conferences" element={<Conference />} />
+            <Route path="/mou" element={<Mou />} />
+            <Route path="/policies" element={<Policies />} />
+            <Route path="/reports" element={<Reports />} />
+            <Route path="/awards" element={<Award />} />
+            <Route path="/events" element={<Event />} />
+            <Route path="/privacy-policy" element={<PrivacyPolicy />} /> 
+            <Route path="/terms-conditions" element={<TermsConditions />} />
+            <Route path="/carrier" element={<Carrier />} />
+            <Route path="/service" element={<Service />} />
+            <Route path="/medals-and-awards" element={<MedalsAwards />} />
+            <Route path="/anniversary-day" element={<AnniversaryDay />} />
+            <Route path="/science-book-prize" element={
+              <LoadingWrapper loadingTime={500}>
+                <ScienceBookPrize />
+              </LoadingWrapper>
+            } />
+            <Route path="/research-initiatives" element={
+              <LoadingWrapper loadingTime={500}>
+                <ResearchInitiatives />
+              </LoadingWrapper>
+            } />
+            <Route path="/innovation-hub" element={
+              <LoadingWrapper loadingTime={500}>
+                <InnovationHub />
+              </LoadingWrapper>
+            } />
+            <Route path="/education-programs" element={
+              <LoadingWrapper loadingTime={500}>
+                <EducationPrograms />
+              </LoadingWrapper>
+            } />
+            <Route path="/membership-form" element={
+              <LoadingWrapper loadingTime={500}>
+                <MembershipForm />
+              </LoadingWrapper>
+            } />
 
-        </Routes>
-        <Footer data-aos="fade-up" data-aos-delay="300" />
-  
-      </div>
+          </Routes>
+          <Footer data-aos="fade-up" data-aos-delay="300" />
+        </div>
+      </RouteChangeHandler>
     </Router>
   );
 }

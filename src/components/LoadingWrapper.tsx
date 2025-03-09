@@ -1,23 +1,27 @@
 import React, { useState, useEffect } from 'react';
 import LoadingScreen from './LoadingScreen';
 
-const LoadingWrapper = ({ children }: { children: React.ReactNode }) => {
+interface LoadingWrapperProps {
+  children: React.ReactNode;
+  loadingTime?: number;
+}
+
+const LoadingWrapper: React.FC<LoadingWrapperProps> = ({ children, loadingTime = 200 }) => {
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
     const timer = setTimeout(() => {
       setIsLoading(false);
-    }, 800); // 1.5 seconds loading time
+    }, loadingTime);
 
     return () => clearTimeout(timer);
-  }, []);
+  }, [loadingTime]);
 
-  return (
-    <>
-      {isLoading && <LoadingScreen />}
-      {children}
-    </>
-  );
+  if (isLoading) {
+    return <LoadingScreen />;
+  }
+
+  return <>{children}</>;
 };
 
 export default LoadingWrapper;
