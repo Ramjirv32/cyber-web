@@ -360,12 +360,12 @@ app.post('/reset-password', async (req, res) => {
     }
 });
 
-// Modify the subscription endpoint
+
 app.post('/api/subscribe', async (req, res) => {
     const { firstName, lastName, email, interests, frequency } = req.body;
 
     try {
-        // Check if email already exists
+    
         const existingSubscription = await Newsletter.findOne({ email });
         if (existingSubscription) {
             return res.status(400).json({
@@ -374,7 +374,7 @@ app.post('/api/subscribe', async (req, res) => {
             });
         }
 
-        // Create new subscription
+       
         const newSubscription = new Newsletter({
             firstName,
             lastName,
@@ -385,7 +385,7 @@ app.post('/api/subscribe', async (req, res) => {
 
         await newSubscription.save();
 
-        // Send confirmation email
+     
         const mailOptions = {
             from: process.env.EMAIL_USER,
             to: email,
@@ -444,7 +444,7 @@ app.post('/api/subscribe', async (req, res) => {
     }
 });
 
-// Add endpoint to manage subscription (optional)
+
 app.post('/api/unsubscribe', async (req, res) => {
     const { email } = req.body;
     try {
@@ -475,10 +475,10 @@ app.post('/api/unsubscribe', async (req, res) => {
 app.post('/api/membership', async (req, res) => {
   try {
     const membership = new Membership(req.body);
-    membership.paymentStatus = 'completed'; // Set as completed for now
+    membership.paymentStatus = 'completed'; 
     await membership.save();
 
-    // Send confirmation email
+    
     await sendMembershipConfirmationEmail(
       membership.email,
       membership.firstName,
@@ -499,7 +499,7 @@ app.post('/api/membership', async (req, res) => {
   }
 });
 
-// Add endpoint to update payment status
+
 app.post('/api/membership/payment', async (req, res) => {
   const { membershipId, paymentStatus } = req.body;
   try {
