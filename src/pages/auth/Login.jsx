@@ -36,7 +36,7 @@ export default function Login() {
       }
 
      
-      const response = await axios.post(`${API_URL}/login`, {
+      const response = await axios.post(`http://localhost:5000/login`, {
         email: email,
         password: password
       }, {

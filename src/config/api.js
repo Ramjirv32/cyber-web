@@ -1,1 +1,1 @@
-export const API_URL = 'https://cyber-web.vercel.app';
+export const API_URL = 'http://localhost:5000';
