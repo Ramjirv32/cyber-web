@@ -155,10 +155,10 @@ export default function Contact() {
                   <div>
                     <h3 className="font-medium text-gray-900">Address</h3>
                     <p className="text-gray-600">
-                      No: 47, First Floor, Kodisamy Nagar,<br />
-                      100 Feet Road, Mudaliarpet,<br />
-                      Puducherry - 605004<br />
-                      India
+                      Dr.S.V.Manikanthan, M.E, PhD, B.L.<br />
+                      Founder – Director<br />
+                      Mélange Academic Research Associates<br />
+                      Puducherry - 605004, India.
                     </p>
                   </div>
                 </div>
@@ -166,23 +166,23 @@ export default function Contact() {
                   <Phone className="h-6 w-6 text-red-500 flex-shrink-0" />
                   <div>
                     <h3 className="font-medium text-gray-900">Phone</h3>
-                    <p className="text-gray-600">+1 (987) 654-3210</p>
+                    <p className="text-gray-600">+91-9943371101</p>
                   </div>
                 </div>
                 <div className="flex items-start gap-4">
                   <Mail className="h-6 w-6 text-red-500 flex-shrink-0" />
                   <div>
                     <h3 className="font-medium text-gray-900">Email</h3>
-                    <p className="text-gray-600">info@societycis.org</p>
+                    <p className="text-gray-600">prof.manikanthan@gmail.com</p>
                   </div>
                 </div>
                 <div className="flex items-start gap-4">
                   <Globe className="h-6 w-6 text-red-500 flex-shrink-0" />
                   <div>
                     <h3 className="font-medium text-gray-900">Website</h3>
-                    <p className="text-gray-600">www.cyberintelcommunity.org</p>
+                    <p className="text-gray-600">www.societycis.org</p>
                   </div>
-                </div>
+                  </div>
               </div>
             </div>
 
@@ -210,18 +210,18 @@ export default function Contact() {
         <div className="mt-16" data-aos="fade-up">
           <h2 className="text-2xl font-bold text-gray-900 mb-8 text-center">Our Global Presence</h2>
           <div className="relative h-96 rounded-lg overflow-hidden shadow-lg">
-            <iframe
-              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d387193.30596576184!2d-74.25986548727506!3d40.69714941680757!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x89c24fa5d33f083b%3A0xc80b8f06e177fe62!2sNew%20York%2C%20NY%2C%20USA!5e0!3m2!1sen!2sin!4v1689825827046!5w!3h384"
-              width="100%"
-              height="100%"
-              style={{ border: 0 }}
-              allowFullScreen={true}
-              loading="lazy"
-              referrerPolicy="no-referrer-when-downgrade"
-              className="w-full h-full"
-              title="Cyber Intelligence Community Location"
-            ></iframe>
-          </div>
+  <iframe
+    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3884.267084795897!2d79.81240531529697!3d11.93314409095832!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3a536b16e2a8b7fb%3A0x18b7a9e8539407c!2sPuducherry%2C%20Puducherry%2C%20India!5e0!3m2!1sen!2sus!4v1689980000000"
+    width="100%"
+    height="100%"
+    style={{ border: 0 }}
+    allowFullScreen
+    loading="lazy"
+    referrerPolicy="no-referrer-when-downgrade"
+    className="w-full h-full"
+    title="Mélange Academic Research Associates, Puducherry, India"
+  ></iframe>
+</div>
         </div>
 
         <Testimonials />
