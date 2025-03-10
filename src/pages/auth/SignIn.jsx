@@ -96,7 +96,7 @@ export default function Signup() {
         if (response.data.token) {
           localStorage.setItem('token', response.data.token);
         }
-        navigate('/LogIn');
+        navigate('/membership-form');
       } else {
         throw new Error(response.data.message || 'Login failed');
       }
