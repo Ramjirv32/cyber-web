@@ -237,6 +237,15 @@ app.post('/signin', async (req, res) => {
     }
 });
 
+app.get('/collections', async (req, res) => {
+  try {
+    const collections = await mongoose.connection.db.listCollections().toArray();
+    res.json(collections.map(col => col.name));
+  } catch (error) {
+    res.status(500).json({ error: 'Error fetching collections' });
+  }
+});
+
 app.get('/verify-email', async (req, res) => {
     const token = req.query.token;
     if (!token) {

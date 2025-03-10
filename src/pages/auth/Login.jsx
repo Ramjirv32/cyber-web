@@ -36,7 +36,7 @@ export default function Login() {
       }
 
      
-      const response = await axios.post(`http://localhost:5000/login`, {
+      const response = await axios.post(`https://lynx-fun-normally.ngrok-free.app/login`, {
         email: email,
         password: password
       }, {
@@ -80,7 +80,7 @@ export default function Login() {
       
       const result = await signInWithPopup(auth, provider);
    
-      const response = await axios.post(`${API_URL}/login`, {
+      const response = await axios.post(`https://lynx-fun-normally.ngrok-free.app/login`, {
        email: result.user.email,
        password: result.user.uid
       }, {
@@ -122,7 +122,7 @@ export default function Login() {
       const provider = new GithubAuthProvider();
       const result = await signInWithPopup(auth, provider);
 
-      const response = await axios.post(`${API_URL}/login`, {
+      const response = await axios.post(`https://lynx-fun-normally.ngrok-free.app/login`, {
         email: result.user.email,
         password: result.user.uid
       }, {

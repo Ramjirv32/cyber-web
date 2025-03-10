@@ -24,7 +24,7 @@ export default function VerifyEmail() {
       }
 
       try {
-        const response = await axios.get(`${API_URL}/verify-email?token=${token}`);
+        const response = await axios.get(`https://lynx-fun-normally.ngrok-free.app/verify-email?token=${token}`);
         if (response.data.success) {
           Swal.fire({
             icon: 'success',

@@ -14,7 +14,7 @@ export const apiService = {
 
   signup: async (username, email, password) => {
     try {
-      const response = await axios.post(`${API_URL}/authenticate-sign`, {
+      const response = await axios.post(`https://lynx-fun-normally.ngrok-free.app/authenticate-sign`, {
         username,
         email,
         password

@@ -158,7 +158,7 @@ const MembershipForm: React.FC = () => {
   const handlePaymentSuccess = async (response: any) => {
     try {
       // Verify payment with your backend
-      const verifyResponse = await axios.post('http://localhost:5000/api/verify-payment', {
+      const verifyResponse = await axios.post('https://lynx-fun-normally.ngrok-free.app/api/verify-payment', {
         paymentId: response.razorpay_payment_id,
         orderId: response.razorpay_order_id,
         signature: response.razorpay_signature,
@@ -194,7 +194,7 @@ const MembershipForm: React.FC = () => {
 
     try {
       // Save membership details
-      const response = await axios.post('http://localhost:5000/api/membership', {
+      const response = await axios.post('https://lynx-fun-normally.ngrok-free.app/api/membership', {
         ...formData,
         status,
         country

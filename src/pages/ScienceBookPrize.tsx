@@ -206,10 +206,10 @@ const TechBooks: React.FC = () => {
         </div>
       </div>
 
-      {/* Main Content */}
+   
       <main className="container mx-auto px-4 py-8">
         <div className="flex flex-col md:flex-row gap-8">
-          {/* Book Cover */}
+       
           <div className="md:w-1/4">
             <div className="border border-gray-300 p-2 bg-white">
               <div className="bg-blue-900 text-white p-2 text-xs font-bold mb-2">O'REILLY</div>
