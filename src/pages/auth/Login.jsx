@@ -16,6 +16,11 @@ export default function Login() {
   const navigate = useNavigate();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [isLoading, setIsLoading] = useState({
+    email: false,
+    google: false,
+    github: false
+  });
 
   useEffect(() => {
     AOS.init({ duration: 1000, once: true });
@@ -23,6 +28,7 @@ export default function Login() {
 
   const handleLogin = async (e) => {
     e.preventDefault();
+    setIsLoading({ ...isLoading, email: true });
 
     try {
       if (!email || !password) {
@@ -36,7 +42,7 @@ export default function Login() {
       }
 
      
-      const response = await axios.post(`https://lynx-fun-normally.ngrok-free.app/login`, {
+      const response = await axios.post(`https://b-gray-phi.vercel.app/login`, {
         email: email,
         password: password
       }, {
@@ -68,10 +74,13 @@ export default function Login() {
         text: getErrorMessage(error),
         timer: 2000,
       });
+    } finally {
+      setIsLoading({ ...isLoading, email: false });
     }
   };
 
   const handleGoogleSignIn = async () => {
+    setIsLoading({ ...isLoading, google: true });
     try {
       const provider = new GoogleAuthProvider();
       provider.setCustomParameters({
@@ -80,7 +89,7 @@ export default function Login() {
       
       const result = await signInWithPopup(auth, provider);
    
-      const response = await axios.post(`https://lynx-fun-normally.ngrok-free.app/login`, {
+      const response = await axios.post(`https://b-gray-phi.vercel.app/login`, {
        email: result.user.email,
        password: result.user.uid
       }, {
@@ -114,15 +123,18 @@ export default function Login() {
         timer: 3000,
       });
       navigate("/SignIn");
+    } finally {
+      setIsLoading({ ...isLoading, google: false });
     }
   };
 
   const handleGitHubSignIn = async () => {
+    setIsLoading((prevState) => ({ ...prevState, github: true }));
     try {
       const provider = new GithubAuthProvider();
       const result = await signInWithPopup(auth, provider);
 
-      const response = await axios.post(`https://lynx-fun-normally.ngrok-free.app/login`, {
+      const response = await axios.post(`https://b-gray-phi.vercel.app/login`, {
         email: result.user.email,
         password: result.user.uid
       }, {
@@ -153,6 +165,8 @@ localStorage.setItem('email', result.user.email);
         text: getErrorMessage(error),
         timer: 3000,
       });
+    } finally {
+      setIsLoading((prevState) => ({ ...prevState, github: false }));
     }
   };
 
@@ -193,9 +207,22 @@ localStorage.setItem('email', result.user.email);
             <button
               onClick={handleGoogleSignIn}
               className="w-full flex justify-center items-center px-4 py-2 border border-gray-300 rounded-lg shadow-sm text-base font-medium text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500"
+              disabled={isLoading.email || isLoading.google || isLoading.github}
             >
-              <img src="https://www.gstatic.com/firebasejs/ui/2.0.0/images/auth/google.svg" alt="Google" className="w-5 h-5 mr-2" />
-              Sign in with Google
+              {isLoading.google ? (
+                <>
+                  <svg className="animate-spin -ml-1 mr-3 h-5 w-5 text-gray-700" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                    <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
+                    <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                  </svg>
+                  Signing in...
+                </>
+              ) : (
+                <>
+                  <img src="https://www.gstatic.com/firebasejs/ui/2.0.0/images/auth/google.svg" alt="Google" className="w-5 h-5 mr-2" />
+                  Sign in with Google
+                </>
+              )}
             </button>
           </div>
 
@@ -253,9 +280,20 @@ localStorage.setItem('email', result.user.email);
 
             <button
               type="submit"
-              className="w-full flex justify-center items-center px-4 py-2 border border-transparent rounded-lg shadow-sm text-base font-medium text-white bg-red-600 hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500"
+              disabled={isLoading.email || isLoading.google || isLoading.github}
+              className="w-full flex justify-center items-center px-4 py-2 border border-transparent rounded-lg shadow-sm text-base font-medium text-white bg-red-600 hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500 disabled:opacity-50"
             >
-              Sign in
+              {isLoading.email ? (
+                <>
+                  <svg className="animate-spin -ml-1 mr-3 h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                    <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
+                    <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                  </svg>
+                  Signing in...
+                </>
+              ) : (
+                'Sign in'
+              )}
             </button>
           </form>
 

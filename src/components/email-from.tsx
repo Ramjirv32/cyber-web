@@ -61,7 +61,7 @@ export default function EmailSubscribe() {
     setSubmitStatus({ loading: true, message: "", error: false });
 
     try {
-      const response = await fetch('https://lynx-fun-normally.ngrok-free.app/api/subscribe', {
+      const response = await fetch('https://b-gray-phi.vercel.app/api/subscribe', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

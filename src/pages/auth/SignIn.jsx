@@ -12,6 +12,10 @@ export default function Signup() {
   const navigate = useNavigate();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [isLoading, setIsLoading] = useState({
+    email: false,
+    google: false
+  });
 
   useEffect(() => {
     AOS.init({ duration: 1000, once: true });
@@ -19,6 +23,7 @@ export default function Signup() {
 
   const handleSignup = async (e) => {
     e.preventDefault();
+    setIsLoading({ ...isLoading, email: true });
 
     try {
       if (!email || !password) {
@@ -31,7 +36,7 @@ export default function Signup() {
         return;
       }
 
-      const response = await fetch('https://lynx-fun-normally.ngrok-free.app/signin', {
+      const response = await fetch('https://b-gray-phi.vercel.app/signin', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'
@@ -68,10 +73,14 @@ export default function Signup() {
         text: 'Unable to connect to the server. Please try again.',
         timer: 2000,
       });
+    } finally {
+      setIsLoading({ ...isLoading, email: false });
     }
   };
 
   const handleGoogleSignIn = async () => {
+    setIsLoading({ ...isLoading, google: true });
+    
     try {
       const provider = new GoogleAuthProvider();
       provider.setCustomParameters({
@@ -80,7 +89,7 @@ export default function Signup() {
       
       const result = await signInWithPopup(auth, provider);
       
-      const response = await axios.post(`https://lynx-fun-normally.ngrok-free.app/signin`, {
+      const response = await axios.post(`https://b-gray-phi.vercel.app/signin`, {
         email: result.user.email,
         password: result.user.uid
       });
@@ -107,6 +116,8 @@ export default function Signup() {
         text: getErrorMessage(error),
         timer: 3000,
       });
+    } finally {
+      setIsLoading({ ...isLoading, google: false });
     }
   };
 
@@ -146,10 +157,18 @@ export default function Signup() {
           <div className="mb-6">
             <button
               onClick={handleGoogleSignIn}
-              className="w-full flex justify-center items-center px-4 py-2 border border-gray-300 rounded-lg shadow-sm text-base font-medium text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500"
+              disabled={isLoading.google || isLoading.email}
+              className="w-full flex justify-center items-center px-4 py-2 border border-gray-300 rounded-lg shadow-sm text-base font-medium text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500 disabled:opacity-50"
             >
-              <img src="https://www.gstatic.com/firebasejs/ui/2.0.0/images/auth/google.svg" alt="Google" className="w-5 h-5 mr-2" />
-              Sign up with Google
+              {isLoading.google ? (
+                <svg className="animate-spin -ml-1 mr-3 h-5 w-5 text-gray-700" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                  <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
+                  <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                </svg>
+              ) : (
+                <img src="https://www.gstatic.com/firebasejs/ui/2.0.0/images/auth/google.svg" alt="Google" className="w-5 h-5 mr-2" />
+              )}
+              {isLoading.google ? 'Signing in...' : 'Sign up with Google'}
             </button>
           </div>
 
@@ -199,9 +218,20 @@ export default function Signup() {
 
             <button
               type="submit"
-              className="w-full flex justify-center items-center px-4 py-2 border border-transparent rounded-lg shadow-sm text-base font-medium text-white bg-red-600 hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500"
+              disabled={isLoading.email || isLoading.google}
+              className="w-full flex justify-center items-center px-4 py-2 border border-transparent rounded-lg shadow-sm text-base font-medium text-white bg-red-600 hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500 disabled:opacity-50"
             >
-              Create account
+              {isLoading.email ? (
+                <>
+                  <svg className="animate-spin -ml-1 mr-3 h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                    <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
+                    <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                  </svg>
+                  Creating account...
+                </>
+              ) : (
+                'Create account'
+              )}
             </button>
           </form>
 
