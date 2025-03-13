@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const API_URL = 'http://localhost:3200';
+const API_URL = 'https://b-gray-phi.vercel.app';
 
 export const apiService = {
   login: async (email, password) => {
@@ -14,7 +14,7 @@ export const apiService = {
 
   signup: async (username, email, password) => {
     try {
-      const response = await axios.post(`https://lynx-fun-normally.ngrok-free.app/authenticate-sign`, {
+      const response = await axios.post(`https://b-gray-phi.vercel.app/authenticate-sign`, {
         username,
         email,
         password

@@ -15,7 +15,7 @@ const secret = process.env.JWT_SECRET;
 
 const allowedOrigins = [
   'http://societycis.org',
-  'https://societycis.org',
+  'https://cyber-web.vercel.app/',
   'http://localhost:5173',
   'http://localhost:3000'
 ];
@@ -41,19 +41,30 @@ app.use(express.json());
 
 app.options('*', cors());
 
-mongoose.connect(process.env.MONGODB_URI)
-    .then(() => {
-        console.log("MongoDB Atlas Connected Successfully to database 'cyber'");
-    })
-    .catch(err => {
-        console.error("MongoDB Connection Error Details:", {
-            message: err.message,
-            code: err.code,
-            name: err.name,
-            stack: err.stack
+let cachedDb = null;
+
+async function connectToDatabase() {
+    try {
+        if (cachedDb) {
+            console.log('Using cached database connection');
+            return cachedDb;
+        }
+        
+        console.log('Creating new database connection');
+        const connection = await mongoose.connect(process.env.MONGODB_URI, {
+            useNewUrlParser: true,
+            useUnifiedTopology: true,
+            bufferCommands: false
         });
-        process.exit(1);
-    });
+        
+        cachedDb = connection;
+        console.log('Database connection established');
+        return connection;
+    } catch (error) {
+        console.error('MongoDB connection error:', error);
+        throw error;
+    }
+}
 
 const userSchema = new mongoose.Schema({
     username: String,
@@ -259,13 +270,40 @@ app.post('/signin', async (req, res) => {
     }
 });
 
+app.get("/",(req,res)=>{
+    res.send("Welcome to Cyber Intelligent System");
+});
+
 app.get('/collections', async (req, res) => {
-  try {
-    const collections = await mongoose.connection.db.listCollections().toArray();
-    res.json(collections.map(col => col.name));
-  } catch (error) {
-    res.status(500).json({ error: 'Error fetching collections' });
-  }
+    try {
+        console.log('Attempting to connect to database...');
+        await connectToDatabase();
+        
+        console.log('Getting database instance...');
+        const db = mongoose.connection.db;
+        
+        if (!db) {
+            throw new Error('Database instance not available');
+        }
+        
+        console.log('Fetching collections...');
+        const collections = await db.listCollections().toArray();
+        
+        console.log(`Found ${collections.length} collections`);
+        
+        return res.status(200).json({
+            success: true,
+            collections: collections.map(col => col.name),
+            dbName: db.databaseName
+        });
+    } catch (error) {
+        console.error('Error in /collections:', error);
+        return res.status(500).json({
+            success: false,
+            error: 'Error fetching collections',
+            details: error.message
+        });
+    }
 });
 
 app.get('/verify-email', async (req, res) => {
@@ -553,6 +591,25 @@ app.post('/api/membership/payment', async (req, res) => {
   }
 });
 
+app.get('/health', (req, res) => {
+    res.status(200).json({
+        status: 'ok',
+        timestamp: new Date().toISOString(),
+        environment: process.env.NODE_ENV
+    });
+});
+
+app.use((err, req, res, next) => {
+    console.error(err.stack);
+    res.status(500).json({
+        success: false,
+        message: 'Something broke!',
+        error: err.message
+    });
+});
+
 app.listen(PORT, () => {
     console.log(`Server is running on http://localhost:${PORT}`);
 });
+
+export default app;
