@@ -259,6 +259,7 @@ app.post('/signin', async (req, res) => {
     }
 });
 
+
 app.get('/collections', async (req, res) => {
   try {
     const collections = await mongoose.connection.db.listCollections().toArray();
