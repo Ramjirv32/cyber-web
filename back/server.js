@@ -15,7 +15,7 @@ const secret = process.env.JWT_SECRET;
 
 const allowedOrigins = [
   'http://societycis.org',
-  'https://societycis.org',
+  'https://cyber-web.vercel.app/',
   'http://localhost:5173',
   'http://localhost:3000'
 ];
