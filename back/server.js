@@ -44,32 +44,38 @@ app.options('*', cors());
 let cachedDb = null;
 
 async function connectToDatabase() {
-    if (cachedDb) {
-        return cachedDb;
+    try {
+        if (cachedDb) {
+            return cachedDb;
+        }
+        
+        const connection = await mongoose.connect(process.env.MONGODB_URI || 'mongodb+srv://ramji:vikas2311@cluster0.ln4g5.mongodb.net/cyber?retryWrites=true&w=majority&appName=Cluster0', {
+            useNewUrlParser: true,
+            useUnifiedTopology: true
+        });
+        
+        cachedDb = connection;
+        return connection;
+    } catch (error) {
+        console.error('MongoDB connection error:', error);
+        throw error;
     }
-    
-    const connection = await mongoose.connect('mongodb+srv://ramji:vikas2311@cluster0.ln4g5.mongodb.net/cyber?retryWrites=true&w=majority&appName=Cluster0', {
-        useNewUrlParser: true,
-        useUnifiedTopology: true
-    });
-    
-    cachedDb = connection;
-    return cachedDb;
 }
 
-mongoose.connect('mongodb+srv://ramji:vikas2311@cluster0.ln4g5.mongodb.net/cyber?retryWrites=true&w=majority&appName=Cluster0')
-    .then(() => {
-        console.log("MongoDB Atlas Connected Successfully to database 'cyber'");
-    })
-    .catch(err => {
-        console.error("MongoDB Connection Error Details:", {
-            message: err.message,
-            code: err.code,
-            name: err.name,
-            stack: err.stack
-        });
-        process.exit(1);
-    });
+// Remove or comment out this duplicate connection
+// mongoose.connect('mongodb+srv://ramji:vikas2311@cluster0.ln4g5.mongodb.net/cyber?retryWrites=true&w=majority&appName=Cluster0')
+//     .then(() => {
+//         console.log("MongoDB Atlas Connected Successfully to database 'cyber'");
+//     })
+//     .catch(err => {
+//         console.error("MongoDB Connection Error Details:", {
+//             message: err.message,
+//             code: err.code,
+//             name: err.name,
+//             stack: err.stack
+//         });
+//         process.exit(1);
+//     });
 
 const userSchema = new mongoose.Schema({
     username: String,
@@ -282,14 +288,25 @@ app.get("/",(req,res)=>{
 app.get('/collections', async (req, res) => {
     try {
         console.log('Attempting to fetch collections...');
-        await connectToDatabase();
+        const connection = await connectToDatabase();
         console.log('Database connected');
-        const collections = await mongoose.connection.db.listCollections().toArray();
+        
+        if (!connection.connection.db) {
+            throw new Error('Database connection not established');
+        }
+        
+        const collections = await connection.connection.db.listCollections().toArray();
         console.log('Collections fetched:', collections.length);
-        res.json(collections.map(col => col.name));
+        
+        res.json({
+            success: true,
+            collections: collections.map(col => col.name),
+            dbName: connection.connection.db.databaseName
+        });
     } catch (error) {
         console.error('Error in /collections:', error);
         res.status(500).json({ 
+            success: false,
             error: 'Error fetching collections',
             details: error.message,
             stack: error.stack
