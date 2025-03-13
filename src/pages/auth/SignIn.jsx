@@ -31,7 +31,7 @@ export default function Signup() {
         return;
       }
 
-      const response = await fetch('https://lynx-fun-normally.ngrok-free.app/signin', {
+      const response = await fetch('https://cyber-web.vercel.app/signin', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'
