@@ -41,7 +41,7 @@ app.use(express.json());
 
 app.options('*', cors());
 
-mongoose.connect(process.env.MONGODB_URI)
+mongoose.connect('mongodb+srv://ramji:vikas2311@cluster0.ln4g5.mongodb.net/cyber?retryWrites=true&w=majority&appName=Cluster0')
     .then(() => {
         console.log("MongoDB Atlas Connected Successfully to database 'cyber'");
     })
