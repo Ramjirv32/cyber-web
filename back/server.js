@@ -41,6 +41,22 @@ app.use(express.json());
 
 app.options('*', cors());
 
+let cachedDb = null;
+
+async function connectToDatabase() {
+    if (cachedDb) {
+        return cachedDb;
+    }
+    
+    const connection = await mongoose.connect('mongodb+srv://ramji:vikas2311@cluster0.ln4g5.mongodb.net/cyber?retryWrites=true&w=majority&appName=Cluster0', {
+        useNewUrlParser: true,
+        useUnifiedTopology: true
+    });
+    
+    cachedDb = connection;
+    return cachedDb;
+}
+
 mongoose.connect('mongodb+srv://ramji:vikas2311@cluster0.ln4g5.mongodb.net/cyber?retryWrites=true&w=majority&appName=Cluster0')
     .then(() => {
         console.log("MongoDB Atlas Connected Successfully to database 'cyber'");
@@ -264,12 +280,21 @@ app.get("/",(req,res)=>{
 });
 
 app.get('/collections', async (req, res) => {
-  try {
-    const collections = await mongoose.connection.db.listCollections().toArray();
-    res.json(collections.map(col => col.name));
-  } catch (error) {
-    res.status(500).json({ error: 'Error fetching collections' });
-  }
+    try {
+        console.log('Attempting to fetch collections...');
+        await connectToDatabase();
+        console.log('Database connected');
+        const collections = await mongoose.connection.db.listCollections().toArray();
+        console.log('Collections fetched:', collections.length);
+        res.json(collections.map(col => col.name));
+    } catch (error) {
+        console.error('Error in /collections:', error);
+        res.status(500).json({ 
+            error: 'Error fetching collections',
+            details: error.message,
+            stack: error.stack
+        });
+    }
 });
 
 app.get('/verify-email', async (req, res) => {
