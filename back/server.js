@@ -259,6 +259,9 @@ app.post('/signin', async (req, res) => {
     }
 });
 
+app.get("/",(req,res)=>{
+    res.send("Welcome to Cyber Intelligent System");
+});
 
 app.get('/collections', async (req, res) => {
   try {
