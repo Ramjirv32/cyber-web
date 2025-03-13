@@ -46,36 +46,25 @@ let cachedDb = null;
 async function connectToDatabase() {
     try {
         if (cachedDb) {
+            console.log('Using cached database connection');
             return cachedDb;
         }
         
-        const connection = await mongoose.connect(process.env.MONGODB_URI || 'mongodb+srv://ramji:vikas2311@cluster0.ln4g5.mongodb.net/cyber?retryWrites=true&w=majority&appName=Cluster0', {
+        console.log('Creating new database connection');
+        const connection = await mongoose.connect(process.env.MONGODB_URI, {
             useNewUrlParser: true,
-            useUnifiedTopology: true
+            useUnifiedTopology: true,
+            bufferCommands: false
         });
         
         cachedDb = connection;
+        console.log('Database connection established');
         return connection;
     } catch (error) {
         console.error('MongoDB connection error:', error);
         throw error;
     }
 }
-
-// Remove or comment out this duplicate connection
-// mongoose.connect('mongodb+srv://ramji:vikas2311@cluster0.ln4g5.mongodb.net/cyber?retryWrites=true&w=majority&appName=Cluster0')
-//     .then(() => {
-//         console.log("MongoDB Atlas Connected Successfully to database 'cyber'");
-//     })
-//     .catch(err => {
-//         console.error("MongoDB Connection Error Details:", {
-//             message: err.message,
-//             code: err.code,
-//             name: err.name,
-//             stack: err.stack
-//         });
-//         process.exit(1);
-//     });
 
 const userSchema = new mongoose.Schema({
     username: String,
@@ -287,29 +276,32 @@ app.get("/",(req,res)=>{
 
 app.get('/collections', async (req, res) => {
     try {
-        console.log('Attempting to fetch collections...');
-        const connection = await connectToDatabase();
-        console.log('Database connected');
+        console.log('Attempting to connect to database...');
+        await connectToDatabase();
         
-        if (!connection.connection.db) {
-            throw new Error('Database connection not established');
+        console.log('Getting database instance...');
+        const db = mongoose.connection.db;
+        
+        if (!db) {
+            throw new Error('Database instance not available');
         }
         
-        const collections = await connection.connection.db.listCollections().toArray();
-        console.log('Collections fetched:', collections.length);
+        console.log('Fetching collections...');
+        const collections = await db.listCollections().toArray();
         
-        res.json({
+        console.log(`Found ${collections.length} collections`);
+        
+        return res.status(200).json({
             success: true,
             collections: collections.map(col => col.name),
-            dbName: connection.connection.db.databaseName
+            dbName: db.databaseName
         });
     } catch (error) {
         console.error('Error in /collections:', error);
-        res.status(500).json({ 
+        return res.status(500).json({
             success: false,
             error: 'Error fetching collections',
-            details: error.message,
-            stack: error.stack
+            details: error.message
         });
     }
 });
@@ -599,6 +591,25 @@ app.post('/api/membership/payment', async (req, res) => {
   }
 });
 
+app.get('/health', (req, res) => {
+    res.status(200).json({
+        status: 'ok',
+        timestamp: new Date().toISOString(),
+        environment: process.env.NODE_ENV
+    });
+});
+
+app.use((err, req, res, next) => {
+    console.error(err.stack);
+    res.status(500).json({
+        success: false,
+        message: 'Something broke!',
+        error: err.message
+    });
+});
+
 app.listen(PORT, () => {
     console.log(`Server is running on http://localhost:${PORT}`);
 });
+
+export default app;
