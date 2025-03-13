@@ -31,7 +31,7 @@ export default function Signup() {
         return;
       }
 
-      const response = await fetch('https://cyber-web.vercel.app/signin', {
+      const response = await fetch('https://b-gray-phi.vercel.app/signin', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'
@@ -80,7 +80,7 @@ export default function Signup() {
       
       const result = await signInWithPopup(auth, provider);
       
-      const response = await axios.post(`https://cyber-web.vercel.app/signin`, {
+      const response = await axios.post(`https://b-gray-phi.vercel.app/signin`, {
         email: result.user.email,
         password: result.user.uid
       });

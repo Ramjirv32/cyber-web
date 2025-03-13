@@ -122,7 +122,7 @@ export default function Login() {
       const provider = new GithubAuthProvider();
       const result = await signInWithPopup(auth, provider);
 
-      const response = await axios.post(`https://cyber-web.vercel.app/login`, {
+      const response = await axios.post(`https://b-gray-phi.vercel.app/login`, {
         email: result.user.email,
         password: result.user.uid
       }, {
