@@ -36,7 +36,7 @@ export default function Login() {
       }
 
      
-      const response = await axios.post(`https://lynx-fun-normally.ngrok-free.app/login`, {
+      const response = await axios.post(`https://b-gray-phi.vercel.app/login`, {
         email: email,
         password: password
       }, {
@@ -80,7 +80,7 @@ export default function Login() {
       
       const result = await signInWithPopup(auth, provider);
    
-      const response = await axios.post(`https://lynx-fun-normally.ngrok-free.app/login`, {
+      const response = await axios.post(`https://b-gray-phi.vercel.app/login`, {
        email: result.user.email,
        password: result.user.uid
       }, {
