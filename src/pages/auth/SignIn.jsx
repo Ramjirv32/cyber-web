@@ -41,8 +41,18 @@ export default function Signup() {
         headers: {
           'Content-Type': 'application/json'
         },
-        body: JSON.stringify({ email, password })
+        body: JSON.stringify({ email, password }),
+        // Add timeout to fetch
+        signal: AbortSignal.timeout(30000) // 30 second timeout
       });
+
+      // Check if response is ok before parsing JSON
+      if (!response.ok) {
+        const errorData = await response.json().catch(() => ({
+          message: 'An error occurred. Please try again.'
+        }));
+        throw new Error(errorData.message);
+      }
 
       const data = await response.json();
 
@@ -50,27 +60,21 @@ export default function Signup() {
         Swal.fire({
           icon: 'success',
           title: 'Success!',
-          text: 'please verify you email',
+          text: 'Please verify your email',
           timer: 1500,
         });
         if (data.token) {
           localStorage.setItem('token', data.token);
         }
- 
       } else {
-        Swal.fire({
-          icon: 'error',
-          title: 'Signup Failed',
-          text: data.message || 'Unable to create account',
-          timer: 2000,
-        });
+        throw new Error(data.message || 'Unable to create account');
       }
     } catch (error) {
       console.error("Error in connecting:", error);
       Swal.fire({
         icon: 'error',
         title: 'Connection Error',
-        text: 'Unable to connect to the server. Please try again.',
+        text: error.message || 'Unable to connect to the server. Please try again.',
         timer: 2000,
       });
     } finally {
