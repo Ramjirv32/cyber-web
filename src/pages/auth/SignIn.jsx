@@ -42,11 +42,10 @@ export default function Signup() {
           'Content-Type': 'application/json'
         },
         body: JSON.stringify({ email, password }),
-        // Add timeout to fetch
-        signal: AbortSignal.timeout(30000) // 30 second timeout
+      
+        signal: AbortSignal.timeout(30000) 
       });
 
-      // Check if response is ok before parsing JSON
       if (!response.ok) {
         const errorData = await response.json().catch(() => ({
           message: 'An error occurred. Please try again.'

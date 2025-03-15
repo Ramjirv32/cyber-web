@@ -1,31 +1,40 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 import AOS from 'aos';
 import 'aos/dist/aos.css';
-import { ChevronLeft, ChevronRight, Mail, Share2, Facebook, Twitter, Linkedin, Building2, MessageSquare, GraduationCap, ArrowRight } from 'lucide-react';
+import { ChevronLeft, ChevronRight, Building2, MessageSquare, GraduationCap, ArrowRight, Calendar, MapPin } from 'lucide-react';
 import ai from "../components/images/s1.avif";
 import ai2 from "../components/images/s2.avif";
 import ai3 from "../components/images/s3.avif";
-import { Link } from 'react-router-dom';
+import conf1 from "../components/images/conf1.png"; // Import the conf1.png image
+import { Link, useNavigate } from 'react-router-dom';
+
+// Updated slides array with all images plus the conference image
 const slides = [
+
   {
-    image: ai, // Digital technology visualization
+    image: conf1, // Added conference slide
+    subtitle: 'International Conference on Multidisciplinary Breakthroughs',
+    description: 'Join us for ICMBNT–2025 on April 26-27, 2025 at SRM HOTEL, Chennai, India.',
+    isConference: true, // Flag to identify this as the conference slide
+    link: "/about/conferences", // Path to navigate to when clicked
+    duration: 8000 // Longer display time (8 seconds vs default 4 seconds)
+  },
+  {
+    image: ai, // Keep original first slide
     subtitle: 'Innovating the Future',
-    description: 'Join us in the journey of technological advancements and collaborative research.'
+    description: 'Join us in the journey of technological advancements and collaborative research.',
+    isConference: false
   },
   {
-    image: ai2, // AI and data visualization
+    image: ai2, // Keep original slide
     subtitle: 'Advancing AI',
-    description: 'Leading the way in artificial intelligence and machine learning research.'
-  },
-  {
-image: ai3, // Digital cityscape or network
-    subtitle: 'Innovation Hub',
-    description: 'A hub for innovation and cutting-edge technology solutions.'
+    description: 'Leading the way in artificial intelligence and machine learning research.',
+    isConference: false
   },
  
 ];
 
-
+// Rest of the Card component stays the same
 function Card({ 
   title, 
   items, 
@@ -37,14 +46,15 @@ function Card({
   icon: React.ElementType;
   bgImage: string;
 }) {
+  // Card component implementation unchanged
   return (
     <div style={{
       position: 'relative',
       width: '100%',
       maxWidth: '380px',
-      minHeight: '400px', // Reduced from 500px to 400px
+      minHeight: '400px', 
       borderRadius: '16px',
-      padding: '1.5rem', // Reduced padding from 2rem to 1.5rem
+      padding: '1.5rem',
       background: `linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url(${bgImage})`,
       backgroundSize: 'cover',
       backgroundPosition: 'center',
@@ -65,24 +75,24 @@ function Card({
         height: '100%',
       }}>
         <div style={{
-          width: '60px', // Reduced from 80px
-          height: '60px', // Reduced from 80px
+          width: '60px',
+          height: '60px',
           borderRadius: '50%',
           backgroundColor: 'white',
           display: 'flex',
           alignItems: 'center',
           justifyContent: 'center',
-          marginBottom: '1rem', // Reduced from 1.5rem
+          marginBottom: '1rem',
         }}>
-          <Icon style={{ width: '30px', height: '30px', color: '#ff4757' }} /> {/* Reduced icon size */}
+          <Icon style={{ width: '30px', height: '30px', color: '#ff4757' }} />
         </div>
         
         <h2 style={{
-          fontSize: '1.5rem', // Reduced from 1.75rem
+          fontSize: '1.5rem',
           fontWeight: 'bold',
           color: 'white',
           textAlign: 'center',
-          marginBottom: '1.5rem', // Reduced from 2rem
+          marginBottom: '1.5rem',
         }}>
           {title}
         </h2>
@@ -91,14 +101,14 @@ function Card({
           listStyle: 'none',
           padding: 0,
           margin: 0,
-          marginBottom: '1.5rem', // Reduced from 2rem
+          marginBottom: '1.5rem',
           width: '100%',
         }}>
-          {items.slice(0, 4).map((item, index) => ( // Limited to 4 items
+          {items.slice(0, 4).map((item, index) => (
             <li key={index} style={{
               display: 'flex',
               alignItems: 'center',
-              marginBottom: '0.75rem', // Reduced from 1rem
+              marginBottom: '0.75rem',
               color: 'white',
             }}>
               <span style={{
@@ -144,12 +154,22 @@ function Card({
     </div>
   );
 }
-// function o(){
-//   window.location.href = "http://localhost";
-// }
 
 function Home() {
   const [currentSlideIndex, setCurrentSlideIndex] = useState(0);
+  const navigate = useNavigate();
+  const timerRef = useRef<NodeJS.Timeout | null>(null);
+  
+  // Check if current slide is the conference slide
+  const isConferenceSlide = slides[currentSlideIndex]?.isConference;
+  
+  // Function to handle slide rotation with variable timing
+  const rotateSlide = () => {
+    setCurrentSlideIndex((prevIndex) => {
+      const nextIndex = (prevIndex + 1) % slides.length;
+      return nextIndex;
+    });
+  };
 
   useEffect(() => {
     // Initialize AOS
@@ -159,16 +179,32 @@ function Home() {
       mirror: true
     });
 
-    // Set up automatic slide rotation with animation
-    const interval = setInterval(() => {
-      setCurrentSlideIndex((prevIndex) => (prevIndex + 1) % slides.length);
-    }, 4000);
+    // Clear any existing timer
+    if (timerRef.current) {
+      clearTimeout(timerRef.current);
+    }
 
-    // Cleanup interval on component unmount
-    return () => clearInterval(interval);
-  }, []);
+    // Set up slide rotation with variable timing
+    const currentSlide = slides[currentSlideIndex];
+    // Use the slide's specified duration or default to 4000ms
+    const slideDuration = currentSlide.duration || 4000;
+    
+    timerRef.current = setTimeout(rotateSlide, slideDuration);
+
+    // Cleanup timer on component unmount or slide change
+    return () => {
+      if (timerRef.current) {
+        clearTimeout(timerRef.current);
+      }
+    };
+  }, [currentSlideIndex]);
 
   const navigateSlide = (direction: 'prev' | 'next') => {
+    // Clear existing timer when manually navigating
+    if (timerRef.current) {
+      clearTimeout(timerRef.current);
+    }
+    
     setCurrentSlideIndex((prevIndex) => {
       if (direction === 'prev') {
         return prevIndex === 0 ? slides.length - 1 : prevIndex - 1;
@@ -178,11 +214,17 @@ function Home() {
     });
   };
 
+  // Function to go to conference page
+  const goToConference = () => {
+    navigate("/conferences");
+  };
+
+  // Cards array with conf1.png in the first card
   const cards = [
     {
       title: "Collaborative Research",
       icon: Building2,
-      bgImage: "https://images.unsplash.com/photo-1522071820081-009f0129c71c?auto=format&fit=crop&w=800&q=80",
+      bgImage: conf1, // Using the local conf1.png image here
       items: [
         "Computational Intelligence",
         "Edge Intelligence",
@@ -222,12 +264,14 @@ function Home() {
       minHeight: '100vh',
       backgroundColor: '#f8f9fa',
     }}>
+      {/* Hero Section with conditional content for conference */}
       <section className="relative h-[600px] overflow-hidden">
         <div
           key={currentSlideIndex}
-          className="absolute inset-0 w-full h-full"
+          className="absolute inset-0 w-full h-full cursor-pointer"
           data-aos="fade-right"
           data-aos-duration="1000"
+          onClick={() => isConferenceSlide && goToConference()}
         >
           <img
             src={slides[currentSlideIndex].image}
@@ -236,7 +280,9 @@ function Home() {
             loading="lazy"
           />
         </div>
-        <div className="absolute inset-0 bg-gradient-to-r from-black/60 to-black/40" />
+        <div className={`absolute inset-0 ${isConferenceSlide ? 
+          'bg-gradient-to-r from-black/70 to-black/60' : 
+          'bg-gradient-to-r from-black/60 to-black/40'}`} />
         
         {/* Navigation Buttons */}
         <button
@@ -273,21 +319,55 @@ function Home() {
           data-aos="fade-right"
         >
           <div className="max-w-3xl text-white">
-            <h1 className="text-5xl font-bold mb-4 leading-tight">
-              Society for{' '}
-              <span className="text-red-400">Intelligent</span>{' '}
-              <span className="text-red-400">Systems</span>
-            </h1>
-            <p className="text-xl mb-4 opacity-90">{slides[currentSlideIndex].subtitle}</p>
-            <p className="text-lg mb-8 opacity-90">{slides[currentSlideIndex].description}</p>
-            <Link to={"/signin"} className="bg-red-600 hover:bg-red-700 text-white px-8 py-3 rounded-full inline-flex items-center gap-2 transition-colors text-lg font-medium">
-              Get Started
-              <ArrowRight className="h-5 w-5" />
-            </Link>
-            {/* <button onClick={o()}>Go to OJS</button> */}
+            {isConferenceSlide ? (
+              // Conference-specific content with improved visibility
+              <div className=" p-6 rounded-lg">
+                <h1 className="text-5xl font-extrabold mb-4 leading-tight text-white drop-shadow-lg">
+                  ICMBNT–2025
+                </h1>
+                <p className="text-2xl font-bold mb-3 opacity-100 text-red-400 drop-shadow">
+                  International Conference on Multidisciplinary Breakthroughs
+                </p>
+                
+                <div className="flex flex-col sm:flex-row gap-4 mb p-3 rounded">
+                  <div className="flex items-center">
+                    <Calendar className="h-6 w-6 mr-2 text-red-400" />
+                    <span className="text-lg font-medium text-white">April 26-27, 2025</span>
+                  </div>
+                  <div className="flex items-center">
+                    <MapPin className="h-6 w-6 mr-2 text-red-400" />
+                    <span className="text-lg font-medium text-white">SRM HOTEL, Chennai</span>
+                  </div>
+                </div>
+                <button 
+                  onClick={goToConference}
+                  className="bg-red-600 hover:bg-red-700 text-white px-8 py-3 rounded-full inline-flex items-center gap-2 transition-colors text-lg font-bold shadow-lg"
+                >
+                  Learn More
+                  <ArrowRight className="h-5 w-5" />
+                </button>
+              </div>
+            ) : (
+              // Default content for other slides
+              <>
+                <h1 className="text-5xl font-bold mb-4 leading-tight">
+                  Society for{' '}
+                  <span className="text-red-400">Intelligent</span>{' '}
+                  <span className="text-red-400">Systems</span>
+                </h1>
+                <p className="text-xl mb-4 opacity-90">{slides[currentSlideIndex].subtitle}</p>
+                <p className="text-lg mb-8 opacity-90">{slides[currentSlideIndex].description}</p>
+                <Link to={"/signin"} className="bg-red-600 hover:bg-red-700 text-white px-8 py-3 rounded-full inline-flex items-center gap-2 transition-colors text-lg font-medium">
+                  Get Started
+                  <ArrowRight className="h-5 w-5" />
+                </Link>
+              </>
+            )}
           </div>
         </div>
       </section>
+
+      {/* Services Section */}
       <div style={{
         padding: '5rem 1rem',
       }}>
