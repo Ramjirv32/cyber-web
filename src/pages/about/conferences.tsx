@@ -230,7 +230,7 @@ const ConferenceBrowser = () => {
                 {/* Moved text to an overlay for better contrast */}
                 <div className="absolute bottom-0 left-0 right-0 p-4 bg-gradient-to-t from-red-900 to-transparent">
                   <h3 className="font-bold text-white text-xl">Upcoming Events</h3>
-                  <p className="text-white">Register for upcoming cybersecurity conferences</p>
+                  <p className="text-white">Register for upcoming  ICMBNT2025 conferences</p>
                 </div>
               </div>
               
