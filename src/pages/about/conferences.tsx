@@ -100,10 +100,10 @@ const ConferenceBrowser = () => {
         </ul>
         <br>
         <h3>Important Dates</h3>
-        <p><strong>Paper Submission Deadline:</strong> January 15, 2025</p>
-        <p><strong>Notification of Acceptance:</strong> February 20, 2025</p>
-        <p><strong>Camera-ready Submission:</strong> March 15, 2025</p>
-        <p><strong>Early Bird Registration:</strong> March 25, 2025</p>
+        <p><strong>Paper Submission Deadline:</strong> March 25, 2025</p>
+        <p><strong>Notification of Acceptance:</strong> April 5, 2025</p>
+        <p><strong>Registration Deadline:</strong> April 12, 2025</p>
+        <p><strong>Conference Dates:</strong> April 26, 27, 2025</p>
       `
     },
 
@@ -185,7 +185,7 @@ const ConferenceBrowser = () => {
     }
   }, [yearFilterType]);
 
-  // Memoized filtered conferences
+
   const filteredConferences = useMemo(() => {
     return conferences.filter(conference => {
       const matchesSearch = conference.title.toLowerCase().includes(searchQuery.toLowerCase());
