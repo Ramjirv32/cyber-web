@@ -83,7 +83,15 @@ export default function IDCard({
         <div className="w-1/3 flex flex-col items-center">
           {/* Photo container */}
           <div className="w-28 h-36 bg-white border-2 border-red-500 overflow-hidden rounded-lg shadow-lg flex items-center justify-center">
-            <div className="text-gray-500 text-center">Profile</div>
+            {photoUrl ? (
+              <img 
+                src={photoUrl} 
+                alt={`${name}'s profile`}
+                className="w-full h-full object-cover" 
+              />
+            ) : (
+              <div className="text-gray-500 text-center">Profile</div>
+            )}
           </div>
 
           {/* Barcode section */}

@@ -44,6 +44,8 @@ import EducationPrograms from './pages/EducationPrograms';
 import MembershipForm from './link/MembershipForm';
 import RouteTransitionLoader from './components/RouteTransitionLoader';
 import IDCard from './components/IDCard';
+import IDCardLoader from './components/IDCardLoader'; // Add this import
+import  H from './components/H'; // Add this import
 // Create a wrapper component with configurable loading time
 const RouteChangeHandler = ({ children, loadingTime = 200 }: { children: React.ReactNode, loadingTime?: number }) => {
   const [isLoading, setIsLoading] = useState(false);
@@ -84,7 +86,8 @@ function App() {
     '/research-initiatives',
     '/innovation-hub',
     '/education-programs',
-    '/membership-form'
+    '/membership-form',
+    '/id-card/:id'  // Add this one
   ];
 
   return (
@@ -112,9 +115,9 @@ function App() {
                 <Board />
               </LoadingWrapper>
             } />
-            <Route path="/id-card" element={
+            <Route path="/id-card/:id" element={
               <LoadingWrapper>
-                <IDCard name="mathan" position="Member" idNumber="CIS123456" />
+                <IDCardLoader />
               </LoadingWrapper>
             } />
             <Route path="/technology" element={
@@ -139,7 +142,7 @@ function App() {
             } />
             <Route path="/login" element={<Login />} />
             <Route path="/login/:token" element={<Login />} />
-
+<Route path ="/Home" element={<H />} />
             <Route path="/signIn" element={<SignUp />} />
             <Route path="/featured" element={<FeaturedCards />} />
             <Route path="/board" element={<Board />} />

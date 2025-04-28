@@ -1,6 +1,7 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { 
-  User, Mail, Building2, Home, MapPin, Phone, Briefcase, Building, Info, Linkedin, Link, CreditCard, AlertCircle, Check, ChevronDown, Search, Menu, PhoneIcon 
+  User, Mail, Building2, Home, MapPin, Phone, Briefcase, Building, Info, Linkedin, 
+  Link, CreditCard, AlertCircle, Check, ChevronDown, Search, Menu, Upload, X, Camera
 } from "lucide-react";
 import axios from 'axios';
 
@@ -70,6 +71,9 @@ const MembershipForm: React.FC = () => {
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [errorMessage, setErrorMessage] = useState<string>("");
+  const [profilePhoto, setProfilePhoto] = useState<string | null>(null);
+  const fileInputRef = useRef<HTMLInputElement>(null);
+  const [isUploading, setIsUploading] = useState(false);
 
   // Add useEffect to update states when country changes
   useEffect(() => {
@@ -177,9 +181,82 @@ const MembershipForm: React.FC = () => {
     }
   };
 
+// Add this function to compress images before upload
+const compressImage = (file: File): Promise<string> => {
+  return new Promise((resolve, reject) => {
+    const reader = new FileReader();
+    reader.readAsDataURL(file);
+    reader.onload = (event) => {
+      const img = new Image();
+      img.src = event.target?.result as string;
+      img.onload = () => {
+        const canvas = document.createElement('canvas');
+        // Target width and height (adjust as needed)
+        const maxWidth = 500;
+        const maxHeight = 600;
+        
+        let width = img.width;
+        let height = img.height;
+        
+        // Calculate new dimensions while maintaining aspect ratio
+        if (width > height) {
+          if (width > maxWidth) {
+            height = Math.round(height * maxWidth / width);
+            width = maxWidth;
+          }
+        } else {
+          if (height > maxHeight) {
+            width = Math.round(width * maxHeight / height);
+            height = maxHeight;
+          }
+        }
+        
+        canvas.width = width;
+        canvas.height = height;
+        
+        const ctx = canvas.getContext('2d');
+        ctx?.drawImage(img, 0, 0, width, height);
+        
+        // Adjust quality (0.7 = 70% quality)
+        const compressed = canvas.toDataURL('image/jpeg', 0.7);
+        resolve(compressed);
+      };
+      img.onerror = (error) => reject(error);
+    };
+    reader.onerror = (error) => reject(error);
+  });
+};
+
+// Update the handlePhotoUpload function to use compression
+const handlePhotoUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
+  const file = e.target.files?.[0];
+  if (file) {
+    if (file.size > 1024 * 1024 * 5) { // 5MB limit before compression
+      setErrorMessage("Image size should not exceed 5MB");
+      return;
+    }
+    
+    try {
+      const compressedImage = await compressImage(file);
+      setProfilePhoto(compressedImage);
+    } catch (error) {
+      console.error("Error compressing image:", error);
+      setErrorMessage("Error processing image. Please try another image.");
+    }
+  }
+};
+
+  const removePhoto = () => {
+    setProfilePhoto(null);
+    if (fileInputRef.current) {
+      fileInputRef.current.value = '';
+    }
+  };
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setErrorMessage("");
+    setIsUploading(false);
     
     if (!agreePrivacy || !agreeConduct) {
       setErrorMessage("Please agree to the terms and conditions");
@@ -191,14 +268,18 @@ const MembershipForm: React.FC = () => {
     }
 
     setIsSubmitting(true);
+    setIsUploading(true);
 
     try {
-      // Save membership details
+      // Save membership details with profile photo
       const response = await axios.post('https://b-gray-phi.vercel.app/api/membership', {
         ...formData,
         status,
-        country
+        country,
+        profilePhoto // Add profile photo to the submission
       });
+      
+      setIsUploading(false);
       
       // Show success message
       alert(response.data.message);
@@ -229,9 +310,11 @@ const MembershipForm: React.FC = () => {
       setCountry("");
       setAgreePrivacy(false);
       setAgreeConduct(false);
+      setProfilePhoto(null);
       
     } catch (error: any) {
       console.error('Error submitting form:', error);
+      setIsUploading(false);
       setErrorMessage(
         error.response?.data?.message || 
         'Error processing membership. Please try again.'
@@ -538,6 +621,59 @@ const MembershipForm: React.FC = () => {
                   </select>
                   <div className="absolute inset-y-0 right-0 flex items-center px-2 pointer-events-none">
                     <ChevronDown size={16} className="text-gray-500" />
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            {/* Profile Photo Upload Section */}
+            <div className="mt-8">
+              <h3 className="font-medium mb-4">Profile Photo</h3>
+              <div className="flex items-center space-x-6">
+                <div className="w-32 h-40 bg-gray-100 border border-gray-300 rounded-lg flex flex-col items-center justify-center relative overflow-hidden">
+                  {profilePhoto ? (
+                    <>
+                      <img 
+                        src={profilePhoto} 
+                        alt="Profile Preview"
+                        className="w-full h-full object-cover" 
+                      />
+                      <button
+                        type="button"
+                        onClick={removePhoto}
+                        className="absolute top-2 right-2 bg-white rounded-full p-1 shadow-md"
+                      >
+                        <X size={16} className="text-red-500" />
+                      </button>
+                    </>
+                  ) : (
+                    <>
+                      <Camera size={24} className="text-gray-400 mb-2" />
+                      <span className="text-sm text-gray-500">ID Photo</span>
+                    </>
+                  )}
+                </div>
+                
+                <div className="flex-1">
+                  <label 
+                    htmlFor="photo-upload" 
+                    className="cursor-pointer inline-flex items-center px-4 py-2 bg-gray-200 hover:bg-gray-300 text-gray-800 rounded-lg transition-colors"
+                  >
+                    <Upload size={16} className="mr-2" />
+                    Upload Photo
+                  </label>
+                  <input
+                    id="photo-upload"
+                    type="file"
+                    accept="image/jpeg,image/png,image/gif"
+                    ref={fileInputRef}
+                    onChange={handlePhotoUpload}
+                    className="hidden"
+                  />
+                  <div className="mt-2 text-xs text-gray-500">
+                    <p>Upload a passport-style photo for your membership ID card</p>
+                    <p>Maximum file size: 2MB</p>
+                    <p>Recommended dimensions: 400x500 pixels</p>
                   </div>
                 </div>
               </div>

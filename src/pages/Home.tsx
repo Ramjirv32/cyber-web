@@ -7,6 +7,7 @@ import ai2 from "../components/images/s2.avif";
 import ai3 from "../components/images/s3.avif";
 import conf1 from "../components/images/conf1.png"; // Import the conf1.png image
 import { Link, useNavigate } from 'react-router-dom';
+import MembershipCardPreview from '../components/MembershipCardPreview';
 
 // Updated slides array with all images plus the conference image
 const slides = [
@@ -170,8 +171,7 @@ function Home() {
     // Initialize AOS
     AOS.init({
       duration: 1000,
-      once: false,
-      mirror: true
+      once: true
     });
 
     // Clear any existing timer
@@ -255,10 +255,7 @@ function Home() {
   ];
 
   return (
-    <div style={{
-      minHeight: '100vh',
-      backgroundColor: '#f8f9fa',
-    }}>
+    <main>
       {/* Hero Section with conditional content for conference */}
       <section className="relative h-[600px] overflow-hidden">
         <div
@@ -362,6 +359,8 @@ function Home() {
         </div>
       </section>
 
+      <MembershipCardPreview />
+
       {/* Services Section */}
       <div style={{
         padding: '5rem 1rem',
@@ -397,7 +396,7 @@ function Home() {
           </div>
         </div>
       </div>
-    </div>
+    </main>
   );
 }
 
