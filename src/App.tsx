@@ -43,7 +43,7 @@ import InnovationHub from './pages/InnovationHub';
 import EducationPrograms from './pages/EducationPrograms';
 import MembershipForm from './link/MembershipForm';
 import RouteTransitionLoader from './components/RouteTransitionLoader';
-
+import IDCard from './components/IDCard';
 // Create a wrapper component with configurable loading time
 const RouteChangeHandler = ({ children, loadingTime = 200 }: { children: React.ReactNode, loadingTime?: number }) => {
   const [isLoading, setIsLoading] = useState(false);
@@ -110,6 +110,11 @@ function App() {
             <Route path="/board" element={
               <LoadingWrapper>
                 <Board />
+              </LoadingWrapper>
+            } />
+            <Route path="/id-card" element={
+              <LoadingWrapper>
+                <IDCard name="mathan" position="Member" idNumber="CIS123456" />
               </LoadingWrapper>
             } />
             <Route path="/technology" element={

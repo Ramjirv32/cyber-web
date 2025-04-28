@@ -11,25 +11,20 @@ import { Link, useNavigate } from 'react-router-dom';
 // Updated slides array with all images plus the conference image
 const slides = [
 
-  {
-    image: conf1, // Added conference slide
-    subtitle: 'International Conference on Multidisciplinary Breakthroughs',
-    description: 'Join us for ICMBNT–2025 on April 26-27, 2025 at SRM HOTEL, Chennai, India.',
-    isConference: true, // Flag to identify this as the conference slide
-    link: "/about/conferences", // Path to navigate to when clicked
-    duration: 8000 // Longer display time (8 seconds vs default 4 seconds)
-  },
+ 
   {
     image: ai, // Keep original first slide
     subtitle: 'Innovating the Future',
     description: 'Join us in the journey of technological advancements and collaborative research.',
-    isConference: false
+    isConference: false,
+    duration: 2000
   },
   {
     image: ai2, // Keep original slide
     subtitle: 'Advancing AI',
     description: 'Leading the way in artificial intelligence and machine learning research.',
-    isConference: false
+    isConference: false,
+    duration: 2000
   },
  
 ];

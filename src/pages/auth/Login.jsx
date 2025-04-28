@@ -57,12 +57,17 @@ export default function Login() {
           title: 'Success!',
           text: 'Login successful',
           timer: 1500,
+        }).then(() => {
+          showMembershipConfirmation();
         });
+        
         if (response.data.token) {
           localStorage.setItem('token', response.data.token);
           localStorage.setItem('email', email);
+          
+          // Dispatch custom event to notify components about authentication change
+          window.dispatchEvent(new Event('authStatusChanged'));
         }
-        navigate('/Home');
       } else {
         throw new Error(response.data.message || 'Login failed');
       }
@@ -107,11 +112,17 @@ export default function Login() {
           title: 'Signed in with Google!',
           text: `Welcome ${result.user.displayName}`,
           timer: 1500,
+        }).then(() => {
+          showMembershipConfirmation();
         });
+        
         if (response.data.token) {
           localStorage.setItem('token', response.data.token);
+          localStorage.setItem('email', result.user.email); // Use the email from result, not the state
+          
+          // Dispatch custom event to notify components about authentication change
+          window.dispatchEvent(new Event('authStatusChanged'));
         }
-        navigate('/Home');
       } else {
         throw new Error(response.data.message || 'Login failed');
       }
@@ -150,11 +161,17 @@ localStorage.setItem('email', result.user.email);
           title: 'Signed in with GitHub!',
           text: `Welcome ${result.user.displayName}`,
           timer: 1500,
+        }).then(() => {
+          showMembershipConfirmation();
         });
+        
         if (response.data.token) {
           localStorage.setItem('token', response.data.token);
+          localStorage.setItem('email', result.user.email); // Use the email from result, not the state
+          
+          // Dispatch custom event to notify components about authentication change
+          window.dispatchEvent(new Event('authStatusChanged'));
         }
-        navigate('/Home');
       } else {
         throw new Error(response.data.message || 'Login failed');
       }
@@ -192,6 +209,76 @@ localStorage.setItem('email', result.user.email);
         return 'The sign-in popup was closed before authentication could complete. Please try again.';
       default:
         return `An unexpected error occurred: ${error.message}. Please try again.`;
+    }
+  };
+
+  const checkMembershipStatus = async (email) => {
+    try {
+      const response = await axios.get(`https://b-gray-phi.vercel.app/api/membership/check/${email}`);
+      return response.data;
+    } catch (error) {
+      console.error('Error checking membership status:', error);
+      return { isMember: false };
+    }
+  };
+
+  const showMembershipConfirmation = async () => {
+    // Get the current user's email
+    const userEmail = localStorage.getItem('email');
+    
+    if (!userEmail) {
+      navigate('/Home');
+      return;
+    }
+    
+    try {
+      // Check if user already has valid membership
+      const membershipStatus = await checkMembershipStatus(userEmail);
+      
+      // If user is already a member with active status, go directly to home
+      if (membershipStatus.isMember) {
+        navigate('/Home');
+        return;
+      }
+      
+      // If membership expired or user is not a member, show the popup
+      return Swal.fire({
+        title: 'Membership Status',
+        text: 'Do You Like to become a Member of SCIS?',
+        icon: 'question',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Yes',
+        cancelButtonText: 'No'
+      }).then((result) => {
+        if (result.isConfirmed) {
+          // User wants to become a member
+          navigate('/membership-form');
+        } else {
+          // User doesn't want to become a member
+          navigate('/Home');
+        }
+      });
+    } catch (error) {
+      console.error("Error in membership check:", error);
+      // Default to showing the popup if there's an error
+      return Swal.fire({
+        title: 'Membership Status',
+        text: 'Do You Like to become a Member of SCIS?',
+        icon: 'question',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Yes',
+        cancelButtonText: 'No'
+      }).then((result) => {
+        if (result.isConfirmed) {
+          navigate('/membership-form');
+        } else {
+          navigate('/Home');
+        }
+      });
     }
   };
 

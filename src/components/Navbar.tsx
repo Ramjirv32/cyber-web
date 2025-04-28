@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from "react"
 import { motion, AnimatePresence } from "framer-motion"
-import { Link } from "react-router-dom"
+import { Link, useNavigate } from "react-router-dom"
 import { scrollToTop } from '../utils/scrollUtils'
 import { 
   ChevronDown, 
@@ -87,6 +87,35 @@ const menuItems = [
 export default function Navbar() {
   const [activeMenu, setActiveMenu] = useState<string | null>(null)
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    const checkAuthStatus = () => {
+      const token = localStorage.getItem('token');
+      setIsAuthenticated(!!token);
+    };
+    
+    checkAuthStatus();
+    
+    window.addEventListener('storage', checkAuthStatus);
+    window.addEventListener('authStatusChanged', checkAuthStatus);
+    
+    return () => {
+      window.removeEventListener('storage', checkAuthStatus);
+      window.removeEventListener('authStatusChanged', checkAuthStatus);
+    };
+  }, []);
+  
+  const handleLogout = () => {
+    localStorage.removeItem('token');
+    localStorage.removeItem('email');
+    setIsAuthenticated(false);
+    
+    window.dispatchEvent(new Event('authStatusChanged'));
+    
+    navigate('/');
+  };
 
   return (
     <nav className="bg-white shadow-md sticky top-0 z-50 font-sans">
@@ -194,22 +223,33 @@ export default function Navbar() {
 
             
                 <div className="hidden sm:flex items-center gap-2 ml-4">
-                  <Link
-                    to="/login"
-                    onClick={scrollToTop}
-                    className="flex items-center gap-2 text-gray-700 hover:text-red-500 transition-all duration-300 font-medium text-sm"
-                  >
-                    <LogIn className="h-4 w-4" />
-                    SignIn
-                  </Link>
-                  <Link
-                    to="/signIn"
-                    onClick={scrollToTop}
-                    className="flex items-center gap-2 px-4 py-2 bg-red-500 text-white rounded-full hover:bg-red-600 transition-colors text-sm"
-                  >
-                    <UserPlus className="h-4 w-4" />
-                    CreateAccount
-                  </Link>
+                  {isAuthenticated ? (
+                    <button 
+                      onClick={handleLogout}
+                      className="text-gray-800 hover:text-red-600 transition duration-300"
+                    >
+                      Logout
+                    </button>
+                  ) : (
+                    <>
+                      <Link
+                        to="/login"
+                        onClick={scrollToTop}
+                        className="flex items-center gap-2 text-gray-700 hover:text-red-500 transition-all duration-300 font-medium text-sm"
+                      >
+                        <LogIn className="h-4 w-4" />
+                        SignIn
+                      </Link>
+                      <Link
+                        to="/signIn"
+                        onClick={scrollToTop}
+                        className="flex items-center gap-2 px-4 py-2 bg-red-500 text-white rounded-full hover:bg-red-600 transition-colors text-sm"
+                      >
+                        <UserPlus className="h-4 w-4" />
+                        CreateAccount
+                      </Link>
+                    </>
+                  )}
                 </div>
               </div>
 
@@ -284,22 +324,33 @@ export default function Navbar() {
                   ))}
 
                   <div className="sm:hidden py-4 border-t border-gray-100 mt-2">
-                    <Link
-                      to="/login"
-                      onClick={scrollToTop}
-                      className="flex items-center gap-2 px-4 py-2 text-gray-700 hover:text-red-500"
-                    >
-                      <LogIn className="h-4 w-4" />
-                      Sign In
-                    </Link>
-                    <Link
-                      to="/signup"
-                      onClick={scrollToTop}
-                      className="flex items-center gap-2 px-4 py-2 text-gray-700 hover:text-red-500"
-                    >
-                      <UserPlus className="h-4 w-4" />
-                      CreateAccount
-                    </Link>
+                    {isAuthenticated ? (
+                      <button 
+                        onClick={handleLogout}
+                        className="text-gray-800 hover:text-red-600 transition duration-300"
+                      >
+                        Logout
+                      </button>
+                    ) : (
+                      <>
+                        <Link
+                          to="/login"
+                          onClick={scrollToTop}
+                          className="flex items-center gap-2 px-4 py-2 text-gray-700 hover:text-red-500"
+                        >
+                          <LogIn className="h-4 w-4" />
+                          Sign In
+                        </Link>
+                        <Link
+                          to="/signup"
+                          onClick={scrollToTop}
+                          className="flex items-center gap-2 px-4 py-2 text-gray-700 hover:text-red-500"
+                        >
+                          <UserPlus className="h-4 w-4" />
+                          CreateAccount
+                        </Link>
+                      </>
+                    )}
                   </div>
                 </motion.div>
               )}
