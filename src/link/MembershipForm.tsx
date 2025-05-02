@@ -4,6 +4,7 @@ import {
   Link, CreditCard, AlertCircle, Check, ChevronDown, Search, Menu, Upload, X, Camera
 } from "lucide-react";
 import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
 
 // Add these country-state mappings at the top of the file
 const countryStateMap = {
@@ -74,6 +75,7 @@ const MembershipForm: React.FC = () => {
   const [profilePhoto, setProfilePhoto] = useState<string | null>(null);
   const fileInputRef = useRef<HTMLInputElement>(null);
   const [isUploading, setIsUploading] = useState(false);
+  const navigate = useNavigate();
 
   // Add useEffect to update states when country changes
   useEffect(() => {
@@ -191,19 +193,19 @@ const compressImage = (file: File): Promise<string> => {
       img.src = event.target?.result as string;
       img.onload = () => {
         const canvas = document.createElement('canvas');
-        // Target width and height (adjust as needed)
+      
         const maxWidth = 500;
         const maxHeight = 600;
         
         let width = img.width;
         let height = img.height;
-        
-        // Calculate new dimensions while maintaining aspect ratio
+     
         if (width > height) {
           if (width > maxWidth) {
             height = Math.round(height * maxWidth / width);
             width = maxWidth;
           }
+          
         } else {
           if (height > maxHeight) {
             width = Math.round(width * maxHeight / height);
@@ -218,7 +220,7 @@ const compressImage = (file: File): Promise<string> => {
         ctx?.drawImage(img, 0, 0, width, height);
         
         // Adjust quality (0.7 = 70% quality)
-        const compressed = canvas.toDataURL('image/jpeg', 0.7);
+        const compressed = canvas.toDataURL('image/jpeg', 0.8);
         resolve(compressed);
       };
       img.onerror = (error) => reject(error);
@@ -284,34 +286,39 @@ const handlePhotoUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
       // Show success message
       alert(response.data.message);
       
-      // Reset form
-      setFormData({
-        title: '',
-        firstName: '',
-        lastName: '',
-        email: '',
-        mobile: '',
-        currentPosition: '',
-        institute: '',
-        department: '',
-        organisation: '',
-        address: '',
-        town: '',
-        postcode: '',
-        state: '',
-        country: '',
-        status: '',
-        linkedin: '',
-        orcid: '',
-        researchGate: '',
-        membershipFee: ''
-      });
-      setStatus("");
-      setCountry("");
-      setAgreePrivacy(false);
-      setAgreeConduct(false);
-      setProfilePhoto(null);
-      
+      // Navigate to the ID card page if membership was successful
+      if (response.data.success && response.data.membershipId) {
+        // Reset form
+        setFormData({
+          title: '',
+          firstName: '',
+          lastName: '',
+          email: '',
+          mobile: '',
+          currentPosition: '',
+          institute: '',
+          department: '',
+          organisation: '',
+          address: '',
+          town: '',
+          postcode: '',
+          state: '',
+          country: '',
+          status: '',
+          linkedin: '',
+          orcid: '',
+          researchGate: '',
+          membershipFee: ''
+        });
+        setStatus("");
+        setCountry("");
+        setAgreePrivacy(false);
+        setAgreeConduct(false);
+        setProfilePhoto(null);
+        
+        // Navigate to ID card page
+        navigate(`/id-card/${response.data.membershipId}`);
+      }
     } catch (error: any) {
       console.error('Error submitting form:', error);
       setIsUploading(false);
