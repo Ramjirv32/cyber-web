@@ -1,4 +1,5 @@
 import { Target, Brain, Users, BookOpen, Building, Globe, Shield, Share2, Video } from 'lucide-react'
+import { Link } from 'react-router-dom'
 
 export default function Objectives() {
   return (
@@ -48,9 +49,12 @@ export default function Objectives() {
             <p className="text-xl mb-12 leading-relaxed">
               Be part of a global initiative to shape the future of cybersecurity and intelligent systems. Together, we can build a more secure and resilient digital world.
             </p>
-            <button className="bg-white text-gray-900 px-8 py-4 rounded-lg hover:bg-gray-100 transition-colors shadow-lg font-medium">
+            <Link 
+              to="/membership-form" 
+              className="bg-white text-gray-900 px-8 py-4 rounded-lg hover:bg-gray-100 transition-colors shadow-lg font-medium inline-block"
+            >
               Become a Member
-            </button>
+            </Link>
           </div>
         </div>
       </section>

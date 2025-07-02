@@ -4,6 +4,7 @@ import { useState, useEffect } from "react"
 import { motion, AnimatePresence } from "framer-motion"
 import { Link, useNavigate } from "react-router-dom"
 import { scrollToTop } from '../utils/scrollUtils'
+import { useNavigationWithLoading } from '../hooks/useNavigationWithLoading'
 import { 
   ChevronDown, 
   Facebook, 
@@ -15,9 +16,7 @@ import {
   Building2, 
   Calendar, 
   LogIn, 
-  UserPlus,
-  Clock,
-  User
+  UserPlus
 } from 'lucide-react'
 
 import lo from "./images/lo.png"
@@ -89,6 +88,7 @@ export default function Navbar() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const navigate = useNavigate();
+  const { navigateWithLoading } = useNavigationWithLoading();
 
   useEffect(() => {
     const checkAuthStatus = () => {
@@ -204,16 +204,18 @@ export default function Navbar() {
                           exit={{ opacity: 0, y: 10 }}
                           transition={{ duration: 0.2 }}
                           className="absolute top-full left-0 w-48 bg-white shadow-lg rounded-md py-2 mt-2 z-50"
-                        >
-                          {item.items.map((subItem) => (
-                            <Link
+                        >                          {item.items.map((subItem) => (
+                            <button
                               key={subItem.name}
-                              to={subItem.path}
-                              onClick={scrollToTop}
-                              className="flex items-center px-4 py-2 text-sm text-gray-700 hover:bg-red-50 hover:text-red-500 font-medium"
+                              onClick={() => {
+                                scrollToTop();
+                                navigateWithLoading(subItem.path);
+                                setActiveMenu(null);
+                              }}
+                              className="flex items-center px-4 py-2 text-sm text-gray-700 hover:bg-red-50 hover:text-red-500 font-medium w-full text-left"
                             >
                               {subItem.name}
-                            </Link>
+                            </button>
                           ))}
                         </motion.div>
                       )}
@@ -229,25 +231,28 @@ export default function Navbar() {
                       className="text-gray-800 hover:text-red-600 transition duration-300"
                     >
                       Logout
-                    </button>
-                  ) : (
+                    </button>                  ) : (
                     <>
-                      <Link
-                        to="/login"
-                        onClick={scrollToTop}
+                      <button
+                        onClick={() => {
+                          scrollToTop();
+                          navigateWithLoading("/login");
+                        }}
                         className="flex items-center gap-2 text-gray-700 hover:text-red-500 transition-all duration-300 font-medium text-sm"
                       >
                         <LogIn className="h-4 w-4" />
                         SignIn
-                      </Link>
-                      <Link
-                        to="/signIn"
-                        onClick={scrollToTop}
+                      </button>
+                      <button
+                        onClick={() => {
+                          scrollToTop();
+                          navigateWithLoading("/signIn");
+                        }}
                         className="flex items-center gap-2 px-4 py-2 bg-red-500 text-white rounded-full hover:bg-red-600 transition-colors text-sm"
                       >
                         <UserPlus className="h-4 w-4" />
                         CreateAccount
-                      </Link>
+                      </button>
                     </>
                   )}
                 </div>
@@ -306,16 +311,19 @@ export default function Navbar() {
                             animate={{ opacity: 1, height: "auto" }}
                             exit={{ opacity: 0, height: 0 }}
                             className="bg-gray-50 px-8 py-2"
-                          >
-                            {item.items.map((subItem) => (
-                              <Link
+                          >                            {item.items.map((subItem) => (
+                              <button
                                 key={subItem.name}
-                                to={subItem.path}
-                                onClick={scrollToTop}
-                                className="block py-2 text-sm text-gray-600 hover:text-red-500 font-medium"
+                                onClick={() => {
+                                  scrollToTop();
+                                  navigateWithLoading(subItem.path);
+                                  setIsMobileMenuOpen(false);
+                                  setActiveMenu(null);
+                                }}
+                                className="block py-2 text-sm text-gray-600 hover:text-red-500 font-medium w-full text-left"
                               >
                                 {subItem.name}
-                              </Link>
+                              </button>
                             ))}
                           </motion.div>
                         )}
@@ -330,25 +338,30 @@ export default function Navbar() {
                         className="text-gray-800 hover:text-red-600 transition duration-300"
                       >
                         Logout
-                      </button>
-                    ) : (
+                      </button>                    ) : (
                       <>
-                        <Link
-                          to="/login"
-                          onClick={scrollToTop}
-                          className="flex items-center gap-2 px-4 py-2 text-gray-700 hover:text-red-500"
+                        <button
+                          onClick={() => {
+                            scrollToTop();
+                            navigateWithLoading("/login");
+                            setIsMobileMenuOpen(false);
+                          }}
+                          className="flex items-center gap-2 px-4 py-2 text-gray-700 hover:text-red-500 w-full text-left"
                         >
                           <LogIn className="h-4 w-4" />
                           Sign In
-                        </Link>
-                        <Link
-                          to="/signup"
-                          onClick={scrollToTop}
-                          className="flex items-center gap-2 px-4 py-2 text-gray-700 hover:text-red-500"
+                        </button>
+                        <button
+                          onClick={() => {
+                            scrollToTop();
+                            navigateWithLoading("/signup");
+                            setIsMobileMenuOpen(false);
+                          }}
+                          className="flex items-center gap-2 px-4 py-2 text-gray-700 hover:text-red-500 w-full text-left"
                         >
                           <UserPlus className="h-4 w-4" />
                           CreateAccount
-                        </Link>
+                        </button>
                       </>
                     )}
                   </div>

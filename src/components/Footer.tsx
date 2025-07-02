@@ -10,6 +10,7 @@ import {
   Mail,
 } from "lucide-react"
 import logo from "./images/lo.png"
+import { useNavigationWithLoading } from '../hooks/useNavigationWithLoading'
 
 const footerLinks = {
   Company: [
@@ -41,17 +42,17 @@ const footerLinks = {
 }
 
 const socialIcons = [
-  { Icon: Facebook, href: "#", label: "Facebook" },
-  { Icon: Twitter, href: "#", label: "Twitter" },
-  { Icon: Linkedin, href: "#", label: "LinkedIn" },
-  { Icon: Instagram, href: "#", label: "Instagram" },
-  { Icon: Youtube, href: "#", label: "YouTube" },
-  { Icon: Mail, href: "#", label: "Email Newsletter" },
+  { Icon: Facebook, href: "https://www.facebook.com/", label: "Facebook" },
+  { Icon: Twitter, href: "https://twitter.com/", label: "Twitter" },
+  { Icon: Linkedin, href: "https://www.LinkedIn.com/", label: "LinkedIn" },
+  { Icon: Instagram, href: "https://www.instagram.com/", label: "Instagram" },
+  { Icon: Youtube, href: "https://www.YouTube.com/", label: "YouTube" },
+  { Icon: Mail, href: "https://www.gmail.com/", label: "Email Newsletter" },
 ]
 
 export default function Footer() {
   const [hoveredLink, setHoveredLink] = useState("")
-  const currentYear = new Date().getFullYear()
+  const { navigateWithLoading } = useNavigationWithLoading()
 
   // Animation variants for consistent animations
   const fadeInUp = {
@@ -135,12 +136,11 @@ export default function Footer() {
               <h3 className="text-base font-bold mb-4 text-gray-800 border-b border-gray-200 pb-2">
                 {category}
               </h3>
-              <ul className="space-y-2.5">
-                {links.map(({ label, href }) => (
+              <ul className="space-y-2.5">                {links.map(({ label, href }) => (
                   <li key={label}>
-                    <a
-                      href={href}
-                      className="text-gray-600 hover:text-red-500 transition-all duration-200 text-sm group flex items-center"
+                    <button
+                      onClick={() => navigateWithLoading(href)}
+                      className="text-gray-600 hover:text-red-500 transition-all duration-200 text-sm group flex items-center w-full text-left"
                       onMouseEnter={() => setHoveredLink(label)}
                       onMouseLeave={() => setHoveredLink("")}
                     >
@@ -154,7 +154,7 @@ export default function Footer() {
                       <span className="group-hover:translate-x-1 transition-transform duration-200">
                         {label}
                       </span>
-                    </a>
+                    </button>
                   </li>
                 ))}
               </ul>
@@ -173,26 +173,25 @@ export default function Footer() {
           <div className="flex flex-col sm:flex-row justify-between items-center gap-4 sm:gap-6">
             <p className="text-xs sm:text-sm text-gray-600">
               © {new Date().getFullYear()} Society for Cyber Intelligent System. All rights reserved.
-            </p>
-            <div className="flex flex-wrap justify-center gap-4 sm:gap-6 text-xs text-gray-500">
-              <a
-                href="/privacy-policy"
+            </p>            <div className="flex flex-wrap justify-center gap-4 sm:gap-6 text-xs text-gray-500">
+              <button
+                onClick={() => navigateWithLoading("/privacy-policy")}
                 className="hover:text-red-500 transition-colors"
               >
                 Privacy Policy
-              </a>
-              <a
-                href="/terms-conditions"  // Updated to use the correct route for Terms and Conditions
+              </button>
+              <button
+                onClick={() => navigateWithLoading("/terms-conditions")}
                 className="hover:text-red-500 transition-colors"
               >
                 Terms and Conditions
-              </a>
-              <a
-                href="/sitemap"
+              </button>
+              <button
+                onClick={() => navigateWithLoading("/sitemap")}
                 className="hover:text-red-500 transition-colors"
               >
                 Sitemap
-              </a>
+              </button>
             </div>
           </div>
         </motion.div>
