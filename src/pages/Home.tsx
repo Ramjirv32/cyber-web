@@ -30,19 +30,22 @@ const slides = [
  
 ];
 
-// Rest of the Card component stays the same
+// Update the Card component to include navigation
 function Card({ 
   title, 
   items, 
   icon: Icon,
-  bgImage
+  bgImage,
+  linkTo // Add this new prop
 }: { 
   title: string; 
   items: string[]; 
   icon: React.ElementType;
   bgImage: string;
+  linkTo: string; // Add this type
 }) {
-  // Card component implementation unchanged
+  const navigate = useNavigate();
+  
   return (
     <div style={{
       position: 'relative',
@@ -119,27 +122,29 @@ function Card({
           ))}
         </ul>
         
-        <button style={{
-          marginTop: 'auto',
-          padding: '0.75rem 2rem',
-          backgroundColor: '#ff4757',
-          color: 'white',
-          border: 'none',
-          borderRadius: '8px',
-          fontSize: '1rem',
-          fontWeight: 'bold',
-          cursor: 'pointer',
-          display: 'flex',
-          alignItems: 'center',
-          gap: '0.5rem',
-          transition: 'transform 0.2s ease',
-        }}
-        onMouseEnter={(e) => {
-          e.currentTarget.style.transform = 'scale(1.05)';
-        }}
-        onMouseLeave={(e) => {
-          e.currentTarget.style.transform = 'scale(1)';
-        }}
+        <button 
+          style={{
+            marginTop: 'auto',
+            padding: '0.75rem 2rem',
+            backgroundColor: '#ff4757',
+            color: 'white',
+            border: 'none',
+            borderRadius: '8px',
+            fontSize: '1rem',
+            fontWeight: 'bold',
+            cursor: 'pointer',
+            display: 'flex',
+            alignItems: 'center',
+            gap: '0.5rem',
+            transition: 'transform 0.2s ease',
+          }}
+          onClick={() => navigate(linkTo)}
+          onMouseEnter={(e) => {
+            e.currentTarget.style.transform = 'scale(1.05)';
+          }}
+          onMouseLeave={(e) => {
+            e.currentTarget.style.transform = 'scale(1)';
+          }}
         >
           View More
           <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
@@ -226,7 +231,8 @@ function Home() {
         "Internet of Things",
         "Learning Analytics",
         "Data Science"
-      ]
+      ],
+      linkTo: "/research" // Add linkTo for navigation
     },
     {
       title: "Forum for Knowledge Exchange",
@@ -238,7 +244,8 @@ function Home() {
         "Talk Series",
         "FDP",
         "Webinar"
-      ]
+      ],
+      linkTo: "/webinars" // Add linkTo for navigation
     },
     {
       title: "Empowerment",
@@ -250,7 +257,8 @@ function Home() {
         "Projects",
         "Training",
         "Placement Assistance"
-      ]
+      ],
+      linkTo: "/education-programs" // Add linkTo for navigation
     }
   ];
 
@@ -391,6 +399,7 @@ function Home() {
                 items={card.items}
                 icon={card.icon}
                 bgImage={card.bgImage}
+                linkTo={card.linkTo} // Add the linkTo prop
               />
             ))}
           </div>

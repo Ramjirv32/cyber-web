@@ -24,6 +24,7 @@ const footerLinks = {
     { label: "Research", href: "/research" },
     { label: "Technology", href: "/technology" },
     { label: "Solutions", href: "/solutions" },
+/*     { label: "Professional Services", href: "/service" }, */
     { label: "Awards", href: "/awards" },
   ],
   Governance: [

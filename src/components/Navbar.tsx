@@ -81,6 +81,14 @@ const menuItems = [
     icon: Calendar,
     items: [{ name: "ContactUs", path: "/contact" }],
   },
+/*   {
+    title: "Services",
+    icon: Calendar,
+    items: [
+      { name: "Professional Services", path: "/service" },
+      { name: "Consulting", path: "/consulting" },
+    ],
+  }, */
 ]
 
 export default function Navbar() {
@@ -135,19 +143,19 @@ export default function Navbar() {
               </div>
               <div className="flex gap-4 border-l pl-4">
                 <a
-                  href="#"
+                  href="https://www.facebook.com/"
                   className="text-gray-600 hover:text-red-500 transition-all duration-300 transform hover:scale-110"
                 >
                   <Facebook className="h-5 w-5" />
                 </a>
                 <a
-                  href="#"
+                  href="https://twitter.com/"
                   className="text-gray-600 hover:text-red-500 transition-all duration-300 transform hover:scale-110"
                 >
                   <Twitter className="h-5 w-5" />
                 </a>
                 <a
-                  href="#"
+                  href="https://www.LinkedIn.com/"
                   className="text-gray-600 hover:text-red-500 transition-all duration-300 transform hover:scale-110"
                 >
                   <Linkedin className="h-5 w-5" />

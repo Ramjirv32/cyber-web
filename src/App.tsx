@@ -44,10 +44,23 @@ import EducationPrograms from './pages/EducationPrograms';
 import MembershipForm from './link/MembershipForm';
 import RouteTransitionLoader from './components/RouteTransitionLoader';
 import IDCard from './components/IDCard';
-import IDCardLoader from './components/IDCardLoader'; // Add this import
-import  H from './components/H'; // Add this import
+import IDCardLoader from './components/IDCardLoader';
+import H from './components/H';
 import { LoadingProvider, useLoading } from './contexts/LoadingContext';
 import FullScreenLoader from './components/FullScreenLoader';
+import ProgramRegistration from './pages/about/ProgramRegistration';
+import SeminarDetails from './pages/about/seminarDetails';
+import Benefits from './pages/about/Benefits';
+import Webinars from './pages/about/webinars';
+import WebinarProposal from './pages/about/WebinarProposal';
+import SecurityAssessment from './pages/about/SecurityAssessment';
+import History from './pages/about/History';
+// Award-related pages
+import AwardFAQ from './pages/awards/AwardFAQ';
+import AwardWinners from './pages/awards/AwardWinners';
+import AwardNominations from './pages/awards/AwardNominations';
+import AwardDetails from './pages/awards/AwardDetails';
+
 // Create a wrapper component with configurable loading time
 const RouteChangeHandler = ({ children, loadingTime = 200 }: { children: React.ReactNode, loadingTime?: number }) => {
   const [isLoading, setIsLoading] = useState(false);
@@ -111,6 +124,55 @@ const AppContent = () => {
               <Contact />
             </LoadingWrapper>
           } />
+          <Route path="/security-assessment" element={
+            <LoadingWrapper>
+              <SecurityAssessment />
+            </LoadingWrapper>
+          } />
+
+          {/* Award Related Routes */}
+          <Route path="/awards" element={
+            <LoadingWrapper>
+              <Award />
+            </LoadingWrapper>
+          } />
+          <Route path="/awards/faq" element={
+            <LoadingWrapper>
+              <AwardFAQ />
+            </LoadingWrapper>
+          } />
+          <Route path="/awards/winners" element={
+            <LoadingWrapper>
+              <AwardWinners />
+            </LoadingWrapper>
+          } />
+          <Route path="/awards/nominate" element={
+            <LoadingWrapper>
+              <AwardNominations />
+            </LoadingWrapper>
+          } />
+          <Route path="/awards/details/:category/:id" element={
+            <LoadingWrapper>
+              <AwardDetails />
+            </LoadingWrapper>
+          } />
+
+          {/* Benefits and Webinars Routes */}
+          <Route path="/benefits" element={
+            <LoadingWrapper>
+              <Benefits />
+            </LoadingWrapper>
+          } />
+          <Route path="/webinars" element={
+            <LoadingWrapper>
+              <Webinars />
+            </LoadingWrapper>
+          } />
+          <Route path="/webinar-proposal" element={
+            <LoadingWrapper>
+              <WebinarProposal />
+            </LoadingWrapper>
+          } />
 
           {/* Routes without loading */}
           <Route path="/" element={
@@ -133,12 +195,12 @@ const AppContent = () => {
           <Route path="/forgot-password" element={<Forgotpass />} />
           <Route path="/help" element={<Help />} />
           <Route path="/overview" element={<Overview />} />
+          <Route path="/history" element={<History />} />
           <Route path="/conferences" element={<Conference />} />
           
           <Route path="/mou" element={<Mou />} />
           <Route path="/policies" element={<Policies />} />
           <Route path="/reports" element={<Reports />} />
-          <Route path="/awards" element={<Award />} />
           <Route path="/events" element={<Event />} />
           <Route path="/privacy-policy" element={<PrivacyPolicy />} /> 
           <Route path="/terms-conditions" element={<TermsConditions />} />
@@ -171,6 +233,16 @@ const AppContent = () => {
               <MembershipForm />
             </LoadingWrapper>
           } />
+          <Route path="/program-registration" element={
+            <LoadingWrapper>
+              <ProgramRegistration />
+            </LoadingWrapper>
+          } />
+          <Route path="/seminar-details/:id" element={
+            <LoadingWrapper>
+              <SeminarDetails />
+            </LoadingWrapper>
+          } />
         </Routes>
         <Footer data-aos="fade-up" data-aos-delay="300" />
       </div>
@@ -179,8 +251,8 @@ const AppContent = () => {
   );
 };
 
+// Standardize to use consistent loading patterns
 function App() {
-
   useEffect(() => {
     AOS.init({
       duration: 800,
@@ -191,20 +263,10 @@ function App() {
     });
   }, []);
 
-  // Define routes that need longer loading time
-  const longLoadingRoutes = [
-    '/science-book-prize',
-    '/research-initiatives',
-    '/innovation-hub',
-    '/education-programs',
-    '/membership-form',
-    '/id-card/:id'  // Add this one
-  ];  return (
+  return (
     <LoadingProvider>
       <Router>
-        <RouteChangeHandler loadingTime={
-          longLoadingRoutes.includes(window.location.pathname) ? 500 : 200
-        }>
+        <RouteChangeHandler>
           <AppContent />
         </RouteChangeHandler>
       </Router>

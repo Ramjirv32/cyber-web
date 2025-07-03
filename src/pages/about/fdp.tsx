@@ -204,10 +204,13 @@ const FacultyDevelopmentPrograms: React.FC = () => {
                     ))}
                   </div>
 
-                  <button className="flex items-center gap-2 text-red-500 hover:text-red-600 transition-colors font-medium">
+                  <a 
+                    href={`/seminar-details/${index}`}
+                    className="flex items-center gap-2 text-red-500 hover:text-red-600 transition-colors font-medium"
+                  >
                     View Details
                     <ChevronRight className="w-4 h-4" />
-                  </button>
+                  </a>
                 </div>
               </div>
             ))}
@@ -259,9 +262,13 @@ const FacultyDevelopmentPrograms: React.FC = () => {
         {departments.every(dept => dept.programs.length === 0) && (
           <div className="text-center py-12" data-aos="fade-up">
             <div className="mb-4 text-gray-600">No programs are currently scheduled.</div>
-            <button className="text-red-500 hover:text-red-600 font-medium">
+            <a 
+              href="/subscribe" 
+              className="text-red-500 hover:text-red-600 font-medium inline-flex items-center gap-2"
+            >
               Get notified about new programs
-            </button>
+              <ChevronRight className="w-4 h-4" />
+            </a>
           </div>
         )}
       </div>
@@ -320,10 +327,13 @@ const ProgramCard: React.FC<{ program: Program; index: number }> = ({ program, i
         ))}
       </div>
       
-      <button className="flex items-center gap-2 text-red-500 hover:text-red-600 transition-colors font-medium">
+      <a 
+        href={`/program-registration?title=${encodeURIComponent(program.title)}&date=${encodeURIComponent(program.date)}`} 
+        className="flex items-center gap-2 text-red-500 hover:text-red-600 transition-colors font-medium"
+      >
         Register Now
         <ChevronRight className="w-4 h-4" />
-      </button>
+      </a>
     </div>
   </div>
 );

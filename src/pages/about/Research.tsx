@@ -26,6 +26,8 @@ const ResearchPage: React.FC = () => {
   const [currentBgIndex, setCurrentBgIndex] = useState(0);
   const [perPage, setPerPage] = useState('10');
   const [sortBy, setSortBy] = useState('Latest');
+  const [currentPage, setCurrentPage] = useState(1);
+  const totalPages = 5; // Adjust based on your actual total pages
 
   useEffect(() => {
     // Only keep background image slider functionality
@@ -243,12 +245,37 @@ const ResearchPage: React.FC = () => {
             <div 
               className="flex items-center justify-center gap-2 mt-8"
             >
-              <button className="px-3 py-1 border rounded hover:bg-gray-50">First</button>
-              <button className="px-3 py-1 border rounded bg-red-800 text-white">1</button>
-              <button className="px-3 py-1 border rounded hover:bg-gray-50">2</button>
-              <button className="px-3 py-1 border rounded hover:bg-gray-50">3</button>
+              <button 
+                className="px-3 py-1 border rounded hover:bg-gray-50"
+                onClick={() => setCurrentPage(1)}
+                disabled={currentPage === 1}
+                style={{ opacity: currentPage === 1 ? 0.5 : 1 }}
+              >
+                First
+              </button>
+              
+              {[...Array(totalPages)].map((_, i) => (
+                <button 
+                  key={i} 
+                  className={`px-3 py-1 border rounded ${
+                    currentPage === i + 1 ? 'bg-red-800 text-white' : 'hover:bg-gray-50'
+                  }`}
+                  onClick={() => setCurrentPage(i + 1)}
+                >
+                  {i + 1}
+                </button>
+              ))}
+              
               <span>...</span>
-              <button className="px-3 py-1 border rounded hover:bg-gray-50">Last</button>
+              
+              <button 
+                className="px-3 py-1 border rounded hover:bg-gray-50"
+                onClick={() => setCurrentPage(totalPages)}
+                disabled={currentPage === totalPages}
+                style={{ opacity: currentPage === totalPages ? 0.5 : 1 }}
+              >
+                Last
+              </button>
             </div>
           </div>
         </div>
