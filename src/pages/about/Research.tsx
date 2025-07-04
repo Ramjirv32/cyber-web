@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
 import { ChevronDown, ChevronRight, ArrowRight } from 'lucide-react';
 import s1 from "../../components/images/s1.avif";
 import s2 from "../../components/images/s2.avif";
@@ -160,11 +161,12 @@ const ResearchPage: React.FC = () => {
             <p className="text-lg max-w-3xl">
               Advancing the field of intelligent cybersecurity through groundbreaking research in AI, machine learning, and adaptive security systems.
             </p>
-            <button 
-              className="mt-6 border border-white px-6 py-2 hover:bg-white hover:text-gray-900 transition-colors"
+            <Link 
+              to="/masters-degree-program"
+              className="mt-6 border border-white px-6 py-2 hover:bg-white hover:text-gray-900 transition-colors inline-block"
             >
               Learn about the Master's Degree Program
-            </button>
+            </Link>
           </div>
         </div>
       </div>
@@ -232,10 +234,18 @@ const ResearchPage: React.FC = () => {
                   <h3 className="text-xl font-semibold mb-2">{paper.title}</h3>
                   <p className="text-gray-600 mb-4">{paper.description}</p>
                   <div className="flex items-center justify-between">
-                    <span className="text-gray-600">{paper.author}</span>
-                    <button className="text-red-800 hover:text-red-600 flex items-center gap-1">
+                    <Link 
+                      to={`/researcher/${paper.author.toLowerCase().replace(/\s+/g, '-')}`}
+                      className="text-gray-600 hover:text-red-500 transition-colors"
+                    >
+                      {paper.author}
+                    </Link>
+                    <Link 
+                      to={`/research-paper/${paper.id}`}
+                      className="text-red-800 hover:text-red-600 flex items-center gap-1"
+                    >
                       Read More <ArrowRight size={16} />
-                    </button>
+                    </Link>
                   </div>
                 </div>
               ))}

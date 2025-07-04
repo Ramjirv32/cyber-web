@@ -2,6 +2,7 @@
 
 import { ArrowRight, Download, Facebook, Linkedin, Twitter, Youtube } from "lucide-react"
 import { useState, useEffect } from "react"
+import { Link } from "react-router-dom"
 import AOS from "aos"
 import "aos/dist/aos.css"
 
@@ -33,7 +34,7 @@ export default function CyberResearch() {
         </div>
       </section>
 
-    
+      {/* Research & Innovation Hub Section */}
       <section className="py-24 container mx-auto px-6">
         <div className="grid md:grid-cols-2 gap-16 items-center">
         <img
@@ -47,10 +48,10 @@ export default function CyberResearch() {
               Our society leads groundbreaking research in AI-driven cybersecurity, developing intelligent systems that
               protect against emerging cyber threats while fostering academic collaboration.
             </p>
-            <button className="bg-red-500 text-white px-8 py-4 rounded-lg flex items-center gap-3 hover:bg-black transition-all hover:gap-4 shadow-lg">
+            <Link to="/research-papers" className="bg-red-500 text-white px-8 py-4 rounded-lg flex items-center gap-3 hover:bg-black transition-all hover:gap-4 shadow-lg w-fit">
               <Download className="w-5 h-5" />
               Access Research Papers
-            </button>
+            </Link>
           </div>
         </div>
       </section>
@@ -78,10 +79,10 @@ export default function CyberResearch() {
                   Participate in cutting-edge research projects focusing on AI-driven security solutions and intelligent
                   system development.
                 </p>
-                <button className="text-red-500 flex items-center gap-2 hover:gap-4 transition-all font-medium">
+                <Link to="/research-programs" className="text-red-500 flex items-center gap-2 hover:gap-4 transition-all font-medium">
                   View Programs
                   <ArrowRight className="w-5 h-5" />
-                </button>
+                </Link>
               </div>
             </div>
 
@@ -98,10 +99,10 @@ export default function CyberResearch() {
                   Access our secure platform for sharing threat indicators, vulnerability reports, and coordinated
                   response strategies with trusted community members.
                 </p>
-                <button className="text-gray-900 flex items-center gap-2 hover:gap-4 transition-all font-medium">
+                <Link to="/intelligence-exchange" className="text-gray-900 flex items-center gap-2 hover:gap-4 transition-all font-medium">
                   Learn more
                   <ArrowRight className="w-5 h-5" />
-                </button>
+                </Link>
               </div>
             </div>
 
@@ -124,10 +125,10 @@ export default function CyberResearch() {
                   Leverage our AI-powered analytics tools to identify patterns, predict threats, and enhance your
                   organization's security posture.
                 </p>
-                <button className="text-gray-900 flex items-center gap-2 hover:gap-4 transition-all font-medium">
+                <Link to="/advanced-analytics" className="text-gray-900 flex items-center gap-2 hover:gap-4 transition-all font-medium">
                   Explore analytics
                   <ArrowRight className="w-5 h-5" />
-                </button>
+                </Link>
               </div>
             </div>
           </div>
@@ -162,12 +163,12 @@ export default function CyberResearch() {
                 Contact us at info@societycis.org or call +1 (888) 555-0123
               </p>
               <div className="flex gap-6">
-                <button className="bg-red-500 text-white px-8 py-4 rounded-lg hover:bg-red-600 transition-colors shadow-lg">
+                <Link to="/request-access" className="bg-red-500 text-white px-8 py-4 rounded-lg hover:bg-red-600 transition-colors shadow-lg">
                   Request Access
-                </button>
-                <button className="border-2 border-red-500 text-red-500 px-8 py-4 rounded-lg hover:bg-red-500 hover:text-white transition-colors">
+                </Link>
+                <Link to="/schedule-demo" className="border-2 border-red-500 text-red-500 px-8 py-4 rounded-lg hover:bg-red-500 hover:text-white transition-colors">
                   Schedule Demo
-                </button>
+                </Link>
               </div>
             </div>
           </div>

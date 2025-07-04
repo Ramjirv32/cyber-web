@@ -3,7 +3,7 @@
 import { UserIcon } from "lucide-react"
 import lo from "../components/images/lo.png"
 import { QRCodeSVG } from "qrcode.react"
-import gold from "./images/card.png"
+import gold from "./images/card1.png"
 
 interface IDCardProps {
   name: string

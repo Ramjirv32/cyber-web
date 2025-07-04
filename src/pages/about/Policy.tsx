@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import { Shield, AlertTriangle, Users, FileText, Settings, ChevronRight, Download, ExternalLink, Globe, Lock, Mail, Smartphone, BookOpen, Bell, Search, Menu } from 'lucide-react';
 import img from "../../components/images/ani.avif";
 
@@ -24,14 +25,14 @@ const Policy = () => {
       </p>
 
       <div className="flex space-x-4 mb-12">
-        <button className="bg-pink-600 text-white px-6 py-3 rounded-md hover:bg-pink-700 flex items-center">
+        <Link to="/policy-whitepaper" className="bg-pink-600 text-white px-6 py-3 rounded-md hover:bg-pink-700 flex items-center">
           <Download className="mr-2 h-5 w-5" />
           Download the White paper
-        </button>
-        <button className="border-2 border-pink-600 text-pink-600 px-6 py-3 rounded-md hover:bg-pink-50 flex items-center">
+        </Link>
+        <Link to="/policy-demo" className="border-2 border-pink-600 text-pink-600 px-6 py-3 rounded-md hover:bg-pink-50 flex items-center">
           <ExternalLink className="mr-2 h-5 w-5" />
           Request a Demo
-        </button>
+        </Link>
       </div>
     </div>
   </div>
@@ -124,9 +125,9 @@ const Policy = () => {
               <p className="text-sm text-red-600 mb-3">
                 Contact our emergency response team immediately.
               </p>
-              <button className="w-full bg-red-600 text-white px-4 py-2 rounded-md hover:bg-red-700">
+              <Link to="/emergency-support" className="w-full bg-red-600 text-white px-4 py-2 rounded-md hover:bg-red-700 block text-center">
                 Contact Support
-              </button>
+              </Link>
             </div>
           </aside>
         </div>

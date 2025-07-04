@@ -55,6 +55,21 @@ import Webinars from './pages/about/webinars';
 import WebinarProposal from './pages/about/WebinarProposal';
 import SecurityAssessment from './pages/about/SecurityAssessment';
 import History from './pages/about/History';
+// Policy-related pages
+import PolicyWhitepaper from './pages/policies/PolicyWhitepaper';
+import PolicyDemo from './pages/policies/PolicyDemo';
+import EmergencySupport from './pages/policies/EmergencySupport';
+// Research-related pages
+import MastersDegreeProgram from './pages/research/MastersDegreeProgram';
+import ResearchPaperDetails from './pages/research/ResearchPaperDetails';
+import ResearcherProfile from './pages/research/ResearcherProfile';
+// Overview-related pages
+import ResearchPapers from './pages/overviews/ResearchPapers';
+import ResearchPrograms from './pages/overviews/ResearchPrograms';
+import IntelligenceExchange from './pages/overviews/IntelligenceExchange';
+import AdvancedAnalytics from './pages/overviews/AdvancedAnalytics';
+import RequestAccess from './pages/overviews/RequestAccess';
+import ScheduleDemo from './pages/overviews/ScheduleDemo';
 // Award-related pages
 import AwardFAQ from './pages/awards/AwardFAQ';
 import AwardWinners from './pages/awards/AwardWinners';
@@ -171,6 +186,72 @@ const AppContent = () => {
           <Route path="/webinar-proposal" element={
             <LoadingWrapper>
               <WebinarProposal />
+            </LoadingWrapper>
+          } />
+
+          {/* Research-related routes */}
+          <Route path="/masters-degree-program" element={
+            <LoadingWrapper>
+              <MastersDegreeProgram />
+            </LoadingWrapper>
+          } />
+          <Route path="/research-paper/:id" element={
+            <LoadingWrapper>
+              <ResearchPaperDetails />
+            </LoadingWrapper>
+          } />
+          <Route path="/researcher/:id" element={
+            <LoadingWrapper>
+              <ResearcherProfile />
+            </LoadingWrapper>
+          } />
+
+          {/* Overview-related routes */}
+          <Route path="/research-papers" element={
+            <LoadingWrapper>
+              <ResearchPapers />
+            </LoadingWrapper>
+          } />
+          <Route path="/research-programs" element={
+            <LoadingWrapper>
+              <ResearchPrograms />
+            </LoadingWrapper>
+          } />
+          <Route path="/intelligence-exchange" element={
+            <LoadingWrapper>
+              <IntelligenceExchange />
+            </LoadingWrapper>
+          } />
+          <Route path="/advanced-analytics" element={
+            <LoadingWrapper>
+              <AdvancedAnalytics />
+            </LoadingWrapper>
+          } />
+          <Route path="/request-access" element={
+            <LoadingWrapper>
+              <RequestAccess />
+            </LoadingWrapper>
+          } />
+          <Route path="/schedule-demo" element={
+            <LoadingWrapper>
+              <ScheduleDemo />
+            </LoadingWrapper>
+          } />
+
+          {/* Policy-related routes */}
+          <Route path="/policy-whitepaper" element={
+            <LoadingWrapper>
+              <PolicyWhitepaper />
+            </LoadingWrapper>
+          } />
+          <Route path="/policy-demo" element={
+            <LoadingWrapper>
+              <PolicyDemo />
+            </LoadingWrapper>
+          } />
+          <Route path="/emergency-support" element={
+            <LoadingWrapper>
+              <EmergencySupport />
             </LoadingWrapper>
           } />
 
